@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Heart, Eye } from "lucide-react";
+import Image from "next/image"
 
 const products = [
   {
@@ -205,7 +206,9 @@ export default function Search() {
           >
             <div className="h-52 w-full">
               <a href="#">
-                <img
+                <Image
+                  width={200}
+                  height={200}
                   className="mx-auto h-full"
                   src={product.image}
                   alt={product.title}

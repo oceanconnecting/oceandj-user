@@ -5,7 +5,7 @@ export default function AboutUs() {
       <p className="text-gray-700 py-6">
         Welcome to Melodica Music Store, where music is our passion, and we strive to provide our customers with the best selection of musical instruments and accessories. Established in 2013, we have built a strong reputation as one of the premier retailers of musical instruments and accessories in the UAE.
         <br /><br />
-        You may purchase music gear from symphonic instruments to rock 'n' roll, including guitars, drum kits, digital pianos, saxophones, cellos, and cutting-edge recording and studio equipment, from companies with locations in Germany, Spain, Sweden, Japan, and the UK.
+        You may purchase music gear from symphonic instruments to rock &apos;n&apos; roll, including guitars, drum kits, digital pianos, saxophones, cellos, and cutting-edge recording and studio equipment, from companies with locations in Germany, Spain, Sweden, Japan, and the UK.
         <br /><br />
         The Melodica online music store offers various musical instruments, from beginner guitars to professional microphones and amps. We can assist with your search for a violin, keyboard, electronic drum set, or PA system. Yamaha, Roland, Casio, Fender, Ibanez, Alesis, Behringer, and Gibson are just a few of the top brands we carry, in addition to our line of affordable Melodica Music Store musical instruments.
         <br /><br />
