@@ -8,22 +8,46 @@ export default function ContactForm() {
   const [clientEmail, setClientEmail] = useState("");
   const [result, setResult] = useState({});
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const sendEmail = () => {
+    // Reset error state
+    setError("");
+    // Validate inputs
+    if (!clientName || !clientEmail) {
+      setError("Please enter both name and email.");
+      return;
+    }
+
+    // Basic email format validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(clientEmail)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
     setLoading(true);
     axios
       .post("/api/sendEmail", {
         clientName,
         clientEmail,
       })
-      .then((response) => setResult(response.data))
-      .catch((error) => setResult({ error: error.message }))
+      .then((response) => {
+        setResult(response.data);
+        // Clear form fields on successful submission
+        setClientName("");
+        setClientEmail("");
+      })
+      .catch((error) => {
+        setResult({ error: error.message });
+        setError("An error occurred while sending the email.");
+      })
       .finally(() => setLoading(false));
   };
 
   return (
     <div>
-      {loading && <h1>Loading</h1>}
+      {loading && <h1>Loading...</h1>}
       <input
         type="text"
         value={clientName}
@@ -35,9 +59,12 @@ export default function ContactForm() {
         value={clientEmail}
         onChange={(e) => setClientEmail(e.target.value)}
         placeholder="Enter your email"
-        />
-      <button onClick={sendEmail}>Send Email</button>
+      />
+      <button onClick={sendEmail} disabled={loading}>
+        Send Email
+      </button>
       {result && <div>{JSON.stringify(result)}</div>}
+      {error && <div style={{ color: "red" }}>{error}</div>}
     </div>
   );
 }
