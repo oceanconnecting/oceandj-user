@@ -194,11 +194,11 @@ function SidebarFilter() {
 
 export default function Search() {
   return (
-    <div className="w-full container mx-auto grid grid-cols-4">
-      <div className="col-span-1">
+    <div className="w-full container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-4 md:px-8 lg:px-12">
+      <div className="md:col-span-1">
         <SidebarFilter />
       </div>
-      <div className="col-span-3 w-full container mx-auto grid grid-cols-4 gap-5">
+      <div className="md:col-span-3 w-full container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
         {products.map((product) => (
           <div
             key={product.id}
