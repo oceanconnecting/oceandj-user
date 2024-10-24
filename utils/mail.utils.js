@@ -1,6 +1,4 @@
 import nodemailer from 'nodemailer';
-import Mail from 'nodemailer/lib/mailer';
-import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 const transport = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
@@ -8,19 +6,21 @@ const transport = nodemailer.createTransport({
   secure: process.env.NODE_ENV !== 'development',
   auth: {
     user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASSWORD
-  }
+    pass: process.env.MAIL_PASSWORD,
+  },
 });
 
 export const sendEmail = async (dto) => {
-  const { sender, receipients, subject, message } = dto;
+  const { sender, recipients, subject, htmlMessage } = dto;
+
+  // Generate a plain text version for the email
+  const textMessage = htmlMessage.replace(/<\/?[^>]+(>|$)/g, "");
 
   return await transport.sendMail({
     from: sender,
-    to: receipients,
+    to: recipients,
     subject,
-    html: message,
-    text: message,
+    html: htmlMessage,
+    text: textMessage,
   });
-
 };
