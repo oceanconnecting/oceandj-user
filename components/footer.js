@@ -65,8 +65,8 @@ export const Footer = () => {
   ];
 
   return (
-    <div className="w-full py-16 lg:py-28 bg-black text-white">
-      <div className="container mx-auto px-4 max-w-7xl">
+    <div className="w-full py-14 lg:py-20 bg-black text-white">
+      <div className="container mx-auto px-4 max-w-[90rem]">
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           <div className="flex gap-8 flex-col items-start">
             <div className="flex gap-2 flex-col">
@@ -107,7 +107,7 @@ export const Footer = () => {
                         href={subItem.href}
                         className="flex justify-between items-center"
                       >
-                        <span className="text-background/75">
+                        <span className="text-background/75 text-sm">
                           {subItem.title}
                         </span>
                       </Link>

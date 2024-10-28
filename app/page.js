@@ -1,3 +1,4 @@
+// import { Slide } from "@/components/slide";
 import { Types } from "@/components/types"
 
 export default function Home() {
@@ -5,23 +6,6 @@ export default function Home() {
     <div>
       {/* <Slide /> */}
       <Types />
-      <h1>HI</h1>
-      <h1>HI</h1>
-      <h1>HI</h1>
-      <h1>HI</h1>
-      <h1>HI</h1>
-      <h1>HI</h1>
-      <h1>HI</h1>
-      <h1>HI</h1>
-      <h1>HI</h1>
-      <h1>HI</h1>
-      <h1>HI</h1>
-      <h1>HI</h1>
-      <h1>HI</h1>
-      <h1>HI</h1>
-      <h1>HI</h1>
-      <h1>HI</h1>
-      <h1>HI</h1>
     </div>
   );
 }

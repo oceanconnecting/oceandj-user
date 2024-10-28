@@ -73,7 +73,7 @@ export const Navbar = () => {
         </div>
       </div>
 
-      <div className="shadow lg:shadow-none container mx-auto px-4 max-w-7xl relative min-h-16 lg:min-h-20 flex gap-4 flex-row lg:grid lg:grid-cols-6 items-center py-2.5 md:py-3 lg:py-4">
+      <div className="shadow lg:shadow-none container mx-auto px-4 max-w-[90rem] relative min-h-16 lg:min-h-20 flex gap-4 flex-row lg:grid lg:grid-cols-6 items-center py-2.5 md:py-3 lg:py-4">
         <Image width={200} height={100} src={LogoBlack} alt="Logo" className="w-24 md:w-28 lg:w-32 xl:w-36" />
         
         <div className="hidden lg:flex rounded-full border border-black overflow-hidden mx-auto font-[sans-serif] w-full max-w-2xl lg:col-span-4">
@@ -128,7 +128,7 @@ export const Navbar = () => {
         <div className="container mx-auto w-full max-w-6xl flex flex-wrap justify-center items-center gap-x-4 text-sm">
           {navigationItems.map((item) => (
             <div key={item.title} className="flex justify-center text-white">
-              <p className="py-2 px-3">{item.title}</p>
+              <Link href={item.href} className="py-2 px-3 hover:underline">{item.title}</Link>
             </div>
           ))}
         </div>

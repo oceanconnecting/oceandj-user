@@ -1,7 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['firebasestorage.googleapis.com', 'encrypted-tbn0.gstatic.com', 'admin-djstage.vercel.app', 'firebasestorage.googleapis.com'], // Add allowed external domains here
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'firebasestorage.googleapis.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'encrypted-tbn0.gstatic.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'admin-djstage.vercel.app',
+      },
+    ],
   },
 };
 
