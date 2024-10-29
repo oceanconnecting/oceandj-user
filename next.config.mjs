@@ -14,6 +14,15 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'admin-djstage.vercel.app',
       },
+      {
+        protocol: 'https',
+        hostname: 'flowbite.s3.amazonaws.com',
+        pathname: '/blocks/marketing-ui/hero/*',
+      },
+      {
+        protocol: 'https',
+        hostname: 'toppng.com', // Add this entry
+      },
     ],
   },
 };

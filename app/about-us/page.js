@@ -3,29 +3,58 @@ export default function AboutUs() {
     <div className="w-full container mx-auto max-w-6xl px-4 py-16">
       <h1 className="font-bold text-2xl md:text-3xl lg:text-4xl">About Us</h1>
       <p className="text-gray-700 py-6">
-        Welcome to Melodica Music Store, where music is our passion, and we strive to provide our customers with the best selection of musical instruments and accessories. Established in 2013, we have built a strong reputation as one of the premier retailers of musical instruments and accessories in the UAE.
-        <br /><br />
-        You may purchase music gear from symphonic instruments to rock &apos;n&apos; roll, including guitars, drum kits, digital pianos, saxophones, cellos, and cutting-edge recording and studio equipment, from companies with locations in Germany, Spain, Sweden, Japan, and the UK.
-        <br /><br />
-        The Melodica online music store offers various musical instruments, from beginner guitars to professional microphones and amps. We can assist with your search for a violin, keyboard, electronic drum set, or PA system. Yamaha, Roland, Casio, Fender, Ibanez, Alesis, Behringer, and Gibson are just a few of the top brands we carry, in addition to our line of affordable Melodica Music Store musical instruments.
-        <br /><br />
-        Our product line is incredibly picky. You can tell by looking at our selection of wind instruments, keyboards, synthesizers, studio gear, DJ gear, pro audio & lighting equipment, guitars, drums, and studio gear.
-        <br /><br />
-        We place a premium on supplying as many products from our stock as possible while keeping our selection current.
-        <br /><br />
-        Secure Payment & Delivery System
-        <br /><br />
-        Our Online shopping for musical instruments and accessories is safe and comfortable. We can prepare orders for shipping well at all times because of our automated warehouse. We take pride in providing prompt and expert free Shipping and delivery services on orders of AED 99. Our Music store allows you to shop from the comfort of your home, and our delivery service ensures that your instruments will be delivered to your door anywhere in the UAE. Our online store accepts all major credit cards.
-        <br /><br />
-        Instrumental Services In addition to selling instruments, we offer a wide range of services to keep your instruments in top condition. Our piano rental service allows you to try out different pianos before purchasing. Our piano and instrument repair service ensures your instruments are always in perfect working order. We also offer piano moving and repainting services to give your piano a new lease on life.
-        <br /><br />
-        Care for Customers We are always pleased to speak with our clients personally. We make it a point to pay attention to everyone’s unique wants and desires, whether we communicate over the phone, email, or on social media. Our clients serve as our primary source of inspiration as we work to enhance and broaden our offerings continuously. We can satisfy their needs because of our open lines of contact.
-        <br /><br />
-        As a group of companies, we also operate the website www.usedpiano.ae, and our parent company is www.melodica.ae, both committed to providing the highest quality products and services to our customers.
-        <br /><br />
-        We are proud to have more than 18 locations across the UAE, making it easy for you to find a store near you. Our knowledgeable staff always provides expert advice and guidance to help you find the perfect instrument for your needs.
-        <br /><br />
-        We are committed to providing our customers with the highest caliber products and services at Melodica Music Store. Visit us at any of our locations or shop online at www.melodicamusicstore.com today!
+        Welcome to Dj Store – Elevate Your Sound, Perfect Your Performance
+      </p>
+      <p className="text-gray-700 py-2">
+        Dj Store is your ultimate hub for professional DJ and music production equipment. With a passion for music and a commitment to quality, we offer an extensive selection of gear that meets the needs of DJs, producers, sound engineers, and hobbyists alike. Our mission is to provide you with the tools and technology to create, perform, and produce music at the highest standard.
+      </p>
+      <p className="text-gray-700 py-6 font-bold text-lg md:text-xl lg:text-2xl">What We Offer</p>
+      
+      <p className="text-gray-700 py-2">
+        <strong>1. DJ Controllers and Mixers</strong><br />
+        From classic analog mixers to the latest digital controllers, we have an array of options to suit every preference and skill level. Whether you&apos;re into vinyl or digital, our selection includes the latest models from top brands, helping you find the ideal gear to master your mixing.
+      </p>
+
+      <p className="text-gray-700 py-2">
+        <strong>2. Turntables and Vinyl</strong><br />
+        For vinyl lovers, Dj Store offers a handpicked selection of turntables that deliver warm analog sound and responsive control. Our collection spans vintage-inspired designs to modern models that seamlessly integrate with digital workflows, making it easy for you to keep the tradition of vinyl alive.
+      </p>
+
+      <p className="text-gray-700 py-2">
+        <strong>3. Studio and Production Equipment</strong><br />
+        Our studio gear is perfect for producers looking to refine their craft. From audio interfaces and MIDI controllers to synthesizers and studio monitors, Dj Store equips you with everything needed to produce high-quality tracks. Our knowledgeable team can help guide you through the options, ensuring you find equipment that aligns with your creative goals.
+      </p>
+
+      <p className="text-gray-700 py-2">
+        <strong>4. Headphones and Monitoring</strong><br />
+        A clear, balanced sound is essential for DJs and producers alike. Our headphones and monitoring solutions offer pristine audio quality and comfort for extended sessions. Discover a range of industry-standard brands that cater to professionals demanding accurate sound reproduction.
+      </p>
+
+      <p className="text-gray-700 py-2">
+        <strong>5. Speakers and PA Systems</strong><br />
+        Take your performances to the next level with our powerful speaker and PA system options. From small gigs to large venues, we have the equipment to make your sound heard, including portable and high-powered systems for events and concerts.
+      </p>
+
+      <p className="text-gray-700 py-6 font-bold text-lg md:text-xl lg:text-2xl">Why Choose Dj Store?</p>
+
+      <p className="text-gray-700 py-2">
+        <strong>1. Curated Selection:</strong> We carry only the best equipment that has been tried, tested, and loved by music professionals. Our team consists of DJs and producers who understand the importance of quality gear.
+      </p>
+
+      <p className="text-gray-700 py-2">
+        <strong>2. Customer-Centric Service:</strong> Our mission is to support your musical journey. Whether you’re buying your first controller or upgrading a full studio setup, our customer service team is here to provide guidance and support every step of the way.
+      </p>
+
+      <p className="text-gray-700 py-2">
+        <strong>3. Competitive Prices:</strong> We believe in making high-quality equipment accessible to everyone. Dj Store offers competitive pricing and regular promotions to help you get the gear you want without breaking the bank.
+      </p>
+
+      <p className="text-gray-700 py-2">
+        <strong>4. Resource Hub:</strong> At Dj Store, we’re not just about selling equipment; we’re also a resource for learning. Our website includes tips, tutorials, and industry news, keeping you up-to-date with the latest in music technology and DJ culture.
+      </p>
+
+      <p className="text-gray-700 py-6">
+        Whether you’re performing live, recording in the studio, or just beginning to experiment with sound, Dj Store is here to empower you with the tools you need. Join us, explore our collection, and take your music to new heights with the gear that drives your creativity.
       </p>
     </div>
   );

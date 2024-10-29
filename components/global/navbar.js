@@ -74,8 +74,9 @@ export const Navbar = () => {
       </div>
 
       <div className="shadow lg:shadow-none container mx-auto px-4 max-w-[90rem] relative min-h-16 lg:min-h-20 flex gap-4 flex-row lg:grid lg:grid-cols-6 items-center py-2.5 md:py-3 lg:py-4">
-        <Image width={200} height={100} src={LogoBlack} alt="Logo" className="w-24 md:w-28 lg:w-32 xl:w-36" />
-        
+        <Link href="/" className="w-28 lg:w-32">
+          <Image width={150} height={100} src={LogoBlack} alt="Logo" className="w-28 lg:w-32"/>
+        </Link>
         <div className="hidden lg:flex rounded-full border border-black overflow-hidden mx-auto font-[sans-serif] w-full max-w-2xl lg:col-span-4">
           <button type='button' className="flex items-center justify-center pl-4 pr-2">
             <Search className="w-5 h-5 text-black"/>

@@ -17,7 +17,7 @@ export default function Checkout() {
               <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm  md:p-6">
                 <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                   <a href="#" className="shrink-0 md:order-1">
-                    <Image width={200} height={100} className="h-20 w-20" src={Product} alt="imac image" />
+                    <Image width={200} height={100} className="h-20 w-20" src={Product} alt="Product image" />
                   </a>
 
                   <label htmlFor="counter-input" className="sr-only">Choose quantity:</label>
@@ -57,7 +57,6 @@ export default function Checkout() {
             </div>
           </div>
 
-          
         </div>
       </div>
     </section>
