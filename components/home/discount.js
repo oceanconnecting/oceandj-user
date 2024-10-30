@@ -1,5 +1,8 @@
 import Image from 'next/image'
 import React from 'react'
+import Image1 from '@/images/djimage.jpg'
+import Image2 from '@/images/pianoimage.jpg'
+import Image3 from '@/images/guitar.jpg'
 
 export const Discount = () => {
   return (
@@ -12,13 +15,13 @@ export const Discount = () => {
           Lorem ipsum dolor sit amet elit ut aliquam
         </p>
         {/* Content */}
-        <div className="mx-auto grid justify-items-stretch gap-4 md:grid-cols-2 lg:gap-10">
+        <div className="mx-auto grid justify-items-stretch gap-4 md:grid-cols-2 lg:gap-6">
           {/* Item */}
           <a href="#" className="relative flex h-[300px] items-end [grid-area:1/1/3/2] md:h-auto">
             <Image
               width={400}
               height={400}
-              src="https://firebasestorage.googleapis.com/v0/b/flowspark-1f3e0.appspot.com/o/Tailspark%20Images%2FPlaceholder%20Image.svg?alt=media&token=375a1ea3-a8b6-4d63-b975-aac8d0174074"
+              src={Image1}
               alt=""
               className="inline-block h-full w-full rounded-lg object-cover"
             />
@@ -32,7 +35,7 @@ export const Discount = () => {
             <Image
               width={400}
               height={400}
-              src="https://firebasestorage.googleapis.com/v0/b/flowspark-1f3e0.appspot.com/o/Tailspark%20Images%2FPlaceholder%20Image.svg?alt=media&token=375a1ea3-a8b6-4d63-b975-aac8d0174074"
+              src={Image2}
               alt=""
               className="inline-block h-full w-full rounded-lg object-cover"
             />
@@ -46,7 +49,7 @@ export const Discount = () => {
             <Image
               width={400}
               height={400}
-              src="https://firebasestorage.googleapis.com/v0/b/flowspark-1f3e0.appspot.com/o/Tailspark%20Images%2FPlaceholder%20Image.svg?alt=media&token=375a1ea3-a8b6-4d63-b975-aac8d0174074"
+              src={Image3}
               alt=""
               className="inline-block h-full w-full rounded-lg object-cover"
             />

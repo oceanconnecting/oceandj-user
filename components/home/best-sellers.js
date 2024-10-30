@@ -5,8 +5,8 @@ import Link from 'next/link'
 
 export const BestSellers = () => {
   return (
-    <section className="py-8 antialiased md:py-12">
-      <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
+    <section className="px-4 pb-6 md:pb-8 lg:pb-10 pt-16 md:pt-20 lg:pt-22">
+      <div className="mx-auto max-w-screen-xl">
         <div className='flex items-end justify-between pb-6'>
           <div className='flex flex-col space-y-3'>
             <h2 className='max-w-sm text-3xl md:text-4xl text-start text-black font-bold leading-[1.1]'>

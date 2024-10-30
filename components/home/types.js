@@ -70,7 +70,7 @@ export const Types = () => {
   }, []);
 
   return (
-    <section className='space-y-10 px-6 sm:px-8 lg:px-10 py-6 md:pt-8 lg:pt-10 sm:pb-32'>
+    <section className='space-y-10 px-4 pb-6 md:pb-8 lg:pb-10 pt-16 md:pt-20 lg:pt-22'>
       <div className="mx-auto md:max-w-4xl lg:max-w-7xl">
         <div className='flex items-end justify-between pb-6'>
           <div className='flex flex-col space-y-3'>

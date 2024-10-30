@@ -21,7 +21,11 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'toppng.com', // Add this entry
+        hostname: 'toppng.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.rareblocks.xyz',
       },
     ],
   },
