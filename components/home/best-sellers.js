@@ -1,5 +1,4 @@
 import React from 'react'
-import { ProductsCard } from './products-card'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
