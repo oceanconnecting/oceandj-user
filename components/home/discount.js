@@ -8,12 +8,14 @@ export const Discount = () => {
   return (
     <section>
       {/* Container */}
-      <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-20">
+      <div className="mx-auto w-full max-w-7xl px-5 md:px-10 py-8 md:py-12 lg:py-16">
         {/* Title */}
-        <h2 className="text-3xl font-bold md:text-5xl text-center">Portfolio</h2>
-        <p className="msm:text-base mb-8 mt-4 text-sm text-gray-500 md:mb-12 lg:mb-16 text-center">
-          Lorem ipsum dolor sit amet elit ut aliquam
-        </p>
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 pb-2">Shop by brand</h2>
+        </div>
+        <h3 className='text-center leading-normal text-muted-foreground text-sm md:text-base sm:leading-7 pb-6'>
+          +200 Brands
+        </h3>
         {/* Content */}
         <div className="mx-auto grid justify-items-stretch gap-4 md:grid-cols-2 lg:gap-6">
           {/* Item */}

@@ -76,3 +76,7 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.slick-prev:before, .slick-next:before {
+  content: none !important;
+}

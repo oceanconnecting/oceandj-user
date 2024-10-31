@@ -4,7 +4,7 @@ export const News = () => {
   return (
     <section>    
       {/* Container */}
-      <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-20">
+      <div className="mx-auto w-full max-w-7xl px-5 md:px-10 pt-8 md:pt-12 lg:pt-16 pb-12 md:pb-16 lg:pb-20">
         {/* Component */}
         <div className="bg-gray-100 rounded-xl p-8 text-center sm:p-10 md:p-16">
           

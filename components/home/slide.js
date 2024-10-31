@@ -7,7 +7,7 @@ import DJ2 from "@/images/DJ2.jpg";
 import Opera from "@/images/Opera.png";
 import React, { useState } from 'react';
 
-export const Slider = () => {
+export const Slide = () => {
   const slides = [
     {
       title: "Payments tool for software companies",
@@ -48,7 +48,7 @@ export const Slider = () => {
         href: "#",
       },
       button2: {
-        text: "dededed Us",
+        text: "About Us",
         href: "#",
       },
       imageSrc: "https://toppng.com/uploads/preview/electric-guitar-11530937008gqwe1aygab.png",
@@ -127,6 +127,7 @@ export const Slider = () => {
       >
         <ChevronRight className="w-9 h-9" />
       </button>
+
       {/* Fade-in animation */}
       <svg viewBox="0 0 224 12" fill="currentColor" className="w-full -mb-1 text-white" preserveAspectRatio="none">
         <path d="M0,0 C48.8902582,3.13657013 86.2235915,5.7048552 112,5.7048552 C137.776408,5.7048552 175.109742,3.13657013 224,0 L224,12.0441132 L0,12.0441132 L0,0 Z" />
