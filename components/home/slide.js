@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -5,50 +6,38 @@ import Image from 'next/image';
 import DJ from "@/images/DJ.jpg";
 import DJ2 from "@/images/DJ2.jpg";
 import Opera from "@/images/Opera.png";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const Slide = () => {
   const slides = [
     {
-      title: "Payments tool for software companies",
+      title: "Get Extra 20% Off",
       description:
-        "From checkout to global sales tax compliance, companies around the world use Flowbite to simplify their payment stack.",
-      button1: {
-        text: "Get started",
-        href: "#",
-      },
-      button2: {
-        text: "Speak to Sales",
+        "On all guitars",
+      button: {
+        text: "Buy now",
         href: "#",
       },
       imageSrc: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png",
       backgroundImage: DJ,
     },
     {
-      title: "Optimize your financial operations",
+      title: "Get Extra 20% Off",
       description:
-        "Manage invoices, track expenses, and stay compliant with a centralized platform tailored to your needs.",
-      button1: {
-        text: "Learn more",
-        href: "#",
-      },
-      button2: {
-        text: "Contact Us",
+        "On all guitars",
+      button: {
+        text: "Buy now",
         href: "#",
       },
       imageSrc: "https://toppng.com/uploads/preview/electric-guitar-11530937008gqwe1aygab.png",
       backgroundImage: DJ2,
     },
     {
-      title: "Optimize your financial w2w2w2w",
+      title: "Get Extra 20% Off",
       description:
-        "Manage invoices, track expenses, and stay compliant with a centralized platform tailored to your needs.",
-      button1: {
-        text: "Learn more",
-        href: "#",
-      },
-      button2: {
-        text: "About Us",
+        "On all guitars",
+      button: {
+        text: "Buy now",
         href: "#",
       },
       imageSrc: "https://toppng.com/uploads/preview/electric-guitar-11530937008gqwe1aygab.png",
@@ -58,7 +47,7 @@ export const Slide = () => {
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFading, setIsFading] = useState(false);
-
+  
   const handleNext = () => {
     setIsFading(true);
     setTimeout(() => {
@@ -66,7 +55,7 @@ export const Slide = () => {
       setIsFading(false);
     }, 300);
   };
-
+  
   const handlePrev = () => {
     setIsFading(true);
     setTimeout(() => {
@@ -74,6 +63,14 @@ export const Slide = () => {
       setIsFading(false);
     }, 300);
   };
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleNext();
+    }, 6000);
+  
+    return () => clearInterval(interval);
+  }, []);
 
   const slide = slides[currentSlide];
 
@@ -86,28 +83,22 @@ export const Slide = () => {
     >
       {/* Slider */}
       <div
-        className={`grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 transition-opacity duration-300 ${
+        className={`grid max-w-screen-xl px-4 py-6 mx-auto lg:gap-8 xl:gap-0 lg:py-8 lg:grid-cols-12 transition-opacity duration-300 ${
           isFading ? "opacity-0" : "opacity-100"
         }`}
       >
         <div className="mr-auto place-self-center lg:col-span-7">
-          <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-white">
+          <p className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-white">
             {slide.title}
-          </h1>
-          <p className="max-w-2xl mb-6 font-light text-gray-300 lg:mb-8 md:text-lg lg:text-xl">
-            {slide.description}
           </p>
+          <h1 className="max-w-2xl mb-4 text-2xl font-bold tracking-tight leading-none md:text-3xl xl:text-4xl text-white">
+            {slide.description}
+          </h1>
           <a
-            href={slide.button1.href}
-            className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300"
+            href={slide.button.href}
+            className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-full bg-gray-100"
           >
-            {slide.button1.text}
-          </a>
-          <a
-            href={slide.button2.href}
-            className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-          >
-            {slide.button2.text}
+            {slide.button.text}
           </a>
         </div>
         <div className="mt-0 col-span-5 flex">
@@ -117,13 +108,13 @@ export const Slide = () => {
       {/* Navigation buttons */}
       <button
         onClick={handlePrev}
-        className="absolute top-1/2 left-4 transform -translate-y-1/2 p-1 text-black rounded-full hover:bg-gray-300"
+        className="absolute lg:top-64 top-1/2 left-4 transform -translate-y-1/2 p-1 text-white hover:text-black rounded-full hover:bg-white"
       >
         <ChevronLeft className="w-9 h-9" />
       </button>
       <button
         onClick={handleNext}
-        className="absolute top-1/2 right-4 transform -translate-y-1/2 p-1 text-black rounded-full hover:bg-gray-300"
+        className="absolute lg:top-64 top-1/2 right-4 transform -translate-y-1/2 p-1 text-white hover:text-black rounded-full hover:bg-white"
       >
         <ChevronRight className="w-9 h-9" />
       </button>

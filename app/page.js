@@ -1,6 +1,6 @@
 import { BestSellers } from "@/components/home/best-sellers";
 import { Companies } from "@/components/home/companies";
-// import { Types } from "@/components/home/types";
+import { Types } from "@/components/home/types";
 import { Slide } from "@/components/home/slide";
 import { Discount } from "@/components/home/discount";
 // import { LastNews } from "@/components/home/last-news";
@@ -11,18 +11,18 @@ import { Deal } from "@/components/home/deal";
 export default function Home() {
   return (
     <div>
-      <Slide />
+      {/* <Slide /> */}
       <Features />
-      {/* <Types /> */}
+      <Types />
       <BestSellers />
-      <Companies />
+      {/* <Companies /> */}
       <BestSellers />
       <Deal />
       <BestSellers />
-      <Discount />
+      {/* <Discount /> */}
       <BestSellers />
       {/* <LastNews /> */}
-      <News />
+      {/* <News /> */}
     </div>
   );
 }

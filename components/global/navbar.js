@@ -45,9 +45,9 @@ export const Navbar = () => {
 
   return (
     <header className="w-full bg-white">
-      <div className="text-xs bg-cyan-600 text-white py-2 px-4 hidden md:block">
+      <div className="text-xs bg-yellow-400 text-white py-2 px-4">
         <div className="container mx-auto flex justify-between items-center">
-          <div className="flex items-center space-x-3 flex-grow">
+          {/* <div className="flex items-center space-x-3 flex-grow">
             <Link href="/">
               <FaFacebook className="w-4 h-4" />
             </Link>
@@ -63,13 +63,13 @@ export const Navbar = () => {
             <Link href="/">
               <FaSquareXTwitter className="w-4 h-4" />
             </Link>
+          </div> */}
+          <div className="flex-grow text-center p-0.5">
+            <p className="text-xs sm:text-sm hover:underline">Don&apos;t miss out our Halloween discount! Level up to 70% off!</p>
           </div>
-          <div className="flex-grow text-center">
-            <p className="text-sm pr-24">Don&apos;t miss out, huge discounts available now!</p>
-          </div>
-          <div className="flex items-center space-x-4 flex-grow justify-end">
+          {/* <div className="flex items-center space-x-4 flex-grow justify-end">
             <p>FAQs</p>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -85,11 +85,12 @@ export const Navbar = () => {
         </div>
 
         <div className="flex justify-end w-full gap-5">
-          <button className="flex items-center gap-1">
-            <ShoppingCart className="w-6 h-6" />
-          </button>
-          <Link href="/cart" className="flex items-center gap-1">
+          {/* <button className="flex items-center gap-1">
             <Heart className="w-6 h-6" />
+          </button> */}
+          <Link href="/cart" className="flex items-center gap-1 border border-black rounded-full py-2 px-5 hover:bg-gray-50">
+            <ShoppingCart className="w-5 h-5 mr-2" />
+            <span className="">My Cart</span>
           </Link>
         </div>
 

@@ -12,55 +12,58 @@ import Link from "next/link";
 
 export const Types = () => {
   const [types, setTypes] = useState([]);
-  let sliderRef = useRef(null);
-  const next = () => {
-    sliderRef.slickNext();
-  };
-  const previous = () => {
-    sliderRef.slickPrev();
-  };
+  // let sliderRef = useRef(null);
+  // const next = () => {
+  //   sliderRef.slickNext();
+  // };
+  // const previous = () => {
+  //   sliderRef.slickPrev();
+  // };
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    arrows: false,
-    autoplay: true,
-    dots: false,
-    responsive: [
-      {
-        breakpoint: 640,
-        settings: {
-          slidesToShow: 1,
-        }
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-        }
-      },
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-        }
-      },
-      {
-        breakpoint: 1280,
-        settings: {
-          slidesToShow: 4,
-        }
-      }
-    ]
-  };
+  // const settings = {
+  //   className: "center",
+  //   centerPadding: "60px",
+  //   dots: true,
+  //   infinite: true,
+  //   speed: 500,
+  //   slidesToShow: 4,
+  //   slidesToScroll: 1,
+  //   arrows: false,
+  //   autoplay: true,
+  //   dots: false,
+  //   slidesPerRow: 2,
+  //   responsive: [
+  //     {
+  //       breakpoint: 640,
+  //       settings: {
+  //         slidesToShow: 1,
+  //       }
+  //     },
+  //     {
+  //       breakpoint: 768,
+  //       settings: {
+  //         slidesToShow: 2,
+  //       }
+  //     },
+  //     {
+  //       breakpoint: 1024,
+  //       settings: {
+  //         slidesToShow: 3,
+  //       }
+  //     },
+  //     {
+  //       breakpoint: 1280,
+  //       settings: {
+  //         slidesToShow: 4,
+  //       }
+  //     }
+  //   ]
+  // };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://admin-djstage.vercel.app/api/types/list-types");
+        const response = await axios.get("https://admin-djstage.vercel.app/api/types/list-types?limit=12");
         setTypes(response.data.types);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -81,7 +84,7 @@ export const Types = () => {
               Find the best skateboarding gears from stores around the world
             </h3>
           </div>
-          <div className="hidden md:flex items-center gap-6">
+          {/* <div className="hidden md:flex items-center gap-6">
             <div className="flex items-center gap-2">
               <button className="p-2 rounded-full bg-cyan-700" onClick={previous}>
                 <ChevronLeft className="w-6 h-6 text-white"/>
@@ -90,26 +93,28 @@ export const Types = () => {
                 <ChevronRight className="w-6 h-6 text-white"/>
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
-        <Slider ref={slider => { sliderRef = slider }} {...settings}>
-          {types.slice(0, 8).map((type) => (
-            <div key={type.id} className="sm:px-2">
-              <div className="flex items-center justify-between gap-x-6 border hover:shadow rounded-xl p-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+        {/* <Slider ref={slider => { sliderRef = slider }} {...settings}> */}
+          {types.map((type) => (
+            <div key={type.id} className="">
+              <Link href={`/category/${type.id}`} className="flex items-center justify-between gap-x-6 border hover:shadow rounded-xl px-3 md:px-4 lg:px-6 py-3">
                 <Image
                   width={100}
                   height={100}
                   src={type.image} 
                   alt={type.title} 
-                  className="h-20 w-20 md:h-28 md:w-28" 
+                  className="h-10 w-10 md:h-12 md:w-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16" 
                 />
                 <div className="pr-4">
                   <h3 className="text-base font-bold text-gray-800">{type.title}</h3>
                 </div>
-              </div>
+              </Link>
             </div>
           ))}
-        </Slider>
+        {/* </Slider> */}
+        </div>
         <div className="flex items-center justify-end mt-4">
           <Link href='/types' className='text-sm flex gap-1 text-gray-500 hover:translate-x-1 hover:text-black transition-all' >
             Shop the collection <ArrowRight className="w-5 h-5" />

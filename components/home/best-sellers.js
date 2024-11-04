@@ -3,7 +3,7 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import React from 'react'
-import { ArrowRight, Eye, Heart, Plus } from 'lucide-react'
+import { ArrowRight, Plus } from 'lucide-react'
 import Link from 'next/link'
 import Slider from "react-slick";
 import Image from "next/image";
@@ -21,7 +21,7 @@ function SampleNextArrow(props) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "rgba(0, 0, 0, 1)",
+        backgroundColor: "rgba(250,204,21, 1)",
         borderRadius: "50%",
         width: "40px",
         height: "40px",
@@ -61,7 +61,7 @@ function SamplePrevArrow(props) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "rgba(0, 0, 0, 1)",
+        backgroundColor: "rgba(250,204,21, 1)",
         borderRadius: "50%",
         width: "40px",
         height: "40px",
@@ -221,46 +221,28 @@ export const BestSellers = () => {
               Find the best skateboarding gears from stores around the world
             </h3>
           </div>
-          {/* <div className="hidden md:flex items-center gap-6">
-            <div className="flex items-center gap-2">
-              <button className="py-1.5 px-4 rounded-full bg-cyan-700 text-white">
-                All
-              </button>
-              <button className="py-1.5 px-4 rounded-full bg-cyan-700 text-white">
-                One
-              </button>
-            </div>
-          </div> */}
         </div>
         <div className="mb-4 md:mb-8">
           <Slider {...settings} className="flex items-center gap-4">
             {products.map((product, index) => (
               <div key={index} className="px-2">
-                <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-                  <div className="h-56 w-full">
+                <div className="rounded-lg border border-gray-300 bg-white p-5 shadow-sm">
+                  <div className="h-56 w-full border-b border-gray-300">
                     <Link href="/">
                       <Image width={200} height={200} className="mx-auto h-full" src={product.image} alt={product.name} />
                     </Link>
                   </div>
-                  <div className="pt-6">
-                    <div className="mb-4 flex items-center justify-end gap-4">
-                      <button type="button" className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900">
-                        <Eye className="w-5 h-5"/>
-                        <span className="sr-only">Quick look</span>
-                      </button>
-                      <button type="button" className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900">
-                        <Heart className="w-5 h-5"/>
-                        <span className="sr-only">Add to Favorites</span>
-                      </button>
-                    </div>
+                  <div className="pt-5">
                     <Link href="/" className="text-lg font-semibold leading-tight text-gray-900 hover:underline">
                       {product.name}
                     </Link>
-                    <div className="mt-4 flex items-center justify-between gap-4">
-                      <p className="text-2xl font-extrabold leading-tight text-gray-900">${product.price}</p>
-                      <button type="button" className="inline-flex items-center gap-x-2 rounded-full bg-black px-4 py-2.5 text-sm font-medium text-white">
-                        <Plus className="w-4 h-4"/>
-                        <span>Add to cart</span>
+                    <div className="mt-3 flex items-center justify-between gap-3">
+                      <p className="text-2xl font-bold text-gray-900">
+                        <span>${product.price}</span>
+                        <span className="text-base text-red-400 pl-2">${product.price}</span>
+                      </p>
+                      <button type="button" className="border border-black inline-flex items-center gap-x-1 rounded-full bg-black hover:bg-white p-2 text-sm font-medium text-white hover:text-black">
+                        <Plus className="w-5 h-5"/>
                       </button>
                     </div>
                   </div>
