@@ -49,7 +49,7 @@ export default function Cart() {
                     </Link>
 
                     <div className="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
-                      <p className="text-base font-medium text-gray-900">{item.name}</p>
+                      <p className="text-base font-medium text-gray-900">{item.title}</p>
                       <div className="flex items-center justify-between md:order-3 md:justify-end">
                         <div className="flex items-center">
                           <button 
