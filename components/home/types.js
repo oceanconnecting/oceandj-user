@@ -99,7 +99,7 @@ export const Types = () => {
         {/* <Slider ref={slider => { sliderRef = slider }} {...settings}> */}
           {types.map((type) => (
             <div key={type.id} className="">
-              <Link href={`/category/${type.id}`} className="flex items-center justify-between gap-x-6 border hover:shadow rounded-xl px-3 md:px-4 lg:px-6 py-3">
+              <Link href={`/categories/${type.id}`} className="flex items-center justify-between gap-x-6 border hover:shadow rounded-xl px-3 md:px-4 lg:px-6 py-3">
                 <Image
                   width={100}
                   height={100}

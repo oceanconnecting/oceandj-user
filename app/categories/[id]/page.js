@@ -3,10 +3,11 @@
 
 import axios from 'axios';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
-export default function Category() {
+export default function Categories() {
   const [categories, setCategories] = useState([]);
   const { id } = useParams();
 
@@ -38,7 +39,7 @@ export default function Category() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
           {categories.map((category) => (
             <div key={category.id} className="">
-              <div className="flex items-center justify-between gap-x-6 border hover:shadow rounded-xl px-3 md:px-4 lg:px-6 py-3">
+              <Link href={`/products/${category.id}`} className="flex items-center justify-between gap-x-6 border hover:shadow rounded-xl px-3 md:px-4 lg:px-6 py-3">
                 {category.image ? (
                   <Image
                     width={100}
@@ -53,7 +54,7 @@ export default function Category() {
                 <div className="pr-4">
                   <h3 className="text-base font-bold text-gray-800">{category.title}</h3>
                 </div>
-              </div>
+              </Link>
             </div>
           ))}
         </div>

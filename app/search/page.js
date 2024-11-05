@@ -1,176 +1,198 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Heart, Eye, ShoppingCart, Plus } from "lucide-react";
 import Image from "next/image"
 import Link from "next/link";
-import HHH from "@/images/hhh.png"
 import axios from "axios";
+import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion'
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu'
+import { ChevronDown, Filter, Grid, Plus } from 'lucide-react'
 
-function SidebarFilter() {
-  const [filters, setFilters] = useState({
-    categories: [],
-    properties: [],
-  });
+const sortOptions = [
+  { name: 'Most Popular', href: '#', current: true },
+  { name: 'Best Rating', href: '#', current: false },
+  { name: 'Newest', href: '#', current: false },
+  { name: 'Price: Low to High', href: '#', current: false },
+  { name: 'Price: High to Low', href: '#', current: false },
+]
 
-  const handleCategoryChange = (e) => {
-    const value = e.target.value;
-    setFilters((prevState) => ({
-      ...prevState,
-      categories: prevState.categories.includes(value)
-        ? prevState.categories.filter((item) => item !== value)
-        : [...prevState.categories, value],
-    }));
-  };
+const filters = [
+  {
+    id: 'color',
+    name: 'Color',
+    options: [
+      { value: 'white', label: 'White', checked: false },
+      { value: 'beige', label: 'Beige', checked: false },
+      { value: 'blue', label: 'Blue', checked: true },
+      { value: 'brown', label: 'Brown', checked: false },
+      { value: 'green', label: 'Green', checked: false },
+      { value: 'purple', label: 'Purple', checked: false },
+    ],
+  },
+  {
+    id: 'category',
+    name: 'Category',
+    options: [
+      { value: 'new-arrivals', label: 'New Arrivals', checked: false },
+      { value: 'sale', label: 'Sale', checked: false },
+      { value: 'travel', label: 'Travel', checked: true },
+      { value: 'organization', label: 'Organization', checked: false },
+      { value: 'accessories', label: 'Accessories', checked: false },
+    ],
+  },
+  {
+    id: 'size',
+    name: 'Size',
+    options: [
+      { value: '2l', label: '2L', checked: false },
+      { value: '6l', label: '6L', checked: false },
+      { value: '12l', label: '12L', checked: false },
+      { value: '18l', label: '18L', checked: false },
+      { value: '20l', label: '20L', checked: false },
+      { value: '40l', label: '40L', checked: true },
+    ],
+  },
+]
 
-  const handlePropertyChange = (e) => {
-    const value = e.target.value;
-    setFilters((prevState) => ({
-      ...prevState,
-      properties: prevState.properties.includes(value)
-        ? prevState.properties.filter((item) => item !== value)
-        : [...prevState.properties, value],
-    }));
-  };
-
-  return (
-    <div className="mb-4 max-w-none md:max-w-lg md:border-r pr-8">
-      <form name="wf-form-Filter-2" method="get" className="flex-col gap-6">
-        {/* Filters title */}
-        <div className="mb-6 flex items-center justify-between py-4 [border-bottom:1px_solid_rgb(217,_217,_217)]">
-          <h5 className="text-xl font-bold">Filters</h5>
-          <a href="#" className="text-sm">
-            <p>Clear all</p>
-          </a>
-        </div>
-        {/* Search input */}
-        <input type="text" className="mb-10 block h-9 min-h-[44px] w-full rounded-md border border-solid border-[#cccccc] bg-[#f2f2f7] bg-[16px_center] bg-no-repeat py-3 pl-11 pr-4 text-sm font-bold text-[#333333] [background-size:18px] [border-bottom:1px_solid_rgb(215,_215,_221)]" placeholder="Search" style={{backgroundImage: 'url("https://assets.website-files.com/6458c625291a94a195e6cf3a/64b7a3a33cd5dc368f46daaa_MagnifyingGlass.svg")'}} />
-        {/* Categories */}
-        <div className="flex flex-col gap-6">
-          <p className="font-semibold">Categories</p>
-          <div className="flex flex-wrap items-center gap-2">
-            <a href="#" className="flex gap-3 rounded-md bg-[#f2f2f7] p-3 font-semibold">
-              <img src="https://assets.website-files.com/6458c625291a94a195e6cf3a/64b7a3a33cd5dc368f46daab_design.svg" alt="" className="inline-block" />
-              <p>Design</p>
-            </a>
-            <a href="#" className="flex gap-3 rounded-md bg-[#f2f2f7] p-3 font-semibold">
-              <img src="https://assets.website-files.com/6458c625291a94a195e6cf3a/64b7a3a33cd5dc368f46daae_illustration.svg" alt="" className="inline-block" />
-              <p>Illustrations</p>
-            </a>
-            <a href="#" className="flex gap-3 rounded-md bg-[#f2f2f7] p-3 font-semibold">
-              <img src="https://assets.website-files.com/6458c625291a94a195e6cf3a/64b7a3a33cd5dc368f46daad_icons.svg" alt="" className="inline-block" />
-              <p>Icons</p>
-            </a>
-            <a href="#" className="flex gap-3 rounded-md bg-[#f2f2f7] p-3 font-semibold">
-              <img src="https://assets.website-files.com/6458c625291a94a195e6cf3a/64b7a3a33cd5dc368f46daaf_plugins.svg" alt="" className="inline-block" />
-              <p>Plugins</p>
-            </a>
-            <a href="#" className="flex gap-3 rounded-md bg-[#f2f2f7] p-3 font-semibold">
-              <img src="https://assets.website-files.com/6458c625291a94a195e6cf3a/64b7a3a33cd5dc368f46daac_color%20palette.svg" alt="" className="inline-block" />
-              <p>Color Palette</p>
-            </a>
-          </div>
-        </div>
-        {/* Divider */}
-        <div className="mb-6 mt-6 h-px w-full bg-[#d9d9d9]"></div>
-        {/* Rating */}
-        <div className="flex flex-col gap-6">
-          <p className="font-semibold">Rating</p>
-          <div className="flex flex-wrap gap-2 lg:justify-between">
-            <div className="flex h-9 w-14 cursor-pointer items-center justify-center rounded-md border border-solid border-[#cccccc] bg-[#f2f2f7] text-sm font-semibold">
-              <span>1</span>
-            </div>
-            <div className="flex h-9 w-14 cursor-pointer items-center justify-center rounded-md border border-solid border-[#cccccc] bg-black text-sm font-semibold text-white">
-              <span>2</span>
-            </div>
-            <div className="flex h-9 w-14 cursor-pointer items-center justify-center rounded-md border border-solid border-[#cccccc] bg-[#f2f2f7] text-sm font-semibold">
-              <span>3</span>
-            </div>
-            <div className="flex h-9 w-14 cursor-pointer items-center justify-center rounded-md border border-solid border-[#cccccc] bg-[#f2f2f7] text-sm font-semibold">
-              <span>4</span>
-            </div>
-            <div className="flex h-9 w-14 cursor-pointer items-center justify-center rounded-md border border-solid border-[#cccccc] bg-[#f2f2f7] text-sm font-semibold">
-              <span>5</span>
-            </div>
-          </div>
-        </div>
-        {/* Divider */}
-        <div className="mb-6 mt-6 h-px w-full bg-[#d9d9d9]"></div>
-        {/* FIlter One */}
-        <div className="flex flex-col gap-6">
-          <div className="flex cursor-pointer items-center justify-between py-4 [border-top:1px_solid_rgba(0,_0,_0,_0)] md:py-0">
-            <p className="font-semibold">FIlter One</p>
-            <a href="#" className="inline-block text-sm text-black">
-              <p>Clear</p>
-            </a>
-          </div>
-          <div className="flex flex-col gap-3">
-            <label className="flex items-center text-sm font-medium">
-              <div className="mr-3 h-5 w-5 cursor-pointer rounded-sm border border-solid bg-[#f2f2f7]"></div>
-              <span className="inline-block cursor-pointer" htmlFor="Filter-One-Option-1">Option One</span>
-            </label>
-            <label className="flex items-center text-sm font-medium">
-              <div className="mr-3 h-5 w-5 cursor-pointer rounded-sm border border-solid bg-[#f2f2f7]"></div>
-              <span className="inline-block cursor-pointer" htmlFor="Filter-One-Option-1">Option Two</span>
-            </label>
-            <label className="flex items-center text-sm font-medium">
-              <div className="mr-3 h-5 w-5 cursor-pointer rounded-sm border border-solid bg-[#f2f2f7]"></div>
-              <span className="inline-block cursor-pointer" htmlFor="Filter-One-Option-1">Option Three</span>
-            </label>
-            <label className="flex items-center text-sm font-medium">
-              <div className="mr-3 h-5 w-5 cursor-pointer rounded-sm border border-solid bg-[#f2f2f7]"></div>
-              <span className="inline-block cursor-pointer" htmlFor="Filter-One-Option-1">Option Four</span>
-            </label>
-            <label className="flex items-center text-sm font-medium">
-              <div className="mr-3 h-5 w-5 cursor-pointer rounded-sm border border-solid bg-[#f2f2f7]"></div>
-              <span className="inline-block cursor-pointer" htmlFor="Filter-One-Option-1">Option Five</span>
-            </label>
-          </div>
-        </div>
-        {/* Divider */}
-        <div className="mb-6 mt-6 h-px w-full bg-[#d9d9d9]"></div>
-        {/* FIlter Two */}
-        <div className="flex flex-col gap-6">
-          <div className="flex cursor-pointer items-center justify-between py-4 [border-top:1px_solid_rgba(0,_0,_0,_0)] md:py-0">
-            <p className="font-semibold">FIlter Two</p>
-            <a href="#" className="inline-block text-sm text-black">
-              <p>Clear</p>
-            </a>
-          </div>
-          <div className="flex flex-col gap-3">
-            <label className="flex items-center font-medium">
-              <div className="mr-3 mt-1 h-5 w-5 rounded-full border border-solid border-[#cccccc] bg-[#f2f2f7]"></div>
-              <span className="inline-block cursor-pointer" htmlFor="Filter-One-Option-1">All</span>
-            </label>
-            <label className="flex items-center font-medium">
-              <div className="mr-3 mt-1 h-5 w-5 rounded-full border border-solid border-[#cccccc] bg-[#f2f2f7]"></div>
-              <span className="inline-block cursor-pointer" htmlFor="Filter-One-Option-1">Option One</span>
-            </label>
-            <label className="flex items-center font-medium">
-              <div className="mr-3 mt-1 h-5 w-5 rounded-full border border-solid border-[#cccccc] bg-[#f2f2f7]"></div>
-              <span className="inline-block cursor-pointer" htmlFor="Filter-One-Option-1">Option Two</span>
-            </label>
-            <label className="flex items-center font-medium">
-              <div className="mr-3 mt-1 h-5 w-5 rounded-full border border-solid border-[#cccccc] bg-[#f2f2f7]"></div>
-              <span className="inline-block cursor-pointer" htmlFor="Filter-One-Option-1">Option Three</span>
-            </label>
-            <label className="flex items-center font-medium">
-              <div className="mr-3 mt-1 h-5 w-5 rounded-full border border-solid border-[#cccccc] bg-[#f2f2f7]"></div>
-              <span className="inline-block cursor-pointer" htmlFor="Filter-One-Option-1">Option Four</span>
-            </label>
-            <label className="flex items-center font-medium">
-              <div className="mr-3 mt-1 h-5 w-5 rounded-full border border-solid border-[#cccccc] bg-[#f2f2f7]"></div>
-              <span className="inline-block cursor-pointer" htmlFor="Filter-One-Option-1">Option Five</span>
-            </label>
-          </div>
-        </div>
-      </form>
-    </div>
-  );
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
 }
 
+export default function Example() {
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
-export default function Search() {
+  return (
+    <div className="bg-white">
+      <div className="flex">
+        <div className="flex-1">
+          {/* Main content */}
+          <main className="mx-auto max-w-7xl px-4">
+            <div className="flex items-baseline justify-between border-b border-gary-400 pb-6 pt-8">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
+              <div className="flex items-center">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                      Sort
+                      <ChevronDown className="h-5 w-5 ml-1 flex-shrink-0 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="mt-2 w-40 origin-top-right bg-white shadow-2xl ring-1 ring-black ring-opacity-5">
+                    {sortOptions.map((option) => (
+                      <DropdownMenuItem as="a" href={option.href} key={option.name} className={classNames(
+                          option.current ? 'font-medium text-gray-900' : 'text-gray-500',
+                          'block px-4 py-2 text-sm'
+                        )}
+                      >
+                        {option.name}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
+                  <Grid className="h-5 w-5" aria-hidden="true" />
+                  <span className="sr-only">View grid</span>
+                </button>
+
+                {/* Mobile filter sheet */}
+                <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
+                  <SheetTrigger asChild>
+                    <button onClick={() => setMobileFiltersOpen(true)} className="lg:hidden -m-2 ml-4 p-2 text-gray-400 hover:text-gray-500">
+                      <Filter className="h-5 w-5" aria-hidden="true" />
+                      <span className="sr-only">Filters</span>
+                    </button>
+                  </SheetTrigger>
+                  <SheetContent side="left" className="flex flex-col h-full w-full max-w-xs overflow-y-auto bg-white py-4 shadow-xl">
+                    <SheetHeader>
+                      <SheetTitle>Filters</SheetTitle>
+                    </SheetHeader>
+
+                    {/* Filters for mobile */}
+                    <form className="mt-4 border-t border-gray-200">
+                      <h3 className="sr-only">Categories</h3>
+
+                      {filters.map((section) => (
+                        <Accordion type="single" collapsible key={section.id}>
+                          <AccordionItem value={section.id}>
+                            <AccordionTrigger className="font-medium text-gray-900">
+                              {section.name}
+                            </AccordionTrigger>
+                            <AccordionContent className="pt-6">
+                              <div className="space-y-6">
+                                {section.options.map((option, optionIdx) => (
+                                  <div key={option.value} className="flex items-center">
+                                    <input
+                                      defaultValue={option.value}
+                                      defaultChecked={option.checked}
+                                      id={`filter-mobile-${section.id}-${optionIdx}`}
+                                      name={`${section.id}[]`}
+                                      type="checkbox"
+                                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                    />
+                                    <label htmlFor={`filter-mobile-${section.id}-${optionIdx}`} className="ml-3 min-w-0 flex-1 text-gray-500">
+                                      {option.label}
+                                    </label>
+                                  </div>
+                                ))}
+                              </div>
+                            </AccordionContent>
+                          </AccordionItem>
+                        </Accordion>
+                      ))}
+                    </form>
+                  </SheetContent>
+                </Sheet>
+              </div>
+            </div>
+            <div className='flex pt-4'>
+              {/* Desktop filter sidebar */}
+              <aside className="hidden lg:block w-72  pr-6 py-4">
+                <h2 className="text-lg font-bold text-gray-900">Filters</h2>
+                <form className="mt-4">
+                  <h3 className="sr-only">Categories</h3>
+                  {filters.map((section) => (
+                    <Accordion type="single" collapsible key={section.id}>
+                      <AccordionItem value={section.id}>
+                        <AccordionTrigger className="font-medium text-gray-900">
+                          {section.name}
+                        </AccordionTrigger>
+                        <AccordionContent className="pt-6">
+                          <div className="space-y-6">
+                            {section.options.map((option, optionIdx) => (
+                              <div key={option.value} className="flex items-center">
+                                <input
+                                  defaultValue={option.value}
+                                  defaultChecked={option.checked}
+                                  id={`filter-desktop-${section.id}-${optionIdx}`}
+                                  name={`${section.id}[]`}
+                                  type="checkbox"
+                                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                />
+                                <label htmlFor={`filter-desktop-${section.id}-${optionIdx}`} className="ml-3 text-gray-500">
+                                  {option.label}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+                  ))}
+                </form>
+              </aside>
+              {/* Remaining layout and product grid here */}
+              <Search />
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function Search() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -178,9 +200,6 @@ export default function Search() {
       try {
         const response = await axios.get("https://admin-djstage.vercel.app/api/products/list-products");
         setProducts(response.data.products);
-        console.log(response.data.products);
-        console.log(response.data);
-        console.log(response);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -189,37 +208,36 @@ export default function Search() {
   }, []);
 
   return (
-    <div className="w-full container mx-auto max-w-[90rem] grid grid-cols-1 md:grid-cols-4 gap-4 px-4 border-t mt-10">
-      <div className="md:col-span-1">
-        <SidebarFilter />
-      </div>
-      <div className="mt-4 md:col-span-3 w-full container mx-auto grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-        {products.map((product, index) => (
-          <div key={index} className="">
-            <div className="rounded-lg border border-gray-300 bg-white p-5 shadow-sm">
-              <div className="h-56 w-full border-b border-gray-300">
-                <Link href="/">
-                  <Image width={200} height={200} className="mx-auto h-full" src={product.images[0]} alt={product.name} />
-                </Link>
-              </div>
-              <div className="pt-5">
-                <Link href="/" className="text-lg font-semibold leading-tight text-gray-900 hover:underline">
-                  {product.title}
-                </Link>
-                <div className="mt-3 flex items-center justify-between gap-3">
-                  <p className="text-2xl font-bold">
-                    <span>${product.price}</span>
-                    <span className="text-base text-red-400 pl-2">${product.price}</span>
-                  </p>
-                  <button type="button" className="border border-black inline-flex items-center gap-x-1 rounded-full bg-black hover:bg-white p-2 text-sm font-medium text-white hover:text-black">
-                    <Plus className="w-5 h-5"/>
-                  </button>
-                </div>
-              </div>
+    <div className="md:col-span-3 w-full container mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 pl-0 lg:pl-5 py-5">
+      {products.map((product) => (
+        <div key={product.id} className="rounded-lg border border-gray-300 bg-white p-5 shadow-sm">
+          <div className="h-56 w-full border-b border-gray-300">
+            <Image
+              width={200}
+              height={200}
+              className="mx-auto h-full"
+              src={product.images[0]}
+              alt={product.name}
+            />
+          </div>
+          <div className="pt-5">
+            <Link href={`/product-details/${product.id}`} className="text-lg font-semibold leading-tight text-gray-900 hover:underline">
+              {product.title}
+            </Link>
+            <div className="mt-3 flex items-center justify-between gap-3">
+              <p className="text-2xl font-bold">
+                <span>${product.price}</span>
+              </p>
+              <button
+                type="button"
+                className="border border-black inline-flex items-center gap-x-1 rounded-full bg-black hover:bg-white p-2 text-sm font-medium text-white hover:text-black"
+              >
+                <Plus className="w-5 h-5" />
+              </button>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 }
