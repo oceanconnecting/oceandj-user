@@ -11,7 +11,7 @@ import { Deal } from "@/components/home/deal";
 export default function Home() {
   return (
     <div>
-      {/* <Slide /> */}
+      <Slide />
       <Features />
       <Types />
       <BestSellers />
