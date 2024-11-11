@@ -3,15 +3,9 @@
 import Link from "next/link";
 import LogoBlack from "@/images/Logo-Black.png";
 import Image from "next/image";
-import { Menu, MoveRight, X, Search } from "lucide-react";
+import { Menu, X, Search, ShoppingCart } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
-import { ShoppingCart, Heart } from "lucide-react";
-import { FaFacebook } from "react-icons/fa";
-import { FaTiktok } from "react-icons/fa";
-import { FaPinterest } from "react-icons/fa";
-import { FaInstagram } from "react-icons/fa";
-import { FaSquareXTwitter } from "react-icons/fa6";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 export const Navbar = () => {
   const navigationItems = [
@@ -36,7 +30,6 @@ export const Navbar = () => {
     };
 
     window.addEventListener("resize", handleResize);
-    handleResize();
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -45,35 +38,18 @@ export const Navbar = () => {
 
   return (
     <header className="w-full bg-white">
-      <div className="text-xs bg-yellow-400 text-white py-2 px-4">
+      {/* banner */}
+      <div className="text-xs bg-yellow-500 text-white py-2 px-4">
         <div className="container mx-auto flex justify-between items-center">
-          {/* <div className="flex items-center space-x-3 flex-grow">
-            <Link href="/">
-              <FaFacebook className="w-4 h-4" />
-            </Link>
-            <Link href="/">
-              <FaTiktok className="w-4 h-4" />
-            </Link>
-            <Link href="/">
-              <FaPinterest className="w-4 h-4" />
-            </Link>
-            <Link href="/">
-              <FaInstagram className="w-4 h-4" />
-            </Link>
-            <Link href="/">
-              <FaSquareXTwitter className="w-4 h-4" />
-            </Link>
-          </div> */}
           <div className="flex-grow text-center p-0.5">
-            <p className="text-xs sm:text-sm hover:underline">Don&apos;t miss out our Halloween discount! Level up to 70% off!</p>
+            <p className="text-xs sm:text-sm hover:underline">
+              Don&apos;t miss out our Halloween discount! Level up to 70% off!
+            </p>
           </div>
-          {/* <div className="flex items-center space-x-4 flex-grow justify-end">
-            <p>FAQs</p>
-          </div> */}
         </div>
       </div>
-
-      <div className="shadow lg:shadow-none container mx-auto px-4 max-w-[90rem] relative min-h-16 lg:min-h-20 flex gap-4 flex-row lg:grid lg:grid-cols-6 items-center py-2.5 md:py-3 lg:py-4">
+      {/* logo and search*/}
+      <div className="shadow lg:shadow-none container mx-auto px-4 max-w-7xl relative min-h-16 lg:min-h-20 flex gap-4 flex-row lg:grid lg:grid-cols-6 items-center py-2.5 md:py-3 lg:py-4">
         <Link href="/" className="w-28 lg:w-32">
           <Image width={150} height={100} src={LogoBlack} alt="Logo" className="w-28 lg:w-32"/>
         </Link>
@@ -83,14 +59,10 @@ export const Navbar = () => {
           </button>
           <input type="email" placeholder="Search Something..." className="w-full outline-none bg-white text-gray-600 text-sm pl-2 pr-4 py-2.5 min-w-0" />
         </div>
-
         <div className="flex justify-end w-full gap-5">
-          {/* <button className="flex items-center gap-1">
-            <Heart className="w-6 h-6" />
-          </button> */}
           <Link href="/cart" className="flex items-center gap-1 border border-black rounded-full py-2 px-5 hover:bg-gray-50">
             <ShoppingCart className="w-5 h-5 mr-2" />
-            <span className="">My Cart</span>
+            <span>My Cart</span>
           </Link>
         </div>
 
@@ -125,7 +97,7 @@ export const Navbar = () => {
           </Sheet>
         </div>
       </div>
-
+      {/* menu */}
       <div className="bg-black w-full py-2 px-4 hidden lg:block">
         <div className="container mx-auto w-full max-w-6xl flex flex-wrap justify-center items-center gap-x-4 text-sm">
           {navigationItems.map((item) => (

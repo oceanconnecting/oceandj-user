@@ -28,7 +28,9 @@ export default function RootLayout({ children }) {
         <Providers>
           <Toaster position="top-center" reverseOrder={false} />
           <Navbar />
-          {children}
+          <div className="">
+            {children}
+          </div>
           <Footer />
         </Providers>
       </body>
