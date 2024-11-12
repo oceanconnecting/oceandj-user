@@ -2,9 +2,9 @@
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import React from 'react'
-import { ArrowRight, Plus } from 'lucide-react'
-import Link from 'next/link'
+import React from 'react';
+import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 import Slider from "react-slick";
 import Image from "next/image";
 import HHH from "@/images/hhh.png";
@@ -17,7 +17,7 @@ function SampleNextArrow(props) {
       style={{
         ...style,
         zIndex: 10,
-        marginRight: "20px",
+        marginRight: "26px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -55,9 +55,8 @@ function SamplePrevArrow(props) {
       className={className}
       style={{
         ...style,
-        marginLeft: "20px",
+        marginLeft: "26px",
         zIndex: 10,
-        fontFamily: "sans-serif",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -93,34 +92,20 @@ export const BestSellers = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 2,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
     responsive: [
       {
-        breakpoint: 640,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        }
-      },
-      {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
         }
       },
       {
         breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-        }
-      },
-      {
-        breakpoint: 1280,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 2,
@@ -132,85 +117,105 @@ export const BestSellers = () => {
           slidesToShow: 4,
           slidesToScroll: 2,
         }
-      }
+      },
     ]
   };
+  
   const products = [
     {
       id: 1,
-      name: "Sax Alto Supreme Verso Verni",
+      title: "Sax Alto Supreme Verso Verni",
       image: HHH,
       price: 299.99,
+      discount: 10,
+      brand: "Yamaha",
+      category: "Wind Instruments"
     },
     {
       id: 2,
-      name: "Sax Alto Supreme Verso Verni",
+      title: "Sax Tenor Supreme Verso Verni",
       image: HHH,
-      price: 299.99,
+      price: 399.99,
+      discount: 15,
+      brand: "Yamaha",
+      category: "Wind Instruments"
     },
     {
       id: 3,
-      name: "Sax Alto Supreme Verso Verni",
+      title: "Electric Guitar Fender Stratocaster",
       image: HHH,
-      price: 299.99,
+      price: 699.99,
+      discount: 20,
+      brand: "Fender",
+      category: "String Instruments"
     },
     {
       id: 4,
-      name: "Sax Alto Supreme Verso Verni",
+      title: "Digital Piano Yamaha P-125",
       image: HHH,
-      price: 299.99,
+      price: 499.99,
+      discount: 5,
+      brand: "Yamaha",
+      category: "Keyboard Instruments"
     },
     {
       id: 5,
-      name: "Sax Alto Supreme Verso Verni",
+      title: "Drum Set Pearl Export",
       image: HHH,
-      price: 299.99,
+      price: 899.99,
+      discount: 25,
+      brand: "Pearl",
+      category: "Percussion Instruments"
     },
     {
       id: 6,
-      name: "Sax Alto Supreme Verso",
+      title: "Flute Gemeinhardt 3OB",
       image: HHH,
-      price: 299.99,
+      price: 249.99,
+      discount: 0,
+      brand: "Gemeinhardt",
+      category: "Wind Instruments"
     },
     {
       id: 7,
-      name: "Sax Alto Supreme Verso Verni",
+      title: "Violin Yamaha V3 Series",
       image: HHH,
-      price: 299.99,
+      price: 199.99,
+      discount: 10,
+      brand: "Yamaha",
+      category: "String Instruments"
     },
     {
       id: 8,
-      name: "Sax Alto Supreme Verso Verni",
+      title: "Trumpet Bach TR300H2",
       image: HHH,
-      price: 299.99,
+      price: 349.99,
+      discount: 15,
+      brand: "Bach",
+      category: "Brass Instruments"
     },
     {
       id: 9,
-      name: "Sax Alto Supreme Verso Verni",
+      title: "Acoustic Guitar Gibson J-45",
       image: HHH,
-      price: 299.99,
+      price: 1099.99,
+      discount: 10,
+      brand: "Gibson",
+      category: "String Instruments"
     },
     {
       id: 10,
-      name: "Sax Alto Supreme Verso Verni",
+      title: "Keyboard Roland FA-08",
       image: HHH,
-      price: 299.99,
-    },
-    {
-      id: 11,
-      name: "Sax Alto Supreme Verso Verni",
-      image: HHH,
-      price: 299.99,
-    },
-    {
-      id: 12,
-      name: "Sax Alto Supreme Verso Verni",
-      image: HHH,
-      price: 299.99,
-    },
+      price: 1199.99,
+      discount: 20,
+      brand: "Roland",
+      category: "Keyboard Instruments"
+    }
   ];
+
   return (
-    <section className="px-4 py-8 md:py-12 lg:py-16">
+    <section className="px-4 py-10 md:py-12 lg:py-14">
       <div className="mx-auto max-w-screen-xl">
         <div className="flex items-end justify-between pb-6">
           <div className="flex flex-col space-y-3">
@@ -222,33 +227,43 @@ export const BestSellers = () => {
             </h3>
           </div>
         </div>
-        <div className="mb-4 md:mb-8">
+        <div className="mb-4 md:mb-8 space-x-4">
           <Slider {...settings} className="flex items-center gap-4">
-            {products.map((product, index) => (
-              <div key={index} className="px-2">
-                <div className="rounded-lg border border-gray-300 bg-white p-5 shadow-sm">
-                  <div className="h-56 w-full border-b border-gray-300">
-                    <Link href="/">
-                      <Image width={200} height={200} className="mx-auto h-full" src={product.image} alt={product.name} />
-                    </Link>
+            {products.map((product) => {
+              const discountedPrice = (product.price * (1 - product.discount / 100)).toFixed(2);
+              return (
+                <div key={product.id} className="group relative flex flex-col border px-5 py-3 mr-4">
+                  {product.discount > 0 && (
+                    <div className="absolute top-2 right-2 bg-[#F5C872] text-black text-xs font-semibold px-2 py-1 rounded">
+                      {product.discount}% OFF
+                    </div>
+                  )}
+                  <div className="aspect-square relative mb-4">
+                    <Image
+                      src={product.image}
+                      alt={product.title}
+                      className="w-full h-full object-contain"
+                      width={250}
+                      height={250}
+                    />
                   </div>
-                  <div className="pt-5">
-                    <Link href="/" className="text-lg font-semibold leading-tight text-gray-900 hover:underline">
-                      {product.name}
-                    </Link>
-                    <div className="mt-3 flex items-center justify-between gap-3">
-                      <p className="text-2xl font-bold text-gray-900">
-                        <span>${product.price}</span>
-                        <span className="text-base text-red-400 pl-2">${product.price}</span>
-                      </p>
-                      <button type="button" className="border border-black inline-flex items-center gap-x-1 rounded-full bg-black hover:bg-white p-2 text-sm font-medium text-white hover:text-black">
-                        <Plus className="w-5 h-5"/>
-                      </button>
+                  <div className="space-y-1.5">
+                    <div className="text-sm text-muted-foreground">{product.category}</div>
+                    <div className="font-semibold">{product.brand}</div>
+                    <div className="text-sm line-clamp-1">{product.title}</div>
+                    
+                    <div className="flex items-baseline gap-2">
+                      <span className="font-bold">$ {discountedPrice}</span>
+                      {product.discount > 0 && (
+                        <span className="text-sm text-muted-foreground line-through text-red-600">
+                          $ {product.price.toFixed(2)}
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </Slider>
         </div>
         <div className="flex items-center justify-end">
@@ -258,5 +273,5 @@ export const BestSellers = () => {
         </div>
       </div>
     </section>
-  )
+  );
 }

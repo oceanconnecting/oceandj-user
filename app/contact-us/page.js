@@ -100,7 +100,7 @@ export default function ContactUs() {
                       placeholder="Full Name"
                       value={clientName}
                       onChange={(e) => setClientName(e.target.value)}
-                      className="border border-black outline-none rounded-full w-full bg-white text-gray-600 text-sm px-5 py-2 md:py-3 min-w-0"
+                      className="border outline-none rounded-full w-full bg-gray-100 text-gray-600 text-sm px-5 py-2 md:py-3 min-w-0"
                     />
                   </div>
                   <div className="mx-0 mb-2.5 md:mb-4">
@@ -112,7 +112,7 @@ export default function ContactUs() {
                       placeholder="Email"
                       value={clientEmail}
                       onChange={(e) => setClientEmail(e.target.value)}
-                      className="border border-black outline-none rounded-full w-full bg-white text-gray-600 text-sm px-5 py-2 md:py-3 min-w-0"
+                      className="border outline-none rounded-full w-full bg-gray-100 text-gray-600 text-sm px-5 py-2 md:py-3 min-w-0"
                     />
                   </div>
                 </div>
@@ -126,7 +126,7 @@ export default function ContactUs() {
                     cols="30"
                     rows="5"
                     placeholder="Your Message"
-                    className="border border-black outline-none rounded-3xl w-full bg-white text-gray-600 text-sm px-5 py-2 md:py-3 min-w-0"
+                    className="border outline-none rounded-3xl w-full bg-gray-100 text-gray-600 text-sm px-5 py-2 md:py-3 min-w-0"
                   ></textarea>
                 </div>
                 <div className="text-center">

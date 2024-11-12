@@ -2,124 +2,128 @@
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
-import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
-import { ChevronRight, ChevronLeft, ArrowRight } from 'lucide-react';
 import Link from "next/link";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export const Types = () => {
   const [types, setTypes] = useState([]);
-  // let sliderRef = useRef(null);
-  // const next = () => {
-  //   sliderRef.slickNext();
-  // };
-  // const previous = () => {
-  //   sliderRef.slickPrev();
-  // };
+  const [isLoading, setIsLoading] = useState(true);
+  let sliderRef = useRef(null);
+  const next = () => {
+    sliderRef.slickNext();
+  };
+  const previous = () => {
+    sliderRef.slickPrev();
+  };
 
-  // const settings = {
-  //   className: "center",
-  //   centerPadding: "60px",
-  //   dots: true,
-  //   infinite: true,
-  //   speed: 500,
-  //   slidesToShow: 4,
-  //   slidesToScroll: 1,
-  //   arrows: false,
-  //   autoplay: true,
-  //   dots: false,
-  //   slidesPerRow: 2,
-  //   responsive: [
-  //     {
-  //       breakpoint: 640,
-  //       settings: {
-  //         slidesToShow: 1,
-  //       }
-  //     },
-  //     {
-  //       breakpoint: 768,
-  //       settings: {
-  //         slidesToShow: 2,
-  //       }
-  //     },
-  //     {
-  //       breakpoint: 1024,
-  //       settings: {
-  //         slidesToShow: 3,
-  //       }
-  //     },
-  //     {
-  //       breakpoint: 1280,
-  //       settings: {
-  //         slidesToShow: 4,
-  //       }
-  //     }
-  //   ]
-  // };
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 7,
+    slidesToScroll: 1,
+    autoplay: true,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 4,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 5,
+        },
+      },
+      {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: 6,
+        },
+      },
+    ],
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://admin-djstage.vercel.app/api/types/list-types?limit=12");
+        const response = await axios.get("https://admin-djstage.vercel.app/api/types/list-types?limit=20");
         setTypes(response.data.types);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchData();
   }, []);
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!types.length) {
+    return <div>No types available.</div>;
+  }
+
   return (
-    <section className='space-y-10 px-4 pb-6 md:pb-8 lg:pb-10 pt-16 md:pt-20 lg:pt-22'>
+    <section className="space-y-10 px-4 py-8 md:py-10 lg:py-12">
       <div className="mx-auto md:max-w-4xl lg:max-w-7xl">
-        <div className='flex items-end justify-between pb-6'>
-          <div className='flex flex-col space-y-3'>
-            <h2 className='max-w-sm text-3xl md:text-4xl text-start text-black font-bold leading-[1.1]'>
+        <div className="flex items-end justify-between pb-6">
+          <div className="flex flex-col space-y-3">
+            <h2 className="max-w-sm text-3xl md:text-4xl text-start text-black font-bold leading-[1.1]">
               Featured Types
             </h2>
-            <h3 className='leading-normal text-muted-foreground text-sm md:text-base sm:leading-7'>
+            <h3 className="leading-normal text-muted-foreground text-sm md:text-base sm:leading-7">
               Find the best skateboarding gears from stores around the world
             </h3>
           </div>
-          {/* <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-6">
             <div className="flex items-center gap-2">
-              <button className="p-2 rounded-full bg-cyan-700" onClick={previous}>
+              <button className="p-2 rounded-full bg-yellow-500" onClick={previous}>
                 <ChevronLeft className="w-6 h-6 text-white"/>
               </button>
-              <button className="p-2 rounded-full bg-cyan-700" onClick={next}>
+              <button className="p-2 rounded-full bg-yellow-500" onClick={next}>
                 <ChevronRight className="w-6 h-6 text-white"/>
               </button>
             </div>
-          </div> */}
+          </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-        {/* <Slider ref={slider => { sliderRef = slider }} {...settings}> */}
-          {types.map((type) => (
-            <div key={type.id} className="">
-              <Link href={`/categories/${type.id}`} className="flex items-center justify-between gap-x-6 border hover:shadow rounded-xl px-3 md:px-4 lg:px-6 py-3">
-                <Image
-                  width={100}
-                  height={100}
-                  src={type.image} 
-                  alt={type.title} 
-                  className="h-10 w-10 md:h-12 md:w-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16" 
-                />
-                <div className="pr-4">
-                  <h3 className="text-base font-bold text-gray-800">{type.title}</h3>
-                </div>
-              </Link>
-            </div>
-          ))}
-        {/* </Slider> */}
-        </div>
-        <div className="flex items-center justify-end mt-4">
-          <Link href='/types' className='text-sm flex gap-1 text-gray-500 hover:translate-x-1 hover:text-black transition-all' >
-            Shop the collection <ArrowRight className="w-5 h-5" />
-          </Link>
-        </div>
+          <Slider ref={slider => { sliderRef = slider }} {...settings}>
+            {types.map((type) => (
+              <div key={type.id} className="">
+                <Link href={`/categories/${type.id}`} className="grid">
+                  <div className="mx-auto w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 xl:w-36 xl:h-36 flex items-center justify-center rounded-full bg-slate-100 overflow-hidden">
+                    <Image
+                      width={100}
+                      height={100}
+                      src={type.image}
+                      alt={type.title}
+                      className="object-contain"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-base text-center font-bold text-gray-800">
+                      {type.title}
+                    </h3>
+                  </div>
+                </Link>
+              </div>
+            ))}
+            
+          </Slider>
       </div>
     </section>
   );

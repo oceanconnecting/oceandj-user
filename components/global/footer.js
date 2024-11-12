@@ -65,8 +65,8 @@ export const Footer = () => {
   ];
 
   return (
-    <div className="w-full py-14 lg:py-20 bg-black text-white">
-      <div className="container mx-auto px-4 max-w-[90rem]">
+    <div className="w-full px-4 py-14 lg:py-20 bg-black text-white">
+      <div className="container mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           <div className="flex gap-8 flex-col items-start">
             <div className="flex gap-2 flex-col">

@@ -7,6 +7,7 @@ import { LastNews } from "@/components/home/last-news";
 import { Features } from "@/components/home/features";
 import { News } from "@/components/home/news";
 import { Deal } from "@/components/home/deal";
+import Testimonial from "@/components/home/testimonial";
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
       <BestSellers />
       {/* <Discount /> */}
       <BestSellers />
+      {/* <Testimonial /> */}
       {/* <LastNews /> */}
       {/* <News /> */}
     </div>

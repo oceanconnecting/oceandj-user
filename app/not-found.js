@@ -1,35 +1,26 @@
-import React from 'react'
-import Error from "@/images/404.png"
+import Image from "next/image"
+import Link from "next/link"
 
-export default function Custom404() {
+export default function Component() {
   return (
-    <section>
-      {/* Container */}
-      <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-20">
-        {/* Component */}
-        <div className="grid items-center gap-8 sm:gap-20 lg:grid-cols-2">
-          <div>
-            <h1 className="mb-4 text-4xl font-bold md:text-6xl">404 Error</h1>
-            <p className="mb-6 max-w-lg text-sm text-gray-500 sm:text-xl md:mb-10 lg:mb-12">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
-              aliquam, purus sit amet luctus venenatis, lectus
-            </p>
-            <a
-              href="#"
-              className="inline-block items-center rounded-md bg-black px-6 py-3 text-center font-semibold text-white"
-            >
-              Back Home
-            </a>
-          </div>
-          <div>
-            <img
-              src={Error}
-              alt=""
-              className="mx-auto inline-block h-full w-full max-w-2xl object-cover"
-            />
-          </div>
+    <div className="flex flex-col items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8 sm:py-24 lg:py-40">
+      <div className="mx-auto max-w-md text-center">
+        <h1 className="font-semibold text-9xl">404</h1>
+        <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Oops, page not found</h1>
+        <p className="mt-4 text-muted-foreground">
+          The page you&apos;re looking for doesn&apos;t seem to exist. Don&apos;t worry, you can head back to the homepage and try
+          again.
+        </p>
+        <div className="mt-6">
+          <Link
+            href="/"
+            className="inline-flex items-center bg-black rounded-full px-6 py-2.5 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            prefetch={false}
+          >
+            Go to Homepage
+          </Link>
         </div>
       </div>
-    </section>
+    </div>
   )
 }

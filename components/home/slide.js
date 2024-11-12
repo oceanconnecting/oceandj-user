@@ -1,128 +1,116 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
-import DJ from "@/images/DJ.jpg";
-import DJ2 from "@/images/DJ2.jpg";
-import Opera from "@/images/Opera.png";
-import React, { useState, useEffect } from 'react';
+import HeroImage1 from "@/images/HeroImage1.png";
+import HeroImage2 from "@/images/HeroImage2.png";
+import HeroImage3 from "@/images/HeroImage3.png";
+import React, { useState } from 'react';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-export const Slide = () => {
-  const slides = [
-    {
-      title: "Get Extra 20% Off",
-      description:
-        "On all guitars",
-      button: {
-        text: "Buy now",
-        href: "#",
-      },
-      imageSrc: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png",
-      backgroundImage: DJ,
-    },
-    {
-      title: "Get Extra 20% Off",
-      description:
-        "On all guitars",
-      button: {
-        text: "Buy now",
-        href: "#",
-      },
-      imageSrc: "https://toppng.com/uploads/preview/electric-guitar-11530937008gqwe1aygab.png",
-      backgroundImage: DJ2,
-    },
-    {
-      title: "Get Extra 20% Off",
-      description:
-        "On all guitars",
-      button: {
-        text: "Buy now",
-        href: "#",
-      },
-      imageSrc: "https://toppng.com/uploads/preview/electric-guitar-11530937008gqwe1aygab.png",
-      backgroundImage: Opera,
-    }
-  ];
-
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isFading, setIsFading] = useState(false);
-  
-  const handleNext = () => {
-    setIsFading(true);
-    setTimeout(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-      setIsFading(false);
-    }, 300);
-  };
-  
-  const handlePrev = () => {
-    setIsFading(true);
-    setTimeout(() => {
-      setCurrentSlide((prevSlide) => (prevSlide - 1 + slides.length) % slides.length);
-      setIsFading(false);
-    }, 300);
-  };
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
-      handleNext();
-    }, 6000);
-  
-    return () => clearInterval(interval);
-  }, []);
-
-  const slide = slides[currentSlide];
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <section
-      className="relative bg-cover bg-center bg-no-repeat"
+    <div
+      className={className}
       style={{
-        backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)), url(${slide.backgroundImage.src})`,
+        ...style,
+        zIndex: 10,
+        marginRight: "40px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: "50%",
+        width: "40px",
+        height: "40px",
+        cursor: "pointer",
+        paddingLeft: "3px",
+        boxShadow: isHovered ? "0px 5px 10px rgba(0, 0, 0, 0.3)" : "",
+        transition: "transform 0.2s ease, background-color 0.2s ease",
+        backgroundColor: isHovered ? "rgba(250,204,21, 1)" : "transparent",
       }}
+      onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Slider */}
-      <div
-        className={`grid max-w-screen-xl px-4 py-6 mx-auto lg:gap-8 xl:gap-0 lg:py-8 lg:grid-cols-12 transition-opacity duration-300 ${
-          isFading ? "opacity-0" : "opacity-100"
-        }`}
-      >
-        <div className="mr-auto place-self-center lg:col-span-7">
-          <p className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-white">
-            {slide.title}
-          </p>
-          <h1 className="max-w-2xl mb-4 text-2xl font-bold tracking-tight leading-none md:text-3xl xl:text-4xl text-white">
-            {slide.description}
-          </h1>
-          <a
-            href={slide.button.href}
-            className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-full bg-gray-100"
-          >
-            {slide.button.text}
-          </a>
-        </div>
-        <div className="mt-0 col-span-5 flex">
-          <Image width={400} height={400} src={slide.imageSrc} alt="mockup" className="object-cover w-96 h-96" />
-        </div>
-      </div>
-      {/* Navigation buttons */}
-      <button
-        onClick={handlePrev}
-        className="absolute lg:top-64 top-1/2 left-4 transform -translate-y-1/2 p-1 text-white hover:text-black rounded-full hover:bg-white"
-      >
-        <ChevronLeft className="w-9 h-9" />
-      </button>
-      <button
-        onClick={handleNext}
-        className="absolute lg:top-64 top-1/2 right-4 transform -translate-y-1/2 p-1 text-white hover:text-black rounded-full hover:bg-white"
-      >
-        <ChevronRight className="w-9 h-9" />
-      </button>
+      <ChevronRight className="w-10 h-10 text-white" />
+    </div>
+  );
+}
 
-      {/* Fade-in animation */}
-      <svg viewBox="0 0 224 12" fill="currentColor" className="w-full -mb-1 text-white" preserveAspectRatio="none">
-        <path d="M0,0 C48.8902582,3.13657013 86.2235915,5.7048552 112,5.7048552 C137.776408,5.7048552 175.109742,3.13657013 224,0 L224,12.0441132 L0,12.0441132 L0,0 Z" />
-      </svg>
-    </section>
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div
+      className={className}
+      style={{
+        ...style,
+        marginLeft: "40px",
+        zIndex: 10,
+        fontFamily: "sans-serif",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "rgba(250,204,21, 1)",
+        borderRadius: "50%",
+        width: "40px",
+        height: "40px",
+        cursor: "pointer",
+        paddingRight: "3px",
+        boxShadow: isHovered ? "0px 5px 10px rgba(0, 0, 0, 0.3)" : "",
+        transition: "transform 0.2s ease, background-color 0.2s ease",
+        backgroundColor: isHovered ? "rgba(250,204,21, 1)" : "transparent",
+      }}
+      onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <ChevronLeft className='w-10 h-10 text-white'/>
+    </div>
+  );
+}
+
+export const Slide = () => {
+  const slides = [HeroImage1, HeroImage2, HeroImage3];
+  
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 6000,
+    nextArrow: <SampleNextArrow />, // Use custom arrow component
+    prevArrow: <SamplePrevArrow />  // Use custom arrow component
+  };
+
+  return (
+    <div className="relative max-w-full mx-auto">
+      <Slider {...settings}>
+        {slides.map((slide, index) => (
+          <section
+            key={index}
+            className="relative flex items-center justify-center w-full h-auto overflow-hidden"
+          >
+            <Image
+              src={slide}
+              alt={`Slide ${index + 1}`}
+              width={1920} // Set to the width of your images
+              height={1080} // Set to the height of your images
+              priority
+              className="w-full h-auto object-contain"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-60"></div>
+          </section>
+        ))}
+      </Slider>
+    </div>
   );
 };
