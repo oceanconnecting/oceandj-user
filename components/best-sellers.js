@@ -1,7 +1,7 @@
 "use client";
 
-import { Products } from "./products";
 import HHH from "@/images/hhh.png";
+import { Products } from "./products";
 
 export const BestSellers = () => {
   const products = [

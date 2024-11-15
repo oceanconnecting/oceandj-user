@@ -85,7 +85,7 @@ export const Navbar = () => {
       {/* Logo and Search */}
       <div
         className={`container mx-auto flex items-center justify-between px-4 max-w-7xl transition-all duration-300 ${
-          scrolled ? "py-2" : "py-3"
+          scrolled ? "py-4 md:py-4.5 lg:py-3" : "py-4 md:py-4.5 lg:py-4"
         }`}
       >
         <Link href="/" className="flex-shrink-0">
@@ -96,8 +96,8 @@ export const Navbar = () => {
             height={80}
             className={`transition-all duration-300 ${
               scrolled
-                ? "w-[5.5rem] lg:w-[6.5rem] xl:w-[7.5rem]"
-                : "w-[6.5rem] lg:w-[7.5rem] xl:w-[8.5rem]"
+                ? "w-[6rem] md:w-[6.5rem] lg:w-[7.5rem]"
+                : "w-[6.5rem] md:w-[7.5rem] lg:w-[8.5rem]"
             }`}
           />
         </Link>
@@ -137,7 +137,9 @@ export const Navbar = () => {
         <div className="container mx-auto flex justify-center space-x-6 text-white text-sm">
           <Link
             href="/"
-            className="font-semibold hover:text-yellow-500 px-3 py-4"
+            className={`font-semibold hover:text-yellow-500 px-3 transition-all duration-300 ${
+              scrolled ? "py-3" : "py-4"
+            }`}
           >
             Home
           </Link>
@@ -147,7 +149,9 @@ export const Navbar = () => {
             onMouseEnter={() => setDropdownOpen(true)}
             onMouseLeave={() => setDropdownOpen(false)}
           >
-            <button className={`${dropdownOpen ? "text-yellow-500" : "text-white"} font-semibold px-3 py-4 flex items-center`}>
+            <button className={`${dropdownOpen ? "text-yellow-500" : "text-white"} font-semibold px-3 flex items-center transition-all duration-300 ${
+              scrolled ? "py-3" : "py-4"
+            }`}>
               Types
             </button>
             {dropdownOpen && types.length > 0 && (
@@ -157,6 +161,7 @@ export const Navbar = () => {
                     <Link
                       href={`/categories/${type.id}`}
                       className="block text-sm px-4 py-2 rounded hover:bg-gray-200 hover:text-black"
+                      onClick={() => setDropdownOpen(false)}
                     >
                       {type.title}
                     </Link>
@@ -170,7 +175,9 @@ export const Navbar = () => {
             <Link
               key={item.title}
               href={item.href}
-              className="font-semibold hover:text-yellow-500 px-3 py-4"
+              className={`font-semibold hover:text-yellow-500 px-3 transition-all duration-300 ${
+                scrolled ? "py-3" : "py-4"
+              }`}
             >
               {item.title}
             </Link>
@@ -180,33 +187,39 @@ export const Navbar = () => {
 
       {/* Mobile Menu */}
       <Sheet open={isOpen} onOpenChange={setOpen}>
-        <SheetContent>
-          <SheetHeader>
-            <SheetTitle>Menu</SheetTitle>
+        <SheetContent className="w-80 bg-white shadow-lg rounded-r-lg">
+          <SheetHeader className="border-b border-gray-200 pb-4">
+            <SheetTitle className="text-xl font-semibold text-gray-900">Menu</SheetTitle>
           </SheetHeader>
-          <div className="flex flex-col space-y-3 mt-8">
-            <Link href="/" className="font-semibold hover:text-yellow-500">
+          <div className="flex flex-col space-y-4 mt-6">
+            {/* Home Link */}
+            <Link
+              href="/"
+              className="text-lg text-gray-800 hover:text-yellow-500 transition-colors duration-300"
+            >
               Home
             </Link>
+
+            {/* Dropdown for Types */}
             <div>
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="w-full flex items-center justify-between font-semibold hover:text-yellow-500"
+                className="w-full flex items-center justify-between text-lg text-gray-800 hover:text-yellow-500 transition-colors duration-300"
               >
                 Types
                 <ChevronDown
-                  className={`transition-transform ${
+                  className={`ml-2 h-5 w-5 text-gray-600 transition-transform duration-300 ${
                     dropdownOpen ? "rotate-180" : "rotate-0"
                   }`}
                 />
               </button>
               {dropdownOpen && (
-                <div>
+                <div className="mt-2 space-y-2">
                   {types.map((type) => (
                     <Link
                       key={type.id}
                       href={`/categories/${type.id}`}
-                      className="block px-4 py-2 hover:text-black"
+                      className="block text-gray-700 hover:text-black hover:bg-gray-100 py-2 px-3 rounded transition-colors duration-300"
                     >
                       {type.title}
                     </Link>
@@ -214,11 +227,13 @@ export const Navbar = () => {
                 </div>
               )}
             </div>
+
+            {/* Navigation Items */}
             {navigationItems.map((item) => (
               <Link
                 key={item.title}
                 href={item.href}
-                className="font-semibold hover:text-yellow-500"
+                className="text-lg text-gray-800 hover:text-yellow-500 transition-colors duration-300"
               >
                 {item.title}
               </Link>
@@ -226,6 +241,7 @@ export const Navbar = () => {
           </div>
         </SheetContent>
       </Sheet>
+
     </header>
   );
 };

@@ -3,10 +3,11 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
 import Slider from "react-slick";
 import Image from "next/image";
+import { Button } from "./ui/button";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -150,13 +151,19 @@ export const Products = ({ products, title }) => {
                       width={250}
                       height={250}
                     />
+                    {/* Button that appears on hover */}
+                    <button
+                      onClick={() => handleAddToCart(product)}
+                      className="absolute bottom-0 right-0 bg-black hover:bg-black/80 text-white text-sm font-semibold p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    >
+                      <ShoppingBag className="w-4 h-4"/>
+                    </button>
                   </div>
                   <hr />
                   <div className="space-y-1.5 mt-2">
                     <div className="text-sm text-muted-foreground">{product.category}</div>
                     <div className="font-semibold">{product.brand}</div>
                     <div className="text-sm line-clamp-1">{product.title}</div>
-                    
                     <div className="flex items-baseline gap-2">
                       <span className="font-bold">$ {discountedPrice}</span>
                       {product.discount > 0 && (
