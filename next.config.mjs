@@ -31,6 +31,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'benmusic.ma',
       },
+      {
+        protocol: 'https',
+        hostname: 'readymadeui.com',
+      },
     ],
   },
 };

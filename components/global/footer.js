@@ -1,6 +1,7 @@
 import Link from "next/link";
 import LogoWhite from "@/images/Logo-White.png";
 import Image from "next/image"
+import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 export const Footer = () => {
   const navigationItems = [
@@ -65,13 +66,13 @@ export const Footer = () => {
   ];
 
   return (
-    <div className="w-full px-4 py-14 lg:py-20 bg-black text-white">
-      <div className="container mx-auto max-w-7xl">
+    <div className="w-full bg-black text-white">
+      <div className="container px-4 py-10 md:py-12 lg:py-14 mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           <div className="flex gap-8 flex-col items-start">
             <div className="flex gap-2 flex-col">
               <Link href="/">
-                <Image width={200} height={100} src={LogoWhite} alt="Logo" className="w-36 md:w-40 lg:w-44 xl:w-48" />
+                <Image width={200} height={100} src={LogoWhite} alt="Logo" className="w-28 md:w-32 lg:w-36" />
               </Link>
               <p className="max-w-lg leading-relaxed tracking-tight text-background/75 text-left">
                 Dj Stage the music store number one in Morocco.
@@ -107,6 +108,31 @@ export const Footer = () => {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+      <hr className="border-gray-300"/>
+      <div className="container px-4 py-4 lg:py-6 mx-auto max-w-7xl">
+        <div className="flex justify-between items-center max-lg:flex-col text-center flex-wrap gap-4">
+          <p className="text-sm leading-loose">
+            DJ Stage. All rights reserved {new Date().getFullYear()}.
+          </p>
+          <ul className="flex space-x-6 gap-y-2 max-lg:justify-center flex-wrap">
+            <li>
+              <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600">
+                <FaFacebookF className="w-4 h-4 lg:w-5 lg:h-5"/>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400">
+                <FaTwitter className="w-4 h-4 lg:w-5 lg:h-5" />
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500">
+                <FaInstagram className="w-4 h-4 lg:w-5 lg:h-5" />
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

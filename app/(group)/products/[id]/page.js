@@ -3,6 +3,7 @@
 
 import axios from 'axios';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
@@ -37,7 +38,7 @@ export default function Products() {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
           {products.map((product) => (
-            <div key={product.id} className="">
+            <Link href={`/product-details/${product.id}`} key={product.id} className="">
               <div className="flex items-center justify-between gap-x-6 border hover:shadow rounded-xl px-3 md:px-4 lg:px-6 py-3">
                 {product.images ? (
                   <Image
@@ -54,7 +55,7 @@ export default function Products() {
                   <h3 className="text-base font-bold text-gray-800">{product.title}</h3>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

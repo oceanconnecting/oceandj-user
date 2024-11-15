@@ -1,37 +1,52 @@
-import React from 'react'
-import Drum from '@/images/Drums.png'
-import Image from 'next/image'
-import Link from 'next/link'
+import React from 'react';
+import Drum from '@/images/Drums.png';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export const Deal = () => {
   return (
-    <section className='bg-black'>
-      {/* Container */}
-      <div className="mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-14 py-8 md:py-12 lg:py-16">
-        {/* Component */}
-        <div className="grid items-center gap-6 md:gap-8 lg:gap-20 lg:grid-cols-2">
-          <div className="mx-auto">
-            <Image
-              src={Drum}
-              alt=""
-              className="mx-auto inline-block h-full w-full max-w-md lg:max-w-2xl object-cover"
-            />
+    <div className="relative bg-black text-white overflow-hidden">
+
+      <div className="px-4 py-8 lg:py-4 max-w-7xl mx-auto grid md:grid-cols-2 gap-x-12 gap-y-8 items-center">
+        <div className="relative aspect-square flex items-center justify-center">
+          <Image
+            src={Drum}
+            alt="Alesis Turbo Mesh 8pcs Electric Drum Kit"
+            width={500}
+            height={500}
+            className="object-contain"
+          />
+        </div>
+        <div className="space-y-6">
+          <div className="space-y-4">
+            <p className="text-gray-400 text-sm md:text-base font-semibold">DEAL OF THE WEEK</p>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold">
+              ALESIS <span className="text-yellow-500">TURBO MESH</span>
+              <br />
+              8PCS DRUM KIT
+            </h1>
           </div>
-          <div className='text-center lg:text-start'>
-            <h1 className="text-white mb-4 text-base font-bold md:text-lg">Deal of the week</h1>
-            <h1 className="text-white mb-4 text-xl font-bold md:text-2xl lg:text-3xl">ALESIS TURBO MESH 8PCS DRUM KIT</h1>
-            <p className="mx-auto lg:mx-0 mb-4 max-w-lg text-xs text-gray-200 md:text-sm md:mb-6 lg:mb-8">
-              Discover the Alesis Turbo Mesh 8pcs Electric Drum Kit at Melodica Music Store, 
-              now available at its lowest price ever! Ideal for both home and studio use 
-              Boasting 10 Premium Drum Kits from BFD and expandable outputs for additional 
-              kits, it&apos;s perfect for any musical style.
+
+          <p className="text-gray-300 line-clamp-4">
+            Discover the Alesis Turbo Mesh 8pcs Electric Drum Kit at Melodica Music Store,
+            now available at its lowest price ever! Ideal for both home and studio use.
+            now available at its lowest price ever! Ideal for both home and studio use.
+            now available at its lowest price ever! Ideal for both home and studio use.
+            now available at its lowest price ever! Ideal for both home and studio use.
+          </p>
+
+          <div className="space-y-4">
+            <p className="text-red-500 font-bold text-xl">GET EXTRA 66% OFF</p>
+            <p className="text-2xl md:text-4xl font-semibold text-yellow-500">
+              $499<span className="ml-2 text-lg text-muted-foreground line-through text-white">$1299</span>
             </p>
-            <Link href="/" className="inline-block mx-auto items-center rounded-full bg-white px-6 md:px-7 lg:px-8 py-2.5 text-center text-sm font-medium text-black">
-              Buy now
-            </Link>
           </div>
+
+          <button className="bg-white text-black hover:bg-gray-200 px-6 py-2 rounded-full font-semibold">
+            BUY NOW
+          </button>
         </div>
       </div>
-    </section>
-  )
-}
+    </div>
+  );
+};

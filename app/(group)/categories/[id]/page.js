@@ -36,26 +36,26 @@ export default function Categories() {
             </h3>
           </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-2">
           {categories.map((category) => (
             <div key={category.id} className="">
-              <Link href={`/products/${category.id}`} className="flex items-center justify-between gap-x-6 border hover:shadow rounded-xl px-3 md:px-4 lg:px-6 py-3">
-                {category.image ? (
-                  <Image
-                    width={100}
-                    height={100}
-                    src={category.image} 
-                    alt={category.title} 
-                    className="h-10 w-10 md:h-12 md:w-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16" 
-                  />
-                ) : (
-                  <div className="h-10 w-10 md:h-12 md:w-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 bg-gray-200"></div>
-                )}
-                <div className="pr-4">
-                  <h3 className="text-base font-bold text-gray-800">{category.title}</h3>
-                </div>
-              </Link>
-            </div>
+            <Link href={`/products/${category.id}`} className="grid">
+              <div className="mx-auto w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 xl:w-36 xl:h-36 flex items-center justify-center rounded-full bg-slate-100 overflow-hidden">
+                <Image
+                  width={100}
+                  height={100}
+                  src={category.image}
+                  alt={category.title}
+                  className="object-contain"
+                />
+              </div>
+              <div>
+                <h3 className="text-base text-center font-bold text-gray-800">
+                  {category.title}
+                </h3>
+              </div>
+            </Link>
+          </div>
           ))}
         </div>
       </div>

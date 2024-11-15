@@ -91,11 +91,6 @@ export default function Example() {
                   </DropdownMenuContent>
                 </DropdownMenu>
 
-                <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
-                  <Grid className="h-5 w-5" aria-hidden="true" />
-                  <span className="sr-only">View grid</span>
-                </button>
-
                 {/* Mobile filter sheet */}
                 <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
                   <SheetTrigger asChild>
@@ -191,7 +186,6 @@ export default function Example() {
     </div>
   )
 }
-
 function Search() {
   const [products, setProducts] = useState([]);
 
@@ -200,6 +194,7 @@ function Search() {
       try {
         const response = await axios.get("https://admin-djstage.vercel.app/api/products/list-products");
         setProducts(response.data.products);
+        console.log(response.data.products);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -209,35 +204,47 @@ function Search() {
 
   return (
     <div className="md:col-span-3 w-full container mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 pl-0 lg:pl-5 py-5">
-      {products.map((product) => (
-        <div key={product.id} className="rounded-lg border border-gray-300 bg-white p-5 shadow-sm">
-          <div className="h-56 w-full border-b border-gray-300">
-            <Image
-              width={200}
-              height={200}
-              className="mx-auto h-full"
-              src={product.images[0]}
-              alt={product.name}
-            />
-          </div>
-          <div className="pt-5">
-            <Link href={`/product-details/${product.id}`} className="text-lg font-semibold leading-tight text-gray-900 hover:underline">
-              {product.title}
-            </Link>
-            <div className="mt-3 flex items-center justify-between gap-3">
-              <p className="text-2xl font-bold">
-                <span>${product.price}</span>
-              </p>
-              <button
-                type="button"
-                className="border border-black inline-flex items-center gap-x-1 rounded-full bg-black hover:bg-white p-2 text-sm font-medium text-white hover:text-black"
-              >
-                <Plus className="w-5 h-5" />
-              </button>
+      {products.map((product) => {
+        const discountedPrice = (product.price * (1 - product.discount / 100)).toFixed(2);
+        return (
+          <div key={product.id} className="group relative flex flex-col border px-5 py-3 mr-4">
+            {product.discount > 0 && (
+              <div className="absolute z-20 top-2 right-2 bg-[#F5C872] text-black text-xs font-semibold px-2 py-1 rounded">
+                {product.discount}% OFF
+              </div>
+            )}
+            <div className="group aspect-square relative mb-4 overflow-hidden">
+              {product.images ? (
+                <Image
+                  src={product.images[0]}
+                  alt={product.title}
+                  className="w-full h-full object-contain group-hover:scale-125"
+                  width={250}
+                  height={250}
+                />
+              ) : (
+                <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
+                  No Image
+                </div>
+              )}
+            </div>
+            <div className="space-y-1.5">
+              <div className="text-sm text-muted-foreground">{product.category.title}</div>
+              <div className="font-semibold">{product.brand.title}</div>
+              <Link href={`/product-details/${product.title}`} className="text-sm line-clamp-1">{product.title}</Link>
+              
+              <div className="flex items-baseline gap-2">
+                <span className="font-bold">$ {discountedPrice}</span>
+                {product.discount > 0 && (
+                  <span className="text-sm text-muted-foreground line-through text-red-600">
+                    $ {product.price.toFixed(2)}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

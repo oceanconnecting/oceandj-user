@@ -80,3 +80,29 @@ body {
 .slick-prev:before, .slick-next:before {
   content: none !important;
 }
+/* Customize Slick slider dots */
+.slick-dots {
+  bottom: -20px; /* Adjusts the position of dots below the slider */
+}
+
+.slick-dots li button:before {
+  font-size: 10px;
+  color: #CED5D8; /* Inactive dot color */
+  opacity: 1;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #facc15; /* Active dot color */
+  opacity: 1;
+  font-size: 12px; /* Slightly larger size for active dot */
+}
+
+/* Optional: Add spacing and shape to dots */
+.slick-dots li {
+  margin: 0 4px; /* Space between dots */
+}
+
+.slick-dots li button:before {
+  content: '●'; /* Custom dot shape */
+  transition: all 0.3s ease; /* Smooth transition on active change */
+}

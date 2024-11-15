@@ -6,11 +6,13 @@ import { addToCart } from '@/lib/features/cart/cartSlice';
 import { useAppDispatch } from '@/lib/hooks';
 import axios from 'axios';
 import { Minus, Plus, ShoppingCart } from 'lucide-react';
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react'
 
 export default function ProductDetails() {
   const { id } = useParams(); 
+  console.log(id)
   const [product, setProduct] = useState({});
   const [selectedImage, setSelectedImage] = useState('');
   const dispatch = useAppDispatch();
@@ -24,7 +26,7 @@ export default function ProductDetails() {
       try {
         const response = await axios.get(`https://admin-djstage.vercel.app/api/products/product-details/${id}`);
         setProduct(response.data.product);
-        setSelectedImage(response.data.product.images[0]); // Set the first image as default
+        setSelectedImage(response.data.product.images[0]);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

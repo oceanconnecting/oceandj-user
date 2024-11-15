@@ -1,30 +1,29 @@
 import { BestSellers } from "@/components/home/best-sellers";
-import { Companies } from "@/components/home/companies";
+import { Brands } from "@/components/home/brands";
 import { Types } from "@/components/home/types";
 import { Slide } from "@/components/home/slide";
-import { Discount } from "@/components/home/discount";
-import { LastNews } from "@/components/home/last-news";
 import { Features } from "@/components/home/features";
 import { News } from "@/components/home/news";
 import { Deal } from "@/components/home/deal";
-import Testimonial from "@/components/home/testimonial";
+import { WhatsappButton } from "@/components/global/whatsapp-button";
+import { Testimonial } from "@/components/home/testimonial";
 
 export default function Home() {
   return (
-    <div>
+    <main>
       <Slide />
       <Features />
       <Types />
       <BestSellers />
-      {/* <Companies /> */}
       <BestSellers />
       <Deal />
       <BestSellers />
-      {/* <Discount /> */}
+      <Brands />
       <BestSellers />
-      {/* <Testimonial /> */}
-      {/* <LastNews /> */}
-      {/* <News /> */}
-    </div>
+      <BestSellers />
+      <Testimonial />
+      <News />
+      <WhatsappButton />
+    </main>
   );
 }
