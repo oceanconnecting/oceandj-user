@@ -59,7 +59,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function SearchContent() {
+export default function ProductsContent() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
   return (
@@ -178,7 +178,7 @@ export default function SearchContent() {
                 </div>
               </div>
               {/* Remaining layout and product grid here */}
-              <Search />
+              <Products />
             </div>
           </main>
         </div>
@@ -187,13 +187,13 @@ export default function SearchContent() {
   )
 }
 
-function Search() {
+function Products() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://admin-djstage.vercel.app/api/products/list-products");
+        const response = await axios.get("https://admin-djstage.vercel.app/api/products/list-products?categoryId=${id}");
         setProducts(response.data.products);
         console.log(response.data.products);
       } catch (error) {

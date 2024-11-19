@@ -105,11 +105,11 @@ export const Navbar = () => {
         {/* Search Bar */}
         <div className="hidden lg:flex items-center w-full mr-14">
           <div className="flex items-center w-full border bg-gray-100 rounded-full shadow-sm px-4 max-w-2xl mx-auto">
-            <Search className="text-gray-600 w-6 h-6" />
+            <Search className={`text-gray-600 ${scrolled ? "w-5 h-5" : "w-6 h-6"}`} />
             <input
               type="search"
               placeholder="Search for products..."
-              className="w-full bg-transparent outline-none text-gray-600 px-4 py-2.5"
+              className={`w-full bg-transparent outline-none text-gray-600 px-4 ${scrolled ? "py-2" : "py-2.5"}`}
             />
           </div>
         </div>
@@ -119,9 +119,9 @@ export const Navbar = () => {
           <Link href="/cart" className="text-gray-700">
             <ShoppingCart className="w-6 h-6" />
           </Link>
-          <Link href="/liked" className="text-gray-700">
+          {/* <Link href="/liked" className="text-gray-700">
             <Heart className="w-6 h-6" />
-          </Link>
+          </Link> */}
           <button
             aria-label="Toggle Menu"
             className="lg:hidden"

@@ -86,7 +86,6 @@ function SamplePrevArrow(props) {
     </div>
   );
 }
-
 export const Products = ({ products, title }) => {
   const settings = {
     dots: false,
@@ -103,41 +102,54 @@ export const Products = ({ products, title }) => {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-        }
+        },
       },
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 2,
-        }
+        },
       },
       {
         breakpoint: 1280,
         settings: {
           slidesToShow: 4,
           slidesToScroll: 2,
-        }
+        },
       },
-    ]
+    ],
   };
-  
+
   return (
     <section className="px-4 py-10 md:py-12 lg:py-14">
       <div className="mx-auto max-w-screen-xl">
-        <div className="flex items-end justify-between pb-6">
-          <div className="flex flex-col space-y-3">
-            <h2 className="max-w-sm text-2xl md:text-3xl lg:text-4xl text-start text-black font-bold leading-[1.1]">
+        <div className="flex items-center justify-center pb-6">
+          <div className="text-center pb-6">
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-4xl">
               {title}
-            </h2>
+            </h1>
+            <p className="mt-4 text-muted-foreground">
+              Discover the best skateboarding gear from stores around the world
+            </p>
           </div>
         </div>
         <div className="mb-4 md:mb-8 space-x-4">
           <Slider {...settings} className="flex items-center gap-4">
             {products.map((product) => {
-              const discountedPrice = (product.price * (1 - product.discount / 100)).toFixed(2);
+              const discountedPrice = (
+                product.price * (1 - product.discount / 100)
+              ).toFixed(2);
+              const imageSrc =
+                product.images && product.images.length > 0
+                  ? product.images[0]
+                  : "/placeholder-image.png"; // Provide a fallback image
+
               return (
-                <div key={product.id} className="group relative flex flex-col border px-5 py-3 mr-4">
+                <div
+                  key={product.id}
+                  className="group relative flex flex-col border px-5 py-3 mr-4"
+                >
                   {product.discount > 0 && (
                     <div className="absolute z-20 top-2 right-2 bg-[#F5C872] text-black text-xs font-semibold px-2 py-1 rounded">
                       {product.discount}% OFF
@@ -145,30 +157,31 @@ export const Products = ({ products, title }) => {
                   )}
                   <div className="aspect-square relative mb-4">
                     <Image
-                      src={product.image}
-                      alt={product.title}
+                      src={imageSrc}
+                      alt={product.title || "Product Image"}
                       className="w-full h-full object-contain"
                       width={250}
                       height={250}
                     />
-                    {/* Button that appears on hover */}
                     <button
                       onClick={() => handleAddToCart(product)}
                       className="absolute bottom-0 right-0 bg-black hover:bg-black/80 text-white text-sm font-semibold p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                     >
-                      <ShoppingBag className="w-4 h-4"/>
+                      <ShoppingBag className="w-4 h-4" />
                     </button>
                   </div>
                   <hr />
                   <div className="space-y-1.5 mt-2">
-                    <div className="text-sm text-muted-foreground">{product.category}</div>
-                    <div className="font-semibold">{product.brand}</div>
+                    <div className="text-sm text-muted-foreground">
+                      {product.category.title}
+                    </div>
+                    <div className="font-semibold">{product.brand.title}</div>
                     <div className="text-sm line-clamp-1">{product.title}</div>
                     <div className="flex items-baseline gap-2">
-                      <span className="font-bold">$ {discountedPrice}</span>
+                      <span className="font-bold">${discountedPrice}</span>
                       {product.discount > 0 && (
                         <span className="text-sm text-muted-foreground line-through text-red-600">
-                          $ {product.price.toFixed(2)}
+                          ${product.price.toFixed(2)}
                         </span>
                       )}
                     </div>
@@ -179,11 +192,14 @@ export const Products = ({ products, title }) => {
           </Slider>
         </div>
         <div className="flex items-center justify-end">
-          <Link href="/types" className="text-sm flex gap-1 text-gray-500 hover:translate-x-1 hover:text-black transition-all">
+          <Link
+            href="/types"
+            className="text-sm flex gap-1 text-gray-500 hover:translate-x-1 hover:text-black transition-all"
+          >
             Shop the collection <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};

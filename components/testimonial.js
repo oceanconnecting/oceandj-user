@@ -78,31 +78,40 @@ export const Testimonial = () => {
 
       <Slider {...settings}>
         {testimonials.map((testimonial, index) => (
-            <div key={index} className="px-2">
-                <div className="p-6 rounded-lg mx-auto bg-gray-100 relative">
-                    <div className="flex space-x-1">
-                    {[...Array(5)].map((_, i) => (
-                        <svg
-                        key={i}
-                        className={`w-4 ${i < testimonial.rating ? 'fill-[#facc15]' : 'fill-[#CED5D8]'}`}
-                        viewBox="0 0 14 13"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        >
-                        <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                        </svg>
-                    ))}
-                    </div>
-
-                    <div className="mt-4">
-                    <p className="text-gray-800 text-sm leading-relaxed">{testimonial.feedback}</p>
-                    </div>
-
-                    <div className="mt-4 flex flex-wrap items-center gap-4">
-                        <p className="mt-0.5 text-xs font-semibold text-gray-600">{testimonial.role}</p>
-                    </div>
+            <div key={index} className="p-4">
+            <div className="bg-white rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg border border-gray-100">
+              <div className="p-6">
+                <div className="flex items-center mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <svg
+                      key={i}
+                      className={`w-5 h-5 ${
+                        i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'
+                      }`}
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
                 </div>
+          
+                <blockquote className="mt-4 text-gray-700 text-sm leading-relaxed italic">
+                  &quot;{testimonial.feedback}&quot;
+                </blockquote>
+          
+                <div className="mt-6 flex items-center space-x-3">
+                  <div className="flex-shrink-0">
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-900">{testimonial.name}</p>
+                    <p className="text-xs text-gray-500">{testimonial.role}</p>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         ))}
       </Slider>
     </div>

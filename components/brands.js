@@ -10,7 +10,7 @@ export const Brands = () => {
   useEffect(() => {
     const fetchBrands = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/brands/list-brands');
+        const response = await fetch('https://admin-djstage.vercel.app/api/brands/list-brands');
         const data = await response.json();
         setBrands(data.brands);
         console.log(data);
@@ -26,9 +26,14 @@ export const Brands = () => {
     <section className="py-6 bg-white md:py-9 lg:py-12">
       <div className="px-4 mx-auto max-w-screen-xl md:px-6 lg:px-8">
 
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 pb-2">Shop by brand</h2>
-        </div>
+        <div className="text-center pb-6">
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-4xl">
+              Buy by Brands
+            </h1>
+            <p className="mt-4 text-muted-foreground">
+              Discover the best skateboarding gear from stores around the world
+            </p>
+          </div>
 
         <div className="grid items-center w-full grid-cols-3 mx-auto mt-4 md:mt-5 lg:mt-6 md:grid-cols-4 lg:grid-cols-6 gap-2">
           {brands.map((brand, index) => (

@@ -68,15 +68,18 @@ export const Types = () => {
     return <div>No types available.</div>;
   }
 
+  console.log(types);
+  
+
   return (
-    <section className="space-y-10 px-4 py-8 md:py-10 lg:py-12">
+    <section className="space-y-10 px-4 py-12 md:py-14 lg:py-16">
       <div className="mx-auto md:max-w-4xl lg:max-w-7xl">
         <div className="flex items-end justify-between pb-6">
           <div className="flex flex-col space-y-3">
-            <h2 className="max-w-sm text-3xl md:text-4xl text-start text-black font-bold leading-[1.1]">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-4xl">
               Featured Types
             </h2>
-            <h3 className="leading-normal text-muted-foreground text-sm md:text-base sm:leading-7">
+            <h3 className="lmt-4 text-muted-foreground">
               Find the best skateboarding gears from stores around the world
             </h3>
           </div>
