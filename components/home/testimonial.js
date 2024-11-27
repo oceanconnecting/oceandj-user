@@ -91,7 +91,9 @@
 //         {testimonials.map((testimonial, index) => (
 //           <div key={index} className="p-6 rounded-lg mx-auto bg-gray-100 relative">
 //             <div className="flex flex-wrap items-center gap-4">
-//               <img
+//               <Image
+//                 width={1000}
+//                 height={1000}
 //                 src={testimonial.image}
 //                 alt={testimonial.name}
 //                 className="w-14 h-14 rounded-full border-4 border-white"

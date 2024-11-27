@@ -1,20 +1,24 @@
 "use client";
 
+import React, { Suspense } from "react";
 import Link from "next/link";
 import SearchContent from "@/components/content/search-content";
 import { useSearchParams } from "next/navigation";
 
 export default function BrandsPage() {
-  const searchParams = useSearchParams();
-  const query = searchParams.get("query");
-  console.log(query);
   return (
     <div className="min-h-screen">
       <div className="bg-gray-50 border-b">
-        <nav aria-label="breadcrumb" className="py-6 px-4 mx-auto w-full max-w-7xl">
+        <nav
+          aria-label="breadcrumb"
+          className="py-6 px-4 mx-auto w-full max-w-7xl"
+        >
           <ol className="flex items-center space-x-2 text-sm">
             <li>
-              <Link href="/" className="text-gray-500 hover:text-black font-medium" >
+              <Link
+                href="/"
+                className="text-gray-500 hover:text-black font-medium"
+              >
                 Home
               </Link>
             </li>
@@ -40,7 +44,15 @@ export default function BrandsPage() {
           </ol>
         </nav>
       </div>
-      <SearchContent query={query} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <SearchQueryWrapper />
+      </Suspense>
     </div>
   );
+}
+
+function SearchQueryWrapper() {
+  const searchParams = useSearchParams();
+  const query = searchParams.get("query");
+  return <SearchContent query={query} />;
 }

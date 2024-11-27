@@ -129,7 +129,9 @@ export default function ProductDetails() {
       <div className="px-4 w-full md:my-10 flex flex-col lg:flex-row items-center justify-evenly max-w-7xl mx-auto gap-x-10">
         <div className="px-4 grid gap-4 max-w-3xl">
           <div className="flex items-center justify-center">
-            <img
+            <Image
+              width={1000}
+              height={1000}
               src={selectedImage}
               alt="Selected product"
               className="w-[20rem] h-[20rem] md:w-[26rem] md:h-[26rem] object-contain rounded-lg"
@@ -137,7 +139,9 @@ export default function ProductDetails() {
           </div>
           <div className="grid grid-cols-5 gap-4">
             {product.images?.map((image, index) => (
-              <img
+              <Image
+                width={1000}
+                height={1000}
                 key={index}
                 src={image}
                 alt={`Product thumbnail ${index + 1}`}

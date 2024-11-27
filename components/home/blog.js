@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+import Image from 'next/image'
 import React from 'react'
 
 export const Blog = () => {
@@ -19,7 +21,9 @@ export const Blog = () => {
               href="#"
               className="flex flex-col gap-4 rounded-md border border-solid border-gray-300 px-4 py-8 md:p-0"
             >
-              <img
+              <Image
+                width={1000}
+                height={1000}
                 src="https://firebasestorage.googleapis.com/v0/b/flowspark-1f3e0.appspot.com/o/Tailspark%20Images%2FPlaceholder%20Image.svg?alt=media&token=375a1ea3-a8b6-4d63-b975-aac8d0174074"
                 alt=""
                 className="h-60 object-cover"
@@ -42,7 +46,9 @@ export const Blog = () => {
               href="#"
               className="flex flex-col gap-4 rounded-md border border-solid border-gray-300 px-4 py-8 md:p-0"
             >
-              <img
+              <Image
+                width={1000}
+                height={1000}
                 src="https://firebasestorage.googleapis.com/v0/b/flowspark-1f3e0.appspot.com/o/Tailspark%20Images%2FPlaceholder%20Image.svg?alt=media&token=375a1ea3-a8b6-4d63-b975-aac8d0174074"
                 alt=""
                 className="h-60 object-cover"
@@ -65,7 +71,9 @@ export const Blog = () => {
               href="#"
               className="flex flex-col gap-4 rounded-md border border-solid border-gray-300 px-4 py-8 md:p-0"
             >
-              <img
+              <Image
+                width={1000}
+                height={1000}
                 src="https://firebasestorage.googleapis.com/v0/b/flowspark-1f3e0.appspot.com/o/Tailspark%20Images%2FPlaceholder%20Image.svg?alt=media&token=375a1ea3-a8b6-4d63-b975-aac8d0174074"
                 alt=""
                 className="h-60 object-cover"
