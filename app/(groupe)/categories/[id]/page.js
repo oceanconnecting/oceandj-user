@@ -12,8 +12,32 @@ export default function Categories() {
   const [categories, setCategories] = useState([]);
   const { id } = useParams();
   const [products, setProducts] = useState([]);
+  const [type, setType] = useState();
   const [loading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://admin-djstage.vercel.app/api/categories/category-details/${id}`
+        );
+
+        if (response.data && response.data.products) {
+          setProducts(response.data.products);
+        } else {
+          throw new Error("Invalid response format");
+        }
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setError(err.message || "Failed to load data.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +48,8 @@ export default function Categories() {
 
         if (response.data && response.data.products) {
           setProducts(response.data.products);
+          console.log(response.data.products);
+          setType(response.data.products[0].category.type.title || "Not found");
         } else {
           throw new Error("Invalid response format");
         }
@@ -50,10 +76,12 @@ export default function Categories() {
     if (id) fetchData();
   }, [id]);
 
+  console.log(type);
+
   return (
     <div className='min-h-screen'>
       <div className="bg-gray-50 border-b">
-          <nav aria-label="breadcrumb" className="py-6 px-4 mx-auto w-full max-w-7xl">
+        <nav aria-label="breadcrumb" className="py-6 px-4 mx-auto w-full max-w-7xl">
             <ol className="flex items-center space-x-2 text-sm">
               <li>
                 <Link href="/" className="text-gray-500 hover:text-black font-medium" >
@@ -77,12 +105,12 @@ export default function Categories() {
                 </svg>
               </li>
               <li aria-current="page" className="text-black">
-                Search
+                {type ? type : 'Loading...'}
               </li>
             </ol>
-          </nav>
+        </nav>
       </div>
-      <section className='space-y-16 px-6 pb-10 md:px-8 lg:px-10 pt-8 md:pt-10 lg:pt-12'>
+      <section className='space-y-16 px-6 pb-10 md:px-8 lg:px-10 pt-8 md:pt-10 lg:pt-12 mb-10'>
         <div className="mx-auto md:max-w-4xl lg:max-w-7xl">
           {/* Featured Types */}
           <div className="text-center pb-9">
@@ -169,8 +197,7 @@ export default function Categories() {
                     <div className="text-sm text-muted-foreground">
                       {product.category.title}
                     </div>
-                    <div className="font-semibold">{product.brand.title}</div>
-                    <div className="text-sm line-clamp-1">{product.title}</div>
+                    <Link href={`/product-details/${product.id}`} className="text-sm line-clamp-1 font-semibold hover:underline">{product.title}</Link>
                     <div className="flex items-baseline gap-2">
                       <span className="font-bold">${discountedPrice}</span>
                       {product.discount > 0 && (

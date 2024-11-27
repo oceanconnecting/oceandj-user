@@ -1,98 +1,108 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image"
+import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { ChevronDown, Filter } from "lucide-react";
 import axios from "axios";
-import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion'
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu'
-import { ChevronDown, Filter } from 'lucide-react'
-
-const sortOptions = [
-  { name: 'Most Popular', href: '#', current: true },
-  { name: 'Best Rating', href: '#', current: false },
-  { name: 'Newest', href: '#', current: false },
-  { name: 'Price: Low to High', href: '#', current: false },
-  { name: 'Price: High to Low', href: '#', current: false },
-]
-
-const filters = [
-  {
-    id: 'color',
-    name: 'Color',
-    options: [
-      { value: 'white', label: 'White', checked: false },
-      { value: 'beige', label: 'Beige', checked: false },
-      { value: 'blue', label: 'Blue', checked: true },
-      { value: 'brown', label: 'Brown', checked: false },
-      { value: 'green', label: 'Green', checked: false },
-      { value: 'purple', label: 'Purple', checked: false },
-    ],
-  },
-  {
-    id: 'category',
-    name: 'Category',
-    options: [
-      { value: 'new-arrivals', label: 'New Arrivals', checked: false },
-      { value: 'sale', label: 'Sale', checked: false },
-      { value: 'travel', label: 'Travel', checked: true },
-      { value: 'organization', label: 'Organization', checked: false },
-      { value: 'accessories', label: 'Accessories', checked: false },
-    ],
-  },
-  {
-    id: 'size',
-    name: 'Size',
-    options: [
-      { value: '2l', label: '2L', checked: false },
-      { value: '6l', label: '6L', checked: false },
-      { value: '12l', label: '12L', checked: false },
-      { value: '18l', label: '18L', checked: false },
-      { value: '20l', label: '20L', checked: false },
-      { value: '40l', label: '40L', checked: true },
-    ],
-  },
-]
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
-export default function ProductsContent() {
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+export default function ProductsContent({ category }) {
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [brands, setBrands] = useState([]);
+  const [selectedBrand, setSelectedBrand] = useState(null);
+  const [selectedSort, setSelectedSort] = useState(null);
+  const router = useRouter();
+  const [products, setProducts] = useState([]);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let apiUrl = `https://admin-djstage.vercel.app/api/products/list-products?categoryId=${category.id}`;
+
+        if (selectedSort) {
+          apiUrl += `&sort=${selectedSort}`;
+        }
+        if (selectedBrand) {
+          apiUrl += `&brandId=${selectedBrand}`;
+        }
+
+        const response = await axios.get(apiUrl);
+        setProducts(response.data.products);
+
+        console.log(response.data.products);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [category, brands, selectedBrand, selectedSort]);
+
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const response = await fetch("https://admin-djstage.vercel.app/api/brands/list-brands");
+        const data = await response.json();
+        setBrands(data.brands);
+      } catch (error) {
+        console.error("Failed to fetch brands:", error);
+      }
+    };
+
+    fetchBrands();
+  }, []);
+
+  useEffect(() => {
+    const url = new URL(window.location);
+    if (selectedBrand) {
+      url.searchParams.set("selectedBrand", selectedBrand);
+    } else {
+      url.searchParams.delete("selectedBrand");
+    }
+    if (selectedSort) {
+      url.searchParams.set("sort", selectedSort);
+    } else {
+      url.searchParams.delete("sort");
+    }
+    router.push(`${url.pathname}${url.search}`, { replace: true });
+  }, [selectedBrand, selectedSort, router]);
+
 
   return (
     <div className="bg-white">
       <div className="flex">
         <div className="flex-1">
-          {/* Main content */}
           <main className="mx-auto max-w-7xl w-full px-4 flex pt-4">
-            {/* Desktop filter sidebar */}
             <aside className="hidden lg:block w-72 pr-6 py-4">
               <h2 className="text-lg font-bold text-gray-900">Filters</h2>
               <form className="mt-2">
                 <h3 className="sr-only">Categories</h3>
-                {filters.map((section) => (
-                  <Accordion type="single" collapsible key={section.id}>
-                    <AccordionItem value={section.id}>
-                      <AccordionTrigger className="font-medium text-gray-900">
-                        {section.name}
-                      </AccordionTrigger>
-                      <AccordionContent className="">
+                {/* Render Filters dynamically here */}
+                {brands.length > 0 && (
+                  <Accordion type="single" collapsible key="brands">
+                    <AccordionItem value="brands">
+                      <AccordionTrigger className="font-medium text-gray-900">Brands</AccordionTrigger>
+                      <AccordionContent>
                         <div className="space-y-2">
-                          {section.options.map((option, optionIdx) => (
-                            <div key={option.value} className="flex items-center">
+                          {brands.map((brand) => (
+                            <div key={brand.id} className="flex items-center">
                               <input
-                                defaultValue={option.value}
-                                defaultChecked={option.checked}
-                                id={`filter-desktop-${section.id}-${optionIdx}`}
-                                name={`${section.id}[]`}
+                                id={`filter-desktop-brands-${brand.id}`}
                                 type="checkbox"
                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                onChange={() => setSelectedBrand(brand.id)}
+                                checked={selectedBrand === brand.id}
                               />
-                              <label htmlFor={`filter-desktop-${section.id}-${optionIdx}`} className="ml-3 text-gray-500">
-                                {option.label}
+                              <label htmlFor={`filter-desktop-brands-${brand.id}`} className="ml-3 text-gray-500">
+                                {brand.title}
                               </label>
                             </div>
                           ))}
@@ -100,12 +110,13 @@ export default function ProductsContent() {
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>
-                ))}
+                )}
               </form>
             </aside>
+
             <div className="mx-auto max-w-5xl w-full pl-0 lg:pl-4 py-5 space-y-5">
-              <div className="flex items-baseline justify-between ">
-                <h1 className="text-sm tracking-tight text-gray-600">Showing 1 – 40 of 267 results</h1>
+              <div className="flex items-baseline justify-between">
+                <h1 className="text-sm tracking-tight text-gray-600">Showing 1 – 40 of {products.length} results</h1>
                 <div className="flex items-center">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -116,10 +127,11 @@ export default function ProductsContent() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="mt-2 w-40 origin-top-right bg-white shadow-2xl ring-1 ring-black ring-opacity-5">
                       {sortOptions.map((option) => (
-                        <DropdownMenuItem as="a" href={option.href} key={option.name} className={classNames(
-                            option.current ? 'font-medium text-gray-900' : 'text-gray-500',
-                            'block px-4 py-2 text-sm'
-                          )}
+                        <DropdownMenuItem
+                          as="button"
+                          key={option.name}
+                          className={classNames(option.current ? 'font-medium text-gray-900' : 'text-gray-500', 'block px-4 py-2 text-sm')}
+                          onClick={() => setSelectedSort(option.value)}
                         >
                           {option.name}
                         </DropdownMenuItem>
@@ -142,66 +154,48 @@ export default function ProductsContent() {
 
                       {/* Filters for mobile */}
                       <form className="">
-                        <h3 className="sr-only">Categories</h3>
-
-                        {filters.map((section) => (
-                  <Accordion type="single" collapsible key={section.id}>
-                    <AccordionItem value={section.id}>
-                      <AccordionTrigger className="font-medium text-gray-900">
-                        {section.name}
-                      </AccordionTrigger>
-                      <AccordionContent className="">
-                        <div className="space-y-2">
-                          {section.options.map((option, optionIdx) => (
-                            <div key={option.value} className="flex items-center">
-                              <input
-                                defaultValue={option.value}
-                                defaultChecked={option.checked}
-                                id={`filter-desktop-${section.id}-${optionIdx}`}
-                                name={`${section.id}[]`}
-                                type="checkbox"
-                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                              />
-                              <label htmlFor={`filter-desktop-${section.id}-${optionIdx}`} className="ml-3 text-gray-500">
-                                {option.label}
-                              </label>
-                            </div>
-                          ))}
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
-                ))}
+                        {brands.length > 0 && (
+                          <Accordion type="single" collapsible key="brands-mobile">
+                            <AccordionItem value="brands-mobile">
+                              <AccordionTrigger className="font-medium text-gray-900">Brands</AccordionTrigger>
+                              <AccordionContent>
+                                <div className="space-y-2">
+                                  {brands.map((brand) => (
+                                    <div key={brand.id} className="flex items-center">
+                                      <input
+                                        id={`filter-mobile-brands-${brand.id}`}
+                                        type="checkbox"
+                                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                        onChange={() => setSelectedBrand(brand.id)}
+                                        checked={selectedBrand === brand.id}
+                                      />
+                                      <label htmlFor={`filter-mobile-brands-${brand.id}`} className="ml-3 text-gray-500">
+                                        {brand.title}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              </AccordionContent>
+                            </AccordionItem>
+                          </Accordion>
+                        )}
                       </form>
                     </SheetContent>
                   </Sheet>
                 </div>
               </div>
-              {/* Remaining layout and product grid here */}
-              <Products />
+
+              {/* Products List */}
+              <Products products={products} />
             </div>
           </main>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-function Products() {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("https://admin-djstage.vercel.app/api/products/list-products?categoryId=${id}");
-        setProducts(response.data.products);
-        console.log(response.data.products);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, []);
+function Products({ products }) {
 
   return (
     <div className="w-full mx-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
@@ -224,20 +218,16 @@ function Products() {
                   height={250}
                 />
               ) : (
-                <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
-                  No Image
-                </div>
+                <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">No Image</div>
               )}
             </div>
             <div className="space-y-2">
               <div className="text-xs text-muted-foreground">{product.category.title}</div>
-              <Link href={`/product-details/${product.title}`} className="hover:underline line-clamp-1 font-semibold">{product.title}</Link>              
+              <Link href={`/product-details/${product.title}`} className="text-sm line-clamp-1 font-semibold hover:underline">{product.title}</Link>
               <div className="flex items-baseline gap-2">
                 <span className="font-bold">${discountedPrice}</span>
                 {product.discount > 0 && (
-                  <span className="text-sm text-muted-foreground line-through text-red-600">
-                    ${product.price.toFixed(2)}
-                  </span>
+                  <span className="text-sm text-muted-foreground line-through text-red-600">${product.price.toFixed(2)}</span>
                 )}
               </div>
             </div>
@@ -247,3 +237,12 @@ function Products() {
     </div>
   );
 }
+
+const sortOptions = [
+  { name: 'Price: Low to High', value: 'price.asc', current: false },
+  { name: 'Price: High to Low', value: 'price.desc', current: false },
+  { name: 'Newest', value: 'dateAdded.desc', current: true },
+  { name: 'Oldest', value: 'dateAdded.asc', current: false },
+  { name: 'Discount: High to Low', value: 'discount.desc', current: false },
+  { name: 'Discount: Low to High', value: 'discount.asc', current: false },
+];

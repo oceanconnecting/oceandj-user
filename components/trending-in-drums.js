@@ -18,7 +18,6 @@ export const TrendingInDrums = () => {
 
         if (response.data && response.data.products) {
           setProducts(response.data.products);
-          console.log(response.data.products);
         } else {
           throw new Error("Invalid response format");
         }

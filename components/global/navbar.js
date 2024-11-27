@@ -9,7 +9,6 @@ import {
   X,
   Search,
   ShoppingCart,
-  Heart,
   ChevronDown,
 } from "lucide-react";
 import {
@@ -19,6 +18,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import LogoBlack from "@/images/Logo-Black.png";
+import { useRouter } from "next/navigation";
 
 export const Navbar = () => {
   const [types, setTypes] = useState([]);
@@ -27,6 +27,20 @@ export const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const router = useRouter();
+
+  const handleSearch = () => {
+    if (searchTerm.trim()) {
+      router.push(`/search?query=${encodeURIComponent(searchTerm)}`);
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   const navigationItems = [
     { title: "Brands", href: "/" },
@@ -105,11 +119,21 @@ export const Navbar = () => {
         {/* Search Bar */}
         <div className="hidden lg:flex items-center w-full mr-14">
           <div className="flex items-center w-full border bg-gray-100 rounded-full shadow-sm px-4 max-w-2xl mx-auto">
-            <Search className={`text-gray-600 ${scrolled ? "w-5 h-5" : "w-6 h-6"}`} />
+            <Search
+              className={`text-gray-600 ${scrolled ? "w-5 h-5" : "w-6 h-6"}`}
+              onClick={handleSearch}
+            />
             <input
-              type="search"
+              type="text"
               placeholder="Search for products..."
               className={`w-full bg-transparent outline-none text-gray-600 px-4 ${scrolled ? "py-2" : "py-2.5"}`}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  handleSearch();
+                }
+              }}
             />
           </div>
         </div>
@@ -119,9 +143,6 @@ export const Navbar = () => {
           <Link href="/cart" className="text-gray-700">
             <ShoppingCart className="w-6 h-6" />
           </Link>
-          {/* <Link href="/liked" className="text-gray-700">
-            <Heart className="w-6 h-6" />
-          </Link> */}
           <button
             aria-label="Toggle Menu"
             className="lg:hidden"
@@ -144,42 +165,15 @@ export const Navbar = () => {
             Home
           </Link>
 
-          <div
-            className="relative"
-            onMouseEnter={() => setDropdownOpen(true)}
-            onMouseLeave={() => setDropdownOpen(false)}
-          >
-            <button className={`${dropdownOpen ? "text-yellow-500" : "text-white"} font-semibold px-3 flex items-center transition-all duration-300 ${
-              scrolled ? "py-3" : "py-4"
-            }`}>
-              Types
-            </button>
-            {dropdownOpen && types.length > 0 && (
-              <ul className="absolute left-0 bg-white shadow-lg rounded-lg text-gray-700 p-2 w-48 z-10">
-                {types.map((type) => (
-                  <li key={type.id}>
-                    <Link
-                      href={`/categories/${type.id}`}
-                      className="block text-sm px-4 py-2 rounded hover:bg-gray-200 hover:text-black"
-                      onClick={() => setDropdownOpen(false)}
-                    >
-                      {type.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-
-          {navigationItems.map((item) => (
+          {types.map((type) => (
             <Link
-              key={item.title}
-              href={item.href}
+              key={type.title}
+              href={`/categories/${type.id}`}
               className={`font-semibold hover:text-yellow-500 px-3 transition-all duration-300 ${
                 scrolled ? "py-3" : "py-4"
               }`}
             >
-              {item.title}
+              {type.title}
             </Link>
           ))}
         </div>
@@ -195,47 +189,19 @@ export const Navbar = () => {
             {/* Home Link */}
             <Link
               href="/"
-              className="text-lg text-gray-800 hover:text-yellow-500 transition-colors duration-300"
+              className="text-gray-800 hover:text-yellow-500 transition-colors duration-300"
             >
               Home
             </Link>
 
-            {/* Dropdown for Types */}
-            <div>
-              <button
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="w-full flex items-center justify-between text-lg text-gray-800 hover:text-yellow-500 transition-colors duration-300"
-              >
-                Types
-                <ChevronDown
-                  className={`ml-2 h-5 w-5 text-gray-600 transition-transform duration-300 ${
-                    dropdownOpen ? "rotate-180" : "rotate-0"
-                  }`}
-                />
-              </button>
-              {dropdownOpen && (
-                <div className="mt-2 space-y-2">
-                  {types.map((type) => (
-                    <Link
-                      key={type.id}
-                      href={`/categories/${type.id}`}
-                      className="block text-gray-700 hover:text-black hover:bg-gray-100 py-2 px-3 rounded transition-colors duration-300"
-                    >
-                      {type.title}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
             {/* Navigation Items */}
-            {navigationItems.map((item) => (
-              <Link
-                key={item.title}
-                href={item.href}
-                className="text-lg text-gray-800 hover:text-yellow-500 transition-colors duration-300"
+            {types.map((type) => (
+            <Link
+              key={type.title}
+              href={`/categories/${type.id}`}
+              className="text-gray-800 hover:text-yellow-500 transition-colors duration-300"
               >
-                {item.title}
+                {type.title}
               </Link>
             ))}
           </div>

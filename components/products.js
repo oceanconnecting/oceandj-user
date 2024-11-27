@@ -2,12 +2,13 @@
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import React from 'react';
-import { ArrowRight, ShoppingBag } from 'lucide-react';
-import Link from 'next/link';
+import React from "react";
+import { ArrowRight, ShoppingBag } from "lucide-react";
+import Link from "next/link";
 import Slider from "react-slick";
 import Image from "next/image";
-import { Button } from "./ui/button";
+import { useAppDispatch } from "@/lib/hooks";
+import { addToCart } from "@/lib/features/cart/cartSlice";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -86,7 +87,18 @@ function SamplePrevArrow(props) {
     </div>
   );
 }
+
 export const Products = ({ products, title }) => {
+  const dispatch = useAppDispatch();
+
+  const handleAddToCart = (product) => {
+    const productWithQuantity = {
+      ...product,
+      quantity: 1,
+    };
+    dispatch(addToCart(productWithQuantity));
+  };
+
   const settings = {
     dots: false,
     infinite: true,
@@ -143,7 +155,7 @@ export const Products = ({ products, title }) => {
               const imageSrc =
                 product.images && product.images.length > 0
                   ? product.images[0]
-                  : "/placeholder-image.png"; // Provide a fallback image
+                  : "/placeholder-image.png";
 
               return (
                 <div
@@ -175,8 +187,12 @@ export const Products = ({ products, title }) => {
                     <div className="text-sm text-muted-foreground">
                       {product.category.title}
                     </div>
-                    <div className="font-semibold">{product.brand.title}</div>
-                    <div className="text-sm line-clamp-1">{product.title}</div>
+                    <Link
+                      href={`/product-details/${product.title}`}
+                      className="text-sm line-clamp-1 font-semibold hover:underline"
+                    >
+                      {product.title}
+                    </Link>
                     <div className="flex items-baseline gap-2">
                       <span className="font-bold">${discountedPrice}</span>
                       {product.discount > 0 && (

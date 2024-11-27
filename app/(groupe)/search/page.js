@@ -1,7 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import SearchContent from "@/components/content/search-content";
+import { useSearchParams } from "next/navigation";
 
 export default function BrandsPage() {
+  const searchParams = useSearchParams();
+  const query = searchParams.get("query");
+  console.log(query);
   return (
     <div className="min-h-screen">
       <div className="bg-gray-50 border-b">
@@ -34,7 +40,7 @@ export default function BrandsPage() {
           </ol>
         </nav>
       </div>
-      <SearchContent />
+      <SearchContent query={query} />
     </div>
   );
 }
