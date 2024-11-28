@@ -11,10 +11,10 @@ import { useRouter } from "next/navigation";
 const sortOptions = [
   { name: 'Newest', value: 'dateAdded.desc' },
   { name: 'Oldest', value: 'dateAdded.asc' },
-  { name: 'Discount: High to Low', value: 'discount.desc' },
-  { name: 'Discount: Low to High', value: 'discount.asc' },
-  { name: 'Price: Low to High', value: 'price.asc' },
-  { name: 'Price: High to Low', value: 'price.desc' },
+  { name: 'High to Low', value: 'discount.desc' },
+  { name: 'Low to High', value: 'discount.asc' },
+  { name: 'Low to High', value: 'price.asc' },
+  { name: 'High to Low', value: 'price.desc' },
 ];
 
 function classNames(...classes) {
@@ -96,7 +96,7 @@ export default function SearchContent({ query }) {
                             value={null}
                             id="filter-desktop-type-all"
                             name="type"
-                            type="radio"
+                            type="checkbox"
                             checked={selectedType === null}
                             onChange={() => setSelectedType(null)}
                             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
@@ -111,7 +111,7 @@ export default function SearchContent({ query }) {
                               value={type.id}
                               id={`filter-desktop-type-${idx}`}
                               name="type"
-                              type="radio"
+                              type="checkbox"
                               checked={selectedType === type.id}
                               onChange={() => setSelectedType(type.id)}
                               className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
@@ -135,7 +135,7 @@ export default function SearchContent({ query }) {
                               value={null}
                               id="filter-desktop-brand-all"
                               name="brand"
-                              type="radio"
+                              type="checkbox"
                               checked={selectedBrand === null}
                               onChange={() => setSelectedBrand(null)}
                               className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
@@ -150,7 +150,7 @@ export default function SearchContent({ query }) {
                                 value={brand.id}
                                 id={`filter-desktop-brand-${idx}`}
                                 name="brand"
-                                type="radio"
+                                type="checkbox"
                                 checked={selectedBrand === brand.id}
                                 onChange={() => setSelectedBrand(brand.id)}
                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
@@ -169,7 +169,8 @@ export default function SearchContent({ query }) {
 
             <div className="mx-auto max-w-5xl w-full pl-0 lg:pl-4 py-5 space-y-5">
               <div className="flex items-baseline justify-between">
-                <h1 className="text-sm tracking-tight text-gray-600">Showing 1 – 40 of 267 results</h1>
+                {/* <h1 className="text-sm tracking-tight text-gray-600">Showing 1 – 40 of 267 results</h1> */}
+                <h1 className="text-sm tracking-tight text-gray-600"></h1>
                 <div className="flex items-center">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -205,10 +206,7 @@ export default function SearchContent({ query }) {
                         <span className="sr-only">Filters</span>
                       </button>
                     </SheetTrigger>
-                    <SheetContent
-                      side="left"
-                      className="flex flex-col h-full w-full max-w-xs overflow-y-auto bg-white py-4 shadow-xl"
-                    >
+                    <SheetContent side="left" className="flex flex-col h-full w-full max-w-xs overflow-y-auto bg-white py-4 shadow-xl">
                       <SheetHeader>
                         <SheetTitle>Filters</SheetTitle>
                       </SheetHeader>
@@ -299,7 +297,7 @@ export default function SearchContent({ query }) {
                   </Sheet>
                 </div>
               </div>
-              <Search query={query} selectedType={selectedType} selectedBrand={selectedBrand} selectedSort={selectedSort} />
+              <Search query={query} selectedType={selectedType} selectedBrand={selectedBrand} selectedSort={selectedSort}/>
             </div>
           </main>
         </div>

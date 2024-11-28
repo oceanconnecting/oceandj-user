@@ -19,13 +19,15 @@ export default function ProductsContent({ category }) {
   const [brands, setBrands] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState(null);
   const [selectedSort, setSelectedSort] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const router = useRouter();
   const [products, setProducts] = useState([]);
   
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let apiUrl = `https://admin-djstage.vercel.app/api/products/list-products?categoryId=${category.id}`;
+        let apiUrl = `https://admin-djstage.vercel.app/api/products/list-products?categoryId=${category.id}&page=${currentPage}&limit=40`;
 
         if (selectedSort) {
           apiUrl += `&sort=${selectedSort}`;
@@ -36,6 +38,7 @@ export default function ProductsContent({ category }) {
 
         const response = await axios.get(apiUrl);
         setProducts(response.data.products);
+        setTotalPages(response.data.totalPages || 1);
 
         console.log(response.data.products);
       } catch (error) {
@@ -44,7 +47,13 @@ export default function ProductsContent({ category }) {
     };
 
     fetchData();
-  }, [category, brands, selectedBrand, selectedSort]);
+  }, [category, brands, selectedBrand, selectedSort, currentPage]);
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
 
   useEffect(() => {
     const fetchBrands = async () => {
@@ -88,20 +97,38 @@ export default function ProductsContent({ category }) {
                 {/* Render Filters dynamically here */}
                 {brands.length > 0 && (
                   <Accordion type="single" collapsible key="brands">
-                    <AccordionItem value="brands">
-                      <AccordionTrigger className="font-medium text-gray-900">Brands</AccordionTrigger>
+                    <AccordionItem value="brand">
+                      <AccordionTrigger className="font-medium text-gray-900">
+                        Brands
+                      </AccordionTrigger>
                       <AccordionContent>
                         <div className="space-y-2">
-                          {brands.map((brand) => (
-                            <div key={brand.id} className="flex items-center">
+                          <div className="flex items-center">
                               <input
-                                id={`filter-desktop-brands-${brand.id}`}
+                                value={null}
+                                id="filter-mobile-brand-all"
+                                name="brand"
                                 type="checkbox"
+                                checked={selectedBrand === null}
+                                onChange={() => setSelectedBrand(null)}
                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                onChange={() => setSelectedBrand(brand.id)}
-                                checked={selectedBrand === brand.id}
                               />
-                              <label htmlFor={`filter-desktop-brands-${brand.id}`} className="ml-3 text-gray-500">
+                              <label htmlFor="filter-mobile-brand-all" className="ml-3 text-gray-500">
+                                All
+                              </label>
+                          </div>
+                          {brands.map((brand, idx) => (
+                            <div key={brand.id || idx} className="flex items-center">
+                              <input
+                                value={brand.id}
+                                id={`filter-mobile-brand-${idx}`}
+                                name="brand"
+                                type="checkbox"
+                                checked={selectedBrand === brand.id}
+                                onChange={() => setSelectedBrand(brand.id)}
+                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                              />
+                              <label htmlFor={`filter-mobile-brand-${idx}`} className="ml-3 text-gray-500">
                                 {brand.title}
                               </label>
                             </div>
@@ -116,7 +143,8 @@ export default function ProductsContent({ category }) {
 
             <div className="mx-auto max-w-5xl w-full pl-0 lg:pl-4 py-5 space-y-5">
               <div className="flex items-baseline justify-between">
-                <h1 className="text-sm tracking-tight text-gray-600">Showing 1 – 40 of {products.length} results</h1>
+                {/* <h1 className="text-sm tracking-tight text-gray-600">Showing 1 – 40 of {products.length} results</h1> */}
+                <h1 className="text-sm tracking-tight text-gray-600"></h1>
                 <div className="flex items-center">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -139,7 +167,6 @@ export default function ProductsContent({ category }) {
                     </DropdownMenuContent>
                   </DropdownMenu>
 
-                  {/* Mobile filter sheet */}
                   <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
                     <SheetTrigger asChild>
                       <button onClick={() => setMobileFiltersOpen(true)} className="lg:hidden -m-2 ml-4 p-2 text-gray-400 hover:text-gray-500">
@@ -152,24 +179,41 @@ export default function ProductsContent({ category }) {
                         <SheetTitle>Filters</SheetTitle>
                       </SheetHeader>
 
-                      {/* Filters for mobile */}
                       <form className="">
                         {brands.length > 0 && (
                           <Accordion type="single" collapsible key="brands-mobile">
-                            <AccordionItem value="brands-mobile">
-                              <AccordionTrigger className="font-medium text-gray-900">Brands</AccordionTrigger>
+                            <AccordionItem value="brand">
+                              <AccordionTrigger className="font-medium text-gray-900">
+                                Brands
+                              </AccordionTrigger>
                               <AccordionContent>
                                 <div className="space-y-2">
-                                  {brands.map((brand) => (
-                                    <div key={brand.id} className="flex items-center">
+                                  <div className="flex items-center">
                                       <input
-                                        id={`filter-mobile-brands-${brand.id}`}
+                                        value={null}
+                                        id="filter-mobile-brand-all"
+                                        name="brand"
                                         type="checkbox"
+                                        checked={selectedBrand === null}
+                                        onChange={() => setSelectedBrand(null)}
                                         className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                        onChange={() => setSelectedBrand(brand.id)}
-                                        checked={selectedBrand === brand.id}
                                       />
-                                      <label htmlFor={`filter-mobile-brands-${brand.id}`} className="ml-3 text-gray-500">
+                                      <label htmlFor="filter-mobile-brand-all" className="ml-3 text-gray-500">
+                                        All
+                                      </label>
+                                  </div>
+                                  {brands.map((brand, idx) => (
+                                    <div key={brand.id || idx} className="flex items-center">
+                                      <input
+                                        value={brand.id}
+                                        id={`filter-mobile-brand-${idx}`}
+                                        name="brand"
+                                        type="checkbox"
+                                        checked={selectedBrand === brand.id}
+                                        onChange={() => setSelectedBrand(brand.id)}
+                                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                      />
+                                      <label htmlFor={`filter-mobile-brand-${idx}`} className="ml-3 text-gray-500">
                                         {brand.title}
                                       </label>
                                     </div>
@@ -185,8 +229,7 @@ export default function ProductsContent({ category }) {
                 </div>
               </div>
 
-              {/* Products List */}
-              <Products products={products} />
+              <Products products={products} currentPage={currentPage} totalPages={totalPages} handlePageChange={handlePageChange} />
             </div>
           </main>
         </div>
@@ -195,45 +238,66 @@ export default function ProductsContent({ category }) {
   );
 }
 
-function Products({ products }) {
+function Products({ products, currentPage, totalPages, handlePageChange }) {
 
   return (
-    <div className="w-full mx-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-      {products.map((product) => {
-        const discountedPrice = (product.price * (1 - product.discount / 100)).toFixed(2);
-        return (
-          <div key={product.id} className="group relative flex flex-col border px-5 py-3">
-            {product.discount > 0 && (
-              <div className="absolute z-20 top-2 right-2 bg-[#F5C872] text-black text-xs font-semibold px-2 py-1 rounded">
-                {product.discount}% OFF
-              </div>
-            )}
-            <div className="aspect-square relative mb-4 overflow-hidden">
-              {product.images ? (
-                <Image
-                  src={product.images[0]}
-                  alt={product.title}
-                  className="w-full h-full object-contain duration-500 hover:scale-125"
-                  width={250}
-                  height={250}
-                />
-              ) : (
-                <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">No Image</div>
+    <div className="w-full mx-auto">
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+        {products.map((product) => {
+          const discountedPrice = (product.price * (1 - product.discount / 100)).toFixed(2);
+          return (
+            <div key={product.id} className="group relative flex flex-col border px-5 py-3">
+              {product.discount > 0 && (
+                <div className="absolute z-20 top-2 right-2 bg-[#F5C872] text-black text-xs font-semibold px-2 py-1 rounded">
+                  {product.discount}% OFF
+                </div>
               )}
-            </div>
-            <div className="space-y-2">
-              <div className="text-xs text-muted-foreground">{product.category.title}</div>
-              <Link href={`/product-details/${product.title}`} className="text-sm line-clamp-1 font-semibold hover:underline">{product.title}</Link>
-              <div className="flex items-baseline gap-2">
-                <span className="font-bold">${discountedPrice}</span>
-                {product.discount > 0 && (
-                  <span className="text-sm text-muted-foreground line-through text-red-600">${product.price.toFixed(2)}</span>
+              <div className="aspect-square relative mb-4 overflow-hidden">
+                {product.images ? (
+                  <Image
+                    src={product.images[0]}
+                    alt={product.title}
+                    className="w-full h-full object-contain duration-500 hover:scale-125"
+                    width={250}
+                    height={250}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">No Image</div>
                 )}
               </div>
+              <div className="space-y-2">
+                <div className="text-xs text-muted-foreground">{product.category.title}</div>
+                <Link href={`/product-details/${product.title}`} className="text-sm line-clamp-1 font-semibold hover:underline">{product.title}</Link>
+                <div className="flex items-baseline gap-2">
+                  <span className="font-bold">${discountedPrice}</span>
+                  {product.discount > 0 && (
+                    <span className="text-sm text-muted-foreground line-through text-red-600">${product.price.toFixed(2)}</span>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
+      <div className="flex justify-center items-center mt-12 gap-4">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="px-4 py-2 bg-black text-white rounded-full hover:bg-black/80"
+        >
+          Previous
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 bg-black text-white rounded-full hover:bg-black/80"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }
