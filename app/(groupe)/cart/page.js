@@ -112,12 +112,6 @@ export default function Cart() {
                       <div className="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
                         <p className="text-base font-medium text-gray-900">{item.title}k</p>
                         <div className="flex items-center gap-5">
-                          <button
-                            type="button"
-                            className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-900 hover:underline"
-                          >
-                            <Heart className="w-4 h-4 mr-1"/> Add to Favorites
-                          </button>
                           <Dialog>
                             <DialogTrigger asChild>
                               <button

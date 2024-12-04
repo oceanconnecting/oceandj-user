@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/sheet";
 import LogoBlack from "@/images/Logo-Black.png";
 import { useRouter } from "next/navigation";
+import { useAppSelector } from "@/lib/hooks";
 
 export const Navbar = () => {
   const [types, setTypes] = useState([]);
@@ -29,6 +30,9 @@ export const Navbar = () => {
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const router = useRouter();
+
+  const totalQuantity = useAppSelector((state) => state.cart.totalQuantity);
+
 
   const handleSearch = () => {
     if (searchTerm.trim()) {
@@ -140,8 +144,13 @@ export const Navbar = () => {
 
         {/* Icons */}
         <div className="flex items-center space-x-5">
-          <Link href="/cart" className="text-gray-700">
+          <Link href="/cart" className="text-gray-700 relative">
             <ShoppingCart className="w-6 h-6" />
+            {totalQuantity > 0 && (
+              <span className="absolute -top-4 -right-3 bg-red-500 text-white rounded-full px-1.5 py-0.5 text-xs">
+                {totalQuantity}
+              </span>
+            )}
           </Link>
           <button
             aria-label="Toggle Menu"
