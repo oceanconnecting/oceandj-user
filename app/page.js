@@ -16,6 +16,8 @@ import { Footer } from "@/components/global/footer";
 import { Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { GoogleAnalytics } from '@next/third-parties/google'
+import Script from "next/script";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -42,6 +44,25 @@ export default function Home() {
 
   return (
     <>
+      <GoogleAnalytics gaId="G-27HTVW5LYH" />
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=G-27HTVW5LYH`}
+        strategy="afterInteractive"
+      />
+      <Script
+        id="google-analytics"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-27HTVW5LYH', {
+              page_path: window.location.pathname,
+            });
+          `,
+        }}
+      />
       {isLoading ? (
         <div className="h-screen flex items-center justify-center">
           <Loader2 className="w-10 h-10 animate-spin" />
