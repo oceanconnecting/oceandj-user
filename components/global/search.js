@@ -42,6 +42,7 @@ export default function Search({ query, selectedType, selectedBrand, selectedSor
     }
   };
 
+  if (products.length === 0) return <p className="text-center pt-12">No products found.</p>;
   return (
     <div className="w-full mx-auto">
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
@@ -73,7 +74,7 @@ export default function Search({ query, selectedType, selectedBrand, selectedSor
                 <div className="text-xs text-muted-foreground">
                   {product.category.title}
                 </div>
-                <Link href={`/product-details/${product.id}`} className="text-sm line-clamp-1 font-semibold hover:underline">
+                <Link href={`/product-details/${product.title}`} className="text-sm line-clamp-1 font-semibold hover:underline">
                   {product.title}
                 </Link>
                 <div className="flex items-baseline gap-2">

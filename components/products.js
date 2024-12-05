@@ -207,14 +207,14 @@ export const Products = ({ products, title }) => {
             })}
           </Slider>
         </div>
-        <div className="flex items-center justify-end">
+        {/* <div className="flex items-center justify-end">
           <Link
-            href="/types"
+            href={`/search?query=&sort=dateAdded.desc`}
             className="text-sm flex gap-1 text-gray-500 hover:translate-x-1 hover:text-black transition-all"
           >
             Shop the collection <ArrowRight className="w-5 h-5" />
           </Link>
-        </div>
+        </div> */}
       </div>
     </section>
   );

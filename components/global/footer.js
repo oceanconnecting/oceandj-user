@@ -6,15 +6,11 @@ import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 export const Footer = () => {
   const navigationItems = [
     {
-      title: "Menu",
+      title: "Useful Links",
       description: "",
       items: [
         {
           title: "Home",
-          href: "/",
-        },
-        {
-          title: "Products",
           href: "/",
         },
         {
@@ -28,38 +24,20 @@ export const Footer = () => {
       ],
     },
     {
-      title: "Company",
-      description: "Managing a small business today is already tough.",
-      items: [
-        {
-          title: "Reports",
-          href: "/reports",
-        },
-        {
-          title: "Statistics",
-          href: "/statistics",
-        },
-        {
-          title: "Dashboards",
-          href: "/dashboards",
-        },
-      ],
-    },
-    {
-      title: "Terms",
+      title: "Legal",
       description: "Managing a small business today is already tough.",
       items: [
         {
           title: "Privacy Policy",
-          href: "/",
+          href: "/privacy-policy",
         },
         {
           title: "Terms & Conditions",
-          href: "/",
+          href: "/terms-and-conditions",
         },
         {
           title: "Licenses",
-          href: "/",
+          href: "/licenses",
         },
       ],
     },

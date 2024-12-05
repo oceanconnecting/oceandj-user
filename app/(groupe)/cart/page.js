@@ -164,10 +164,10 @@ export default function Cart() {
                   <div className="flex items-center justify-center gap-2">
                     <span className="text-sm font-normal text-gray-500"> or </span>
                     <Link
-                      href="/products"
+                      href="/"
                       className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline"
                     >
-                      Continue Shopping
+                      Back to Home
                       <svg
                         className="h-5 w-5"
                         aria-hidden="true"

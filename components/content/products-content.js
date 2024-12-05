@@ -84,7 +84,6 @@ export default function ProductsContent({ category }) {
     router.push(`${url.pathname}${url.search}`, { replace: true });
   }, [selectedBrand, selectedSort, router]);
 
-
   return (
     <div className="bg-white">
       <div className="flex">
@@ -239,7 +238,7 @@ export default function ProductsContent({ category }) {
 }
 
 function Products({ products, currentPage, totalPages, handlePageChange }) {
-
+  if (products.length === 0) return <p className="text-center pt-12">No products found.</p>;
   return (
     <div className="w-full mx-auto">
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4">

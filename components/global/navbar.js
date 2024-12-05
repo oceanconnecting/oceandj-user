@@ -9,7 +9,6 @@ import {
   X,
   Search,
   ShoppingCart,
-  ChevronDown,
 } from "lucide-react";
 import {
   Sheet,
@@ -21,38 +20,20 @@ import LogoBlack from "@/images/Logo-Black.png";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/lib/hooks";
 
-export const Navbar = () => {
-  const [types, setTypes] = useState([]);
+export const Navbar = ({ types, error }) => {
   const [isOpen, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const router = useRouter();
-
+  console.log(types);
+  
   const totalQuantity = useAppSelector((state) => state.cart.totalQuantity);
-
-
   const handleSearch = () => {
     if (searchTerm.trim()) {
       router.push(`/search?query=${encodeURIComponent(searchTerm)}`);
     }
   };
-
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      handleSearch();
-    }
-  };
-
-  const navigationItems = [
-    { title: "Brands", href: "/" },
-    { title: "Hot Deals", href: "/" },
-    { title: "New Arrival", href: "/" },
-    { title: "Bargain Bin", href: "/" },
-  ];
-
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
@@ -67,7 +48,6 @@ export const Navbar = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 32);
@@ -78,24 +58,6 @@ export const Navbar = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://admin-djstage.vercel.app/api/types/list-types?limit=20"
-        );
-        setTypes(response.data.types || []);
-      } catch (err) {
-        console.error("Error fetching data:", err);
-        setError("Failed to load types.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
   }, []);
 
   return (
