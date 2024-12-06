@@ -33,7 +33,7 @@ export const NewsArticles = () => {
     fetchData();
   }, []);
 
-  const title = "Latest News";
+  const title = "News Articles";
 
   if (loading) return <p className="text-center">Loading...</p>;
   if (error) return <p className="text-center text-red-500">{error}</p>;
