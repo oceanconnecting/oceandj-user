@@ -12,35 +12,10 @@ import { TrendingInGuitars } from "@/components/trending-in-guitars";
 import { TrendingInPianos } from "@/components/trending-in-pianos";
 import { TrendingInDrums } from "@/components/trending-in-drums";
 import { TrendingInProAudio } from "@/components/trending-in-pro-audio";
-import { Footer } from "@/components/global/footer";
-import { Loader2 } from "lucide-react";
-import { useState, useEffect } from "react";
-import axios from "axios";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import Script from "next/script";
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [types, setTypes] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://admin-djstage.vercel.app/api/types/list-types?limit=20"
-        );
-        setTypes(response.data.types || []);
-      } catch (err) {
-        console.error("Error fetching data:", err);
-        setError("Failed to load types.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [isLoading]);
 
   return (
     <>
@@ -63,29 +38,18 @@ export default function Home() {
           `,
         }}
       />
-      {isLoading ? (
-        <div className="h-screen flex items-center justify-center">
-          <Loader2 className="w-10 h-10 animate-spin" />
-        </div>
-      ) : (
-        <>
-          <Banner />
-          <Navbar types={types} error={error} />
-          <main>
-            <Slide />
-            <Features />
-            <Types />
-            <BestSelling />
-            <TrendingInGuitars />
-            <TrendingInPianos />
-            <TrendingInDrums />
-            <TrendingInProAudio />
-            <Testimonial />
-            <WhatsappButton />
-          </main>
-          <Footer />
-        </>
-      )}
+      <main>
+        <Slide />
+        <Features />
+        <Types />
+        <BestSelling />
+        {/* <TrendingInGuitars />
+        <TrendingInPianos />
+        <TrendingInDrums />
+        <TrendingInProAudio /> */}
+        <Testimonial />
+        <WhatsappButton />
+      </main>
     </>
   );
 }

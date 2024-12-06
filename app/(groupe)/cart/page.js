@@ -106,7 +106,7 @@ export default function Cart() {
                           </button>
                         </div>
                         <div className="text-end md:order-4 md:w-32">
-                          <p className="text-base font-bold text-gray-900">${item.totalPrice.toFixed(2)}</p>
+                          <p className="text-base font-bold text-gray-900">{item.totalPrice.toFixed(2)} Dhs</p>
                         </div>
                       </div>
                       <div className="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
@@ -152,7 +152,7 @@ export default function Cart() {
                   <div className="space-y-2">
                     <dl className="flex items-center justify-between gap-4">
                       <dt className="text-base font-normal text-gray-500">Total Price</dt>
-                      <dd className="text-base font-medium text-gray-900">${totalAmount}</dd>
+                      <dd className="text-base font-medium text-gray-900">{totalAmount} Dhs</dd>
                     </dl>
                   </div>
                   <Link

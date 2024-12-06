@@ -20,13 +20,33 @@ import Logo from "@/images/Logo.jpeg";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/lib/hooks";
 
-export const Navbar = ({ types, error }) => {
+export const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const router = useRouter();
-  console.log(types);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [types, setTypes] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://admin-djstage.vercel.app/api/types/list-types?limit=20"
+        );
+        setTypes(response.data.types || []);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setError("Failed to load types.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [isLoading]);
   
   const totalQuantity = useAppSelector((state) => state.cart.totalQuantity);
   const handleSearch = () => {
