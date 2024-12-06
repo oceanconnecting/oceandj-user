@@ -165,13 +165,13 @@ export default function ProductDetails() {
           </p>
           <div className="mt-7 flex justify-between items-center lg:flex-col lg:items-start">
             <div className="flex items-center gap-3 transition-colors">
-              <strong className="text-3xl">${discountedPrice.toFixed(2)}</strong>
+              <strong className="text-3xl">{discountedPrice.toFixed(2)} Dhs</strong>
               <span className="bg-yellow-100 rounded px-2 text-base text-yellow-500 font-bold dark:bg-yellow-700 dark:text-yellow-200 transition-colors">
                 %{product.discount}
               </span>
             </div>
             <del className="text-lg text-red-500 transition-colors">
-              ${product.price}
+              {product.price.toFixed(2)} Dhs
             </del>
           </div>
           <div className="flex items-center justify-center lg:justify-start gap-4 mt-9">
