@@ -16,7 +16,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import LogoBlack from "@/images/Logo-Black.png";
+import Logo from "@/images/Logo.jpeg";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/lib/hooks";
 
@@ -65,19 +65,19 @@ export const Navbar = ({ types, error }) => {
       {/* Logo and Search */}
       <div
         className={`container mx-auto flex items-center justify-between px-4 max-w-7xl transition-all duration-300 ${
-          scrolled ? "py-4 md:py-4.5 lg:py-3" : "py-4 md:py-4.5 lg:py-4"
+          scrolled ? "py-2" : "py-2"
         }`}
       >
         <Link href="/" className="flex-shrink-0">
           <Image
-            src={LogoBlack}
+            src={Logo}
             alt="Logo"
             width={120}
             height={80}
             className={`transition-all duration-300 ${
               scrolled
-                ? "w-[6rem] md:w-[6.5rem] lg:w-[7.5rem]"
-                : "w-[6.5rem] md:w-[7.5rem] lg:w-[8.5rem]"
+                ? "w-[3.5rem] md:w-[4.5rem]"
+                : "w-[3.5rem] md:w-[4.5rem]"
             }`}
           />
         </Link>

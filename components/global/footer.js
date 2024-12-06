@@ -1,5 +1,5 @@
 import Link from "next/link";
-import LogoWhite from "@/images/Logo-White.png";
+import Logo from "@/images/Logo.jpeg";
 import Image from "next/image"
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 
@@ -50,7 +50,7 @@ export const Footer = () => {
           <div className="flex gap-8 flex-col items-start">
             <div className="flex gap-2 flex-col">
               <Link href="/">
-                <Image width={200} height={100} src={LogoWhite} alt="Logo" className="w-28 md:w-32 lg:w-36" />
+                <Image width={200} height={100} src={Logo} alt="Logo" className="w-20 md:w-24 lg:w-28" />
               </Link>
               <p className="max-w-lg leading-relaxed tracking-tight text-background/75 text-left">
                 Dj Stage the music store number one in Morocco.
@@ -58,7 +58,7 @@ export const Footer = () => {
             </div>
             <div className="flex gap-20 flex-row">
               <div className="flex flex-col text-sm max-w-lg leading-relaxed tracking-tight text-background/75 text-left">
-                <p>Phone: 0123-456-789</p>
+                <p>Phone: +212 657-011638</p>
                 <p>Email: dj-stage@gmail.com</p>
                 <p>Address: Agadir, Morocco </p>
               </div>

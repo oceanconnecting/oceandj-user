@@ -194,10 +194,10 @@ export const Products = ({ products, title }) => {
                       {product.title}
                     </Link>
                     <div className="flex items-baseline gap-2">
-                      <span className="font-bold">${discountedPrice}</span>
+                      <span className="font-bold">{discountedPrice} Dhs</span>
                       {product.discount > 0 && (
                         <span className="text-sm text-muted-foreground line-through text-red-600">
-                          ${product.price.toFixed(2)}
+                          {product.price.toFixed(2)} Dhs
                         </span>
                       )}
                     </div>

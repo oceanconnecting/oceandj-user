@@ -50,7 +50,7 @@ export default function Deal({
 
           <div className="space-y-2">
             <p className="text-2xl md:text-4xl font-bold">
-              ${discountedPrice} <span className="ml-2 text-lg text-gray-400 line-through">${originalPrice}</span>
+              {discountedPrice} Dhs <span className="ml-2 text-lg text-gray-400 line-through">{originalPrice} Dhs</span>
             </p>
             <p className="text-green-400 font-bold text-xl">
               Save {discountPercentage}% Today!

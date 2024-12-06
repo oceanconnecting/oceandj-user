@@ -212,7 +212,7 @@ export default function Component() {
                     <h3 className="font-medium">{item.title}</h3>
                     <div className="mt-1 flex items-center justify-between">
                       <span className="text-sm">{item.quantity}x</span>
-                      <span className="font-medium">${item.price.toFixed(2)}</span>
+                      <span className="font-medium">{item.price.toFixed(2)} Dhs</span>
                     </div>
                   </div>
                 </div>
@@ -225,17 +225,17 @@ export default function Component() {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span>Shipping</span>
-                  <span>$0.00</span>
+                  <span>0.00 Dhs</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span>Taxes</span>
-                  <span>$0.00</span>
+                  <span>0.00 Dhs</span>
                 </div>
               </div>
               <hr />
               <div className="flex justify-between font-bold">
                 <span>Total</span>
-                <span>${totalAmount}</span>
+                <span>{totalAmount} Dhs</span>
               </div>
             </CardContent>
           </Card>
