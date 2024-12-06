@@ -14,6 +14,7 @@ import { TrendingInDrums } from "@/components/trending-in-drums";
 import { TrendingInProAudio } from "@/components/trending-in-pro-audio";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import Script from "next/script";
+import { NewsArticles } from "@/components/news-articles";
 
 export default function Home() {
 
@@ -43,6 +44,7 @@ export default function Home() {
         <Features />
         <Types />
         <BestSelling />
+        <NewsArticles />
         {/* <TrendingInGuitars />
         <TrendingInPianos />
         <TrendingInDrums />

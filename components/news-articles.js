@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Products } from "./products";
 import axios from "axios";
 
-export const BestSelling = () => {
+export const NewsArticles = () => {
   const [products, setProducts] = useState([]);
   const [loading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -33,7 +33,7 @@ export const BestSelling = () => {
     fetchData();
   }, []);
 
-  const title = "Best Selling Products";
+  const title = "Latest News";
 
   if (loading) return <p className="text-center">Loading...</p>;
   if (error) return <p className="text-center text-red-500">{error}</p>;
