@@ -171,7 +171,7 @@ export default function ProductDetails() {
               </span>
             </div>
             <del className="text-lg text-red-500 transition-colors">
-              {product.price.toFixed(2)} Dhs
+              {product.price} Dhs
             </del>
           </div>
           <div className="flex items-center justify-center lg:justify-start gap-4 mt-9">

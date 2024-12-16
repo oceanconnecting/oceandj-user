@@ -197,7 +197,7 @@ export default function Categories() {
                     <div className="text-sm text-muted-foreground">
                       {product.category.title}
                     </div>
-                    <Link href={`/product-details/${product.id}`} className="text-sm line-clamp-1 font-semibold hover:underline">{product.title}</Link>
+                    <Link href={`/product-details/${product.title}`} className="text-sm line-clamp-1 font-semibold hover:underline">{product.title}</Link>
                     <div className="flex items-baseline gap-2">
                       <span className="font-bold">{discountedPrice} Dhs</span>
                       {product.discount > 0 && (
