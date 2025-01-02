@@ -9,6 +9,7 @@ import {
   X,
   Search,
   ShoppingCart,
+  ChevronDown,
 } from "lucide-react";
 import {
   Sheet,
@@ -149,24 +150,46 @@ export const Navbar = () => {
         <div className="container mx-auto flex justify-center space-x-6 text-white text-sm">
           <Link
             href="/"
-            className={`font-semibold hover:text-yellow-500 px-3 transition-all duration-300 ${
-              scrolled ? "py-3" : "py-4"
-            }`}
+            className="font-semibold hover:text-yellow-500 px-3 py-4 transition-all duration-300"
           >
             Home
           </Link>
 
-          {types.map((type) => (
-            <Link
-              key={type.title}
-              href={`/categories/${type.id}`}
-              className={`font-semibold hover:text-yellow-500 px-3 transition-all duration-300 ${
-                scrolled ? "py-3" : "py-4"
-              }`}
-            >
-              {type.title}
-            </Link>
-          ))}
+          {/* Dropdown Menu */}
+          <div
+            className="relative"
+            onMouseEnter={() => setDropdownOpen(true)}
+            onMouseLeave={() => setDropdownOpen(false)}
+          >
+            <button className="flex items-center font-semibold hover:text-yellow-500 px-3 py-4 transition-all duration-300">
+              Types <ChevronDown className="ml-1 w-4 h-4" />
+            </button>
+            {dropdownOpen && (
+              <div className="absolute top-full min-w-40 left-0 bg-white shadow-lg rounded-md py-2 text-gray-800">
+                {types.map((type) => (
+                  <Link
+                    key={type.title}
+                    href={`/categories/${type.id}`}
+                    className="block px-4 py-2 hover:bg-gray-100"
+                  >
+                    {type.title}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+          <Link
+            href="/about-us"
+            className="font-semibold hover:text-yellow-500 px-3 py-4 transition-all duration-300"
+          >
+            About Us
+          </Link>
+          <Link
+            href="/contact-us"
+            className="font-semibold hover:text-yellow-500 px-3 py-4 transition-all duration-300"
+          >
+            Contact Us
+          </Link>
         </div>
       </nav>
 
