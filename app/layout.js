@@ -5,6 +5,7 @@ import { Providers } from "@/lib/provider";
 import { Navbar } from "@/components/global/navbar";
 import { Footer } from "@/components/global/footer";
 import Banner from "@/components/global/banner";
+import Script from "next/script";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -38,6 +39,7 @@ export default function RootLayout({ children }) {
           </div>
           <Footer />
         </Providers>
+        <Script src="https://colt-analytics.vercel.app/api/tracker?token=1dd824f9-a77e-436e-947b-49770da375bc" />
       </body>
     </html>
   );
