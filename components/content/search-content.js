@@ -1,24 +1,40 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
-import { ChevronDown, Filter } from 'lucide-react';
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
+import { ChevronDown, Filter } from "lucide-react";
 import Search from "../global/search";
 import { useRouter } from "next/navigation";
 
 const sortOptions = [
-  { name: 'Newest', value: 'dateAdded.desc' },
-  { name: 'Oldest', value: 'dateAdded.asc' },
-  { name: 'High to Low', value: 'discount.desc' },
-  { name: 'Low to High', value: 'discount.asc' },
-  { name: 'Low to High', value: 'price.asc' },
-  { name: 'High to Low', value: 'price.desc' },
+  { name: "Newest", value: "dateAdded.desc" },
+  { name: "Oldest", value: "dateAdded.asc" },
+  { name: "High to Low", value: "discount.desc" },
+  { name: "Low to High", value: "discount.asc" },
+  { name: "Low to High", value: "price.asc" },
+  { name: "High to Low", value: "price.desc" },
 ];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function SearchContent({ query }) {
@@ -33,7 +49,9 @@ export default function SearchContent({ query }) {
   useEffect(() => {
     const fetchTypes = async () => {
       try {
-        const response = await fetch("https://admin-djstage.vercel.app/api/types/list-types");
+        const response = await fetch(
+          "https://oceandj-dashbourd.vercel.app/api/types/list-types"
+        );
         const data = await response.json();
         setTypes(data.types);
       } catch (error) {
@@ -43,7 +61,9 @@ export default function SearchContent({ query }) {
 
     const fetchBrands = async () => {
       try {
-        const response = await fetch("https://admin-djstage.vercel.app/api/brands/list-brands");
+        const response = await fetch(
+          "https://oceandj-dashbourd.vercel.app/api/brands/list-brands"
+        );
         const data = await response.json();
         setBrands(data.brands);
       } catch (error) {
@@ -101,12 +121,18 @@ export default function SearchContent({ query }) {
                             onChange={() => setSelectedType(null)}
                             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                           />
-                          <label htmlFor="filter-desktop-type-all" className="ml-3 text-gray-500">
+                          <label
+                            htmlFor="filter-desktop-type-all"
+                            className="ml-3 text-gray-500"
+                          >
                             All
                           </label>
                         </div>
                         {types.map((type, idx) => (
-                          <div key={type.id || idx} className="flex items-center">
+                          <div
+                            key={type.id || idx}
+                            className="flex items-center"
+                          >
                             <input
                               value={type.id}
                               id={`filter-desktop-type-${idx}`}
@@ -116,7 +142,10 @@ export default function SearchContent({ query }) {
                               onChange={() => setSelectedType(type.id)}
                               className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                             />
-                            <label htmlFor={`filter-desktop-type-${idx}`} className="ml-3 text-gray-500">
+                            <label
+                              htmlFor={`filter-desktop-type-${idx}`}
+                              className="ml-3 text-gray-500"
+                            >
                               {type.title}
                             </label>
                           </div>
@@ -127,41 +156,50 @@ export default function SearchContent({ query }) {
                   <AccordionItem value="brand">
                     <AccordionTrigger className="font-medium text-gray-900">
                       Brands
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="space-y-2">
-                          <div className="flex items-center">
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className="space-y-2">
+                        <div className="flex items-center">
+                          <input
+                            value={null}
+                            id="filter-desktop-brand-all"
+                            name="brand"
+                            type="checkbox"
+                            checked={selectedBrand === null}
+                            onChange={() => setSelectedBrand(null)}
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor="filter-desktop-brand-all"
+                            className="ml-3 text-gray-500"
+                          >
+                            All
+                          </label>
+                        </div>
+                        {brands.map((brand, idx) => (
+                          <div
+                            key={brand.id || idx}
+                            className="flex items-center"
+                          >
                             <input
-                              value={null}
-                              id="filter-desktop-brand-all"
+                              value={brand.id}
+                              id={`filter-desktop-brand-${idx}`}
                               name="brand"
                               type="checkbox"
-                              checked={selectedBrand === null}
-                              onChange={() => setSelectedBrand(null)}
+                              checked={selectedBrand === brand.id}
+                              onChange={() => setSelectedBrand(brand.id)}
                               className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                             />
-                            <label htmlFor="filter-desktop-brand-all" className="ml-3 text-gray-500">
-                              All
+                            <label
+                              htmlFor={`filter-desktop-brand-${idx}`}
+                              className="ml-3 text-gray-500"
+                            >
+                              {brand.title}
                             </label>
                           </div>
-                          {brands.map((brand, idx) => (
-                            <div key={brand.id || idx} className="flex items-center">
-                              <input
-                                value={brand.id}
-                                id={`filter-desktop-brand-${idx}`}
-                                name="brand"
-                                type="checkbox"
-                                checked={selectedBrand === brand.id}
-                                onChange={() => setSelectedBrand(brand.id)}
-                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                              />
-                              <label htmlFor={`filter-desktop-brand-${idx}`} className="ml-3 text-gray-500">
-                                {brand.title}
-                              </label>
-                            </div>
-                          ))}
-                        </div>
-                      </AccordionContent>
+                        ))}
+                      </div>
+                    </AccordionContent>
                   </AccordionItem>
                 </Accordion>
               </form>
@@ -176,7 +214,10 @@ export default function SearchContent({ query }) {
                     <DropdownMenuTrigger asChild>
                       <button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
                         Sort
-                        <ChevronDown className="h-5 w-5 ml-1 flex-shrink-0 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
+                        <ChevronDown
+                          className="h-5 w-5 ml-1 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                          aria-hidden="true"
+                        />
                       </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="mt-2 w-40 origin-top-right bg-white shadow-2xl ring-1 ring-black ring-opacity-5">
@@ -185,8 +226,10 @@ export default function SearchContent({ query }) {
                           as="button"
                           key={option.name}
                           className={classNames(
-                            option.current ? 'font-medium text-gray-900' : 'text-gray-500',
-                            'block px-4 py-2 text-sm'
+                            option.current
+                              ? "font-medium text-gray-900"
+                              : "text-gray-500",
+                            "block px-4 py-2 text-sm"
                           )}
                           onClick={() => setSelectedSort(option.value)}
                         >
@@ -196,7 +239,10 @@ export default function SearchContent({ query }) {
                     </DropdownMenuContent>
                   </DropdownMenu>
 
-                  <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
+                  <Sheet
+                    open={mobileFiltersOpen}
+                    onOpenChange={setMobileFiltersOpen}
+                  >
                     <SheetTrigger asChild>
                       <button
                         onClick={() => setMobileFiltersOpen(true)}
@@ -206,7 +252,10 @@ export default function SearchContent({ query }) {
                         <span className="sr-only">Filters</span>
                       </button>
                     </SheetTrigger>
-                    <SheetContent side="left" className="flex flex-col h-full w-full max-w-xs overflow-y-auto bg-white py-4 shadow-xl">
+                    <SheetContent
+                      side="left"
+                      className="flex flex-col h-full w-full max-w-xs overflow-y-auto bg-white py-4 shadow-xl"
+                    >
                       <SheetHeader>
                         <SheetTitle>Filters</SheetTitle>
                       </SheetHeader>
@@ -220,21 +269,27 @@ export default function SearchContent({ query }) {
                             <AccordionContent>
                               <div className="space-y-2">
                                 <div className="flex items-center">
-                                    <input
-                                      value={null}
-                                      id="filter-mobile-type-all"
-                                      name="type"
-                                      type="radio"
-                                      checked={selectedType === null}
-                                      onChange={() => setSelectedType(null)}
-                                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                    />
-                                    <label htmlFor="filter-mobile-type-all" className="ml-3 text-gray-500">
-                                      All
-                                    </label>
+                                  <input
+                                    value={null}
+                                    id="filter-mobile-type-all"
+                                    name="type"
+                                    type="radio"
+                                    checked={selectedType === null}
+                                    onChange={() => setSelectedType(null)}
+                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                  />
+                                  <label
+                                    htmlFor="filter-mobile-type-all"
+                                    className="ml-3 text-gray-500"
+                                  >
+                                    All
+                                  </label>
                                 </div>
                                 {types.map((type, idx) => (
-                                  <div key={type.id || idx} className="flex items-center">
+                                  <div
+                                    key={type.id || idx}
+                                    className="flex items-center"
+                                  >
                                     <input
                                       value={type.id}
                                       id={`filter-mobile-type-${idx}`}
@@ -244,7 +299,10 @@ export default function SearchContent({ query }) {
                                       onChange={() => setSelectedType(type.id)}
                                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                     />
-                                    <label htmlFor={`filter-mobile-type-${idx}`} className="ml-3 text-gray-500">
+                                    <label
+                                      htmlFor={`filter-mobile-type-${idx}`}
+                                      className="ml-3 text-gray-500"
+                                    >
                                       {type.title}
                                     </label>
                                   </div>
@@ -259,31 +317,42 @@ export default function SearchContent({ query }) {
                             <AccordionContent>
                               <div className="space-y-2">
                                 <div className="flex items-center">
-                                    <input
-                                      value={null}
-                                      id="filter-mobile-brand-all"
-                                      name="brand"
-                                      type="radio"
-                                      checked={selectedBrand === null}
-                                      onChange={() => setSelectedBrand(null)}
-                                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                    />
-                                    <label htmlFor="filter-mobile-brand-all" className="ml-3 text-gray-500">
-                                      All
-                                    </label>
+                                  <input
+                                    value={null}
+                                    id="filter-mobile-brand-all"
+                                    name="brand"
+                                    type="radio"
+                                    checked={selectedBrand === null}
+                                    onChange={() => setSelectedBrand(null)}
+                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                  />
+                                  <label
+                                    htmlFor="filter-mobile-brand-all"
+                                    className="ml-3 text-gray-500"
+                                  >
+                                    All
+                                  </label>
                                 </div>
                                 {brands.map((brand, idx) => (
-                                  <div key={brand.id || idx} className="flex items-center">
+                                  <div
+                                    key={brand.id || idx}
+                                    className="flex items-center"
+                                  >
                                     <input
                                       value={brand.id}
                                       id={`filter-mobile-brand-${idx}`}
                                       name="brand"
                                       type="radio"
                                       checked={selectedBrand === brand.id}
-                                      onChange={() => setSelectedBrand(brand.id)}
+                                      onChange={() =>
+                                        setSelectedBrand(brand.id)
+                                      }
                                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                     />
-                                    <label htmlFor={`filter-mobile-brand-${idx}`} className="ml-3 text-gray-500">
+                                    <label
+                                      htmlFor={`filter-mobile-brand-${idx}`}
+                                      className="ml-3 text-gray-500"
+                                    >
                                       {brand.title}
                                     </label>
                                   </div>
@@ -297,7 +366,12 @@ export default function SearchContent({ query }) {
                   </Sheet>
                 </div>
               </div>
-              <Search query={query} selectedType={selectedType} selectedBrand={selectedBrand} selectedSort={selectedSort}/>
+              <Search
+                query={query}
+                selectedType={selectedType}
+                selectedBrand={selectedBrand}
+                selectedSort={selectedSort}
+              />
             </div>
           </main>
         </div>

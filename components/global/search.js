@@ -3,7 +3,12 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function Search({ query, selectedType, selectedBrand, selectedSort }) {
+export default function Search({
+  query,
+  selectedType,
+  selectedBrand,
+  selectedSort,
+}) {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -11,7 +16,7 @@ export default function Search({ query, selectedType, selectedBrand, selectedSor
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let apiUrl = `https://admin-djstage.vercel.app/api/products/list-products?search=${query}&page=${currentPage}&limit=40`;
+        let apiUrl = `https://oceandj-dashbourd.vercel.app/api/products/list-products?search=${query}&page=${currentPage}&limit=40`;
 
         if (selectedSort) {
           apiUrl += `&sort=${selectedSort}`;
@@ -42,14 +47,21 @@ export default function Search({ query, selectedType, selectedBrand, selectedSor
     }
   };
 
-  if (products.length === 0) return <p className="text-center pt-12">No products found.</p>;
+  if (products.length === 0)
+    return <p className="text-center pt-12">No products found.</p>;
   return (
     <div className="w-full mx-auto">
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
         {products.map((product) => {
-          const discountedPrice = (product.price * (1 - product.discount / 100)).toFixed(2);
+          const discountedPrice = (
+            product.price *
+            (1 - product.discount / 100)
+          ).toFixed(2);
           return (
-            <div key={product.id} className="group relative flex flex-col border px-5 py-3">
+            <div
+              key={product.id}
+              className="group relative flex flex-col border px-5 py-3"
+            >
               {product.discount > 0 && (
                 <div className="absolute z-20 top-2 right-2 bg-[#F5C872] text-black text-xs font-semibold px-2 py-1 rounded">
                   {product.discount}% OFF
@@ -74,7 +86,10 @@ export default function Search({ query, selectedType, selectedBrand, selectedSor
                 <div className="text-xs text-muted-foreground">
                   {product.category.title}
                 </div>
-                <Link href={`/product-details/${product.title}`} className="text-sm line-clamp-1 font-semibold hover:underline">
+                <Link
+                  href={`/product-details/${product.title}`}
+                  className="text-sm line-clamp-1 font-semibold hover:underline"
+                >
                   {product.title}
                 </Link>
                 <div className="flex items-baseline gap-2">

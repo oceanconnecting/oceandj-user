@@ -43,7 +43,7 @@ export default function ProductDetails() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://admin-djstage.vercel.app/api/products/product-details/${id}`
+          `https://oceandj-dashbourd.vercel.app/api/products/product-details/${id}`
         );
         setProduct(response.data.product);
         setBrand(response.data.product.brand);
@@ -60,7 +60,9 @@ export default function ProductDetails() {
   useEffect(() => {
     const fetchRelatedProducts = async () => {
       try {
-        const response = await axios.get(`https://admin-djstage.vercel.app/api/products/list-products?categoryId=${category.id}&limit=5`);
+        const response = await axios.get(
+          `https://oceandj-dashbourd.vercel.app/api/products/list-products?categoryId=${category.id}&limit=5`
+        );
         setRelatedProducts(response.data.products);
       } catch (error) {
         console.error("Error fetching related products:", error);
@@ -81,7 +83,10 @@ export default function ProductDetails() {
         >
           <ol className="flex items-center space-x-2 text-sm">
             <li>
-              <Link href="/" className="text-gray-500 hover:text-black font-medium">
+              <Link
+                href="/"
+                className="text-gray-500 hover:text-black font-medium"
+              >
                 Home
               </Link>
             </li>
@@ -147,7 +152,9 @@ export default function ProductDetails() {
                 alt={`Product thumbnail ${index + 1}`}
                 onClick={() => setSelectedImage(image)}
                 className={`w-16 h-16 object-contain cursor-pointer rounded-lg transition-transform duration-300 ${
-                  selectedImage === image ? "scale-105 border-2 border-yellow-500" : ""
+                  selectedImage === image
+                    ? "scale-105 border-2 border-yellow-500"
+                    : ""
                 }`}
               />
             ))}
@@ -165,7 +172,9 @@ export default function ProductDetails() {
           </p>
           <div className="mt-7 flex justify-between items-center lg:flex-col lg:items-start">
             <div className="flex items-center gap-3 transition-colors">
-              <strong className="text-3xl">{discountedPrice.toFixed(2)} Dhs</strong>
+              <strong className="text-3xl">
+                {discountedPrice.toFixed(2)} Dhs
+              </strong>
               <span className="bg-yellow-100 rounded px-2 text-base text-yellow-500 font-bold dark:bg-yellow-700 dark:text-yellow-200 transition-colors">
                 %{product.discount}
               </span>
@@ -196,16 +205,23 @@ export default function ProductDetails() {
       </div>
       <div className="px-4 mt-20">
         <div className="max-w-7xl mx-auto w-full flex flex-col items-center justify-start border rounded-lg p-4">
-          <h2 className="w-full text-xl font-semibold text-left">Description</h2>
-          <p className="w-full text-sm text-muted-foreground mt-4">{product.description}</p>
+          <h2 className="w-full text-xl font-semibold text-left">
+            Description
+          </h2>
+          <p className="w-full text-sm text-muted-foreground mt-4">
+            {product.description}
+          </p>
         </div>
       </div>
-      <h2 className="px-4 max-w-7xl mx-auto w-full text-3xl font-semibold text-start mt-28">Related Products</h2>
+      <h2 className="px-4 max-w-7xl mx-auto w-full text-3xl font-semibold text-start mt-28">
+        Related Products
+      </h2>
       <div className="px-4 max-w-7xl mx-auto w-full flex flex-col items-center justify-center">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-6 mb-16">
           {relatedProducts.map((product) => {
             const discountedPrice = (
-              product.price * (1 - product.discount / 100)
+              product.price *
+              (1 - product.discount / 100)
             ).toFixed(2);
             const imageSrc =
               product.images && product.images.length > 0

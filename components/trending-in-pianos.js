@@ -13,7 +13,7 @@ export const TrendingInPianos = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://admin-djstage.vercel.app/api/products/list-products?typeId=cm3n4ypg90001ltn8jowa3odl"
+          "https://oceandj-dashbourd.vercel.app/api/products/list-products?typeId=cm3n4ypg90001ltn8jowa3odl"
         );
 
         if (response.data && response.data.products) {
@@ -38,4 +38,4 @@ export const TrendingInPianos = () => {
   if (loading) return <p className="text-center">Loading...</p>;
   if (error) return <p className="text-center text-red-500">{error}</p>;
   return <Products products={products} title={title} />;
-}
+};

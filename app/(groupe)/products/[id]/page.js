@@ -19,7 +19,9 @@ export default function Products() {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await axios.get(`https://admin-djstage.vercel.app/api/products/list-products?categoryId=${id}`);
+        const response = await axios.get(
+          `https://oceandj-dashbourd.vercel.app/api/products/list-products?categoryId=${id}`
+        );
 
         if (response.data && response.data.products) {
           setProducts(response.data.products);
@@ -48,7 +50,10 @@ export default function Products() {
         >
           <ol className="flex items-center space-x-2 text-sm">
             <li>
-              <Link href="/" className="text-gray-500 hover:text-black font-medium">
+              <Link
+                href="/"
+                className="text-gray-500 hover:text-black font-medium"
+              >
                 Home
               </Link>
             </li>

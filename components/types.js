@@ -38,7 +38,7 @@ export const Types = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://admin-djstage.vercel.app/api/types/list-types?limit=20"
+          "https://oceandj-dashbourd.vercel.app/api/types/list-types?limit=20"
         );
 
         if (response.data && response.data.types) {
@@ -69,7 +69,6 @@ export const Types = () => {
   }
 
   console.log(types);
-  
 
   return (
     <section className="space-y-10 px-4 py-12 md:py-14 lg:py-16">
@@ -85,7 +84,10 @@ export const Types = () => {
           </div>
           <div className="hidden md:flex items-center gap-6">
             <div className="flex items-center gap-2">
-              <button className="p-2 rounded-full bg-yellow-500" onClick={previous}>
+              <button
+                className="p-2 rounded-full bg-yellow-500"
+                onClick={previous}
+              >
                 <ChevronLeft className="w-6 h-6 text-white" />
               </button>
               <button className="p-2 rounded-full bg-yellow-500" onClick={next}>
@@ -94,7 +96,12 @@ export const Types = () => {
             </div>
           </div>
         </div>
-        <Slider ref={(slider) => { sliderRef = slider }} {...settings}>
+        <Slider
+          ref={(slider) => {
+            sliderRef = slider;
+          }}
+          {...settings}
+        >
           {types.map((type) => (
             <div key={type.id}>
               <Link href={`/categories/${type.id}`} className="grid">

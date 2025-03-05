@@ -1,21 +1,23 @@
-'use client'
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import confetti from 'canvas-confetti';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import confetti from "canvas-confetti";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { resetCart } from '@/lib/features/cart/cartSlice';
+import { resetCart } from "@/lib/features/cart/cartSlice";
 
 export default function Component() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.itemList);
-  const totalAmount = cartItems.reduce((total, item) => total + item.totalPrice, 0).toFixed(2);
+  const totalAmount = cartItems
+    .reduce((total, item) => total + item.totalPrice, 0)
+    .toFixed(2);
   const router = useRouter();
 
   const triggerConfetti = () => {
@@ -48,54 +50,64 @@ export default function Component() {
 
   const handleOrderSubmit = async (event) => {
     event.preventDefault();
-  
+
     setError(null);
     setLoading(true);
-  
+
     const formData = new FormData(event.target);
     const orderData = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      phone: formData.get('phone'),
-      address: formData.get('address'),
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      address: formData.get("address"),
       products: cartItems.map((item) => ({
         id: item.id,
         quantity: item.quantity,
       })),
     };
-  
+
     try {
-      const response = await fetch('https://admin-djstage.vercel.app/api/orders/add-order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(orderData),
-      });
-  
+      const response = await fetch(
+        "https://oceandj-dashbourd.vercel.app/api/orders/add-order",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(orderData),
+        }
+      );
+
       const result = await response.json();
-  
+
       if (result.success) {
         triggerConfetti();
         dispatch(resetCart());
-        router.push('/congratulations');
+        router.push("/congratulations");
       } else {
-        setError(result.message || 'An error occurred while placing the order.');
+        setError(
+          result.message || "An error occurred while placing the order."
+        );
       }
     } catch (err) {
-      setError('Failed to connect to the server. Please try again.');
-      console.error('Order submission failed:', err);
+      setError("Failed to connect to the server. Please try again.");
+      console.error("Order submission failed:", err);
     } finally {
       setLoading(false);
     }
   };
-  
 
   return (
     <div className="min-h-screen">
       <div className="bg-gray-50 border-b">
-        <nav aria-label="breadcrumb" className="py-6 px-4 mx-auto w-full max-w-7xl">
+        <nav
+          aria-label="breadcrumb"
+          className="py-6 px-4 mx-auto w-full max-w-7xl"
+        >
           <ol className="flex items-center space-x-2 text-sm">
             <li>
-              <Link href="/" className="text-gray-500 hover:text-black font-medium">
+              <Link
+                href="/"
+                className="text-gray-500 hover:text-black font-medium"
+              >
                 Home
               </Link>
             </li>
@@ -107,11 +119,19 @@ export default function Component() {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
             </li>
             <li>
-              <Link href="/cart" className="text-gray-500 hover:text-black font-medium">
+              <Link
+                href="/cart"
+                className="text-gray-500 hover:text-black font-medium"
+              >
                 Cart
               </Link>
             </li>
@@ -123,7 +143,12 @@ export default function Component() {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
             </li>
             <li aria-current="page" className="text-black">
@@ -133,28 +158,30 @@ export default function Component() {
         </nav>
       </div>
       <div className="mx-auto w-full max-w-7xl px-4 py-8 md:py-10 space-y-8">
-        <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">Shipping Address</h1>
+        <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">
+          Shipping Address
+        </h1>
         <div className="grid gap-8 lg:gap-10 lg:grid-cols-2">
           <form className="space-y-6" onSubmit={handleOrderSubmit}>
             <div className="space-y-2">
-              <input 
+              <input
                 id="name"
                 name="name"
                 type="text"
-                placeholder="Full Name" 
-                required 
-                className='border outline-none rounded-full w-full bg-gray-100 text-gray-600 text-sm px-5 py-2 md:py-3 min-w-0' 
+                placeholder="Full Name"
+                required
+                className="border outline-none rounded-full w-full bg-gray-100 text-gray-600 text-sm px-5 py-2 md:py-3 min-w-0"
               />
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-4">
-                <input 
+                <input
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="Email" 
-                  required 
-                  className='border outline-none rounded-full w-full bg-gray-100 text-gray-600 text-sm px-5 py-2 md:py-3 min-w-0' 
+                  placeholder="Email"
+                  required
+                  className="border outline-none rounded-full w-full bg-gray-100 text-gray-600 text-sm px-5 py-2 md:py-3 min-w-0"
                 />
               </div>
               <div className="space-y-4">
@@ -172,29 +199,29 @@ export default function Component() {
               </div>
             </div>
             <div className="space-y-4">
-              <input 
+              <input
                 id="address"
                 name="address"
                 type="text"
-                placeholder="Address" 
-                required 
-                className='border outline-none rounded-full w-full bg-gray-100 text-gray-600 text-sm px-5 py-2 md:py-3 min-w-0' 
+                placeholder="Address"
+                required
+                className="border outline-none rounded-full w-full bg-gray-100 text-gray-600 text-sm px-5 py-2 md:py-3 min-w-0"
               />
             </div>
-            <button 
+            <button
               type="submit"
               disabled={loading}
               className={`flex items-center justify-center gap-x-2 w-auto px-5 py-2.5 md:py-3 text-sm rounded-full sm:mb-0 ${
-                loading ? 'bg-gray-400' : 'bg-black text-white'
+                loading ? "bg-gray-400" : "bg-black text-white"
               }`}
             >
-              {loading ? 'Processing...' : 'Order Now'}
+              {loading ? "Processing..." : "Order Now"}
             </button>
             {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
           </form>
           <Card>
             <CardHeader>
-              <h1 className='font-semibold text-xl'>Order Summary</h1>
+              <h1 className="font-semibold text-xl">Order Summary</h1>
             </CardHeader>
             <CardContent className="space-y-4">
               {cartItems.map((item) => (
@@ -212,7 +239,9 @@ export default function Component() {
                     <h3 className="font-medium">{item.title}</h3>
                     <div className="mt-1 flex items-center justify-between">
                       <span className="text-sm">{item.quantity}x</span>
-                      <span className="font-medium">{item.price.toFixed(2)} Dhs</span>
+                      <span className="font-medium">
+                        {item.price.toFixed(2)} Dhs
+                      </span>
                     </div>
                   </div>
                 </div>

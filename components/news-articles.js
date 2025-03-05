@@ -13,7 +13,7 @@ export const NewsArticles = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://admin-djstage.vercel.app/api/products/list-products?sort=dateAdded.desc"
+          "https://oceandj-dashbourd.vercel.app/api/products/list-products?sort=dateAdded.desc"
         );
 
         if (response.data && response.data.products) {

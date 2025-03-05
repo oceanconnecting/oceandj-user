@@ -4,13 +4,7 @@ import Link from "next/link";
 import axios from "axios";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import {
-  Menu,
-  X,
-  Search,
-  ShoppingCart,
-  ChevronDown,
-} from "lucide-react";
+import { Menu, X, Search, ShoppingCart, ChevronDown } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -35,7 +29,7 @@ export const Navbar = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://admin-djstage.vercel.app/api/types/list-types?limit=20"
+          "https://oceandj-dashbourd.vercel.app/api/types/list-types?limit=20"
         );
         setTypes(response.data.types || []);
       } catch (err) {
@@ -48,7 +42,7 @@ export const Navbar = () => {
 
     fetchData();
   }, [isLoading]);
-  
+
   const totalQuantity = useAppSelector((state) => state.cart.totalQuantity);
   const handleSearch = () => {
     if (searchTerm.trim()) {
@@ -96,9 +90,7 @@ export const Navbar = () => {
             width={120}
             height={80}
             className={`transition-all duration-300 ${
-              scrolled
-                ? "w-[3.5rem] md:w-[4.5rem]"
-                : "w-[3.5rem] md:w-[4.5rem]"
+              scrolled ? "w-[3.5rem] md:w-[4.5rem]" : "w-[3.5rem] md:w-[4.5rem]"
             }`}
           />
         </Link>
@@ -113,7 +105,9 @@ export const Navbar = () => {
             <input
               type="text"
               placeholder="Search for products..."
-              className={`w-full bg-transparent outline-none text-gray-600 px-4 ${scrolled ? "py-2" : "py-2.5"}`}
+              className={`w-full bg-transparent outline-none text-gray-600 px-4 ${
+                scrolled ? "py-2" : "py-2.5"
+              }`}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyDown={(event) => {
@@ -197,7 +191,9 @@ export const Navbar = () => {
       <Sheet open={isOpen} onOpenChange={setOpen}>
         <SheetContent className="w-80 bg-white shadow-lg rounded-r-lg">
           <SheetHeader className="border-b border-gray-200 pb-4">
-            <SheetTitle className="text-xl font-semibold text-gray-900">Menu</SheetTitle>
+            <SheetTitle className="text-xl font-semibold text-gray-900">
+              Menu
+            </SheetTitle>
           </SheetHeader>
           <div className="flex flex-col space-y-4 mt-6">
             {/* Home Link */}
@@ -210,10 +206,10 @@ export const Navbar = () => {
 
             {/* Navigation Items */}
             {types.map((type) => (
-            <Link
-              key={type.title}
-              href={`/categories/${type.id}`}
-              className="text-gray-800 hover:text-yellow-500 transition-colors duration-300"
+              <Link
+                key={type.title}
+                href={`/categories/${type.id}`}
+                className="text-gray-800 hover:text-yellow-500 transition-colors duration-300"
               >
                 {type.title}
               </Link>
@@ -221,7 +217,6 @@ export const Navbar = () => {
           </div>
         </SheetContent>
       </Sheet>
-
     </header>
   );
 };

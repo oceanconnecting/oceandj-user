@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import axios from 'axios';
-import { ShoppingBag } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import axios from "axios";
+import { ShoppingBag } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
@@ -20,7 +20,7 @@ export default function Categories() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://admin-djstage.vercel.app/api/categories/category-details/${id}`
+          `https://oceandj-dashbourd.vercel.app/api/categories/category-details/${id}`
         );
 
         if (response.data && response.data.products) {
@@ -43,7 +43,7 @@ export default function Categories() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://admin-djstage.vercel.app/api/products/list-products?typeId=${id}`
+          `https://oceandj-dashbourd.vercel.app/api/products/list-products?typeId=${id}`
         );
 
         if (response.data && response.data.products) {
@@ -67,7 +67,9 @@ export default function Categories() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://admin-djstage.vercel.app/api/categories/list-categories?limit=20&typeId=${id}`);
+        const response = await axios.get(
+          `https://oceandj-dashbourd.vercel.app/api/categories/list-categories?limit=20&typeId=${id}`
+        );
         setCategories(response.data.categories);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -79,38 +81,44 @@ export default function Categories() {
   console.log(type);
 
   return (
-    <div className='min-h-screen'>
+    <div className="min-h-screen">
       <div className="bg-gray-50 border-b">
-        <nav aria-label="breadcrumb" className="py-6 px-4 mx-auto w-full max-w-7xl">
-            <ol className="flex items-center space-x-2 text-sm">
-              <li>
-                <Link href="/" className="text-gray-500 hover:text-black font-medium" >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 text-gray-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </li>
-              <li aria-current="page" className="text-black">
-                {type ? type : 'Loading...'}
-              </li>
-            </ol>
+        <nav
+          aria-label="breadcrumb"
+          className="py-6 px-4 mx-auto w-full max-w-7xl"
+        >
+          <ol className="flex items-center space-x-2 text-sm">
+            <li>
+              <Link
+                href="/"
+                className="text-gray-500 hover:text-black font-medium"
+              >
+                Home
+              </Link>
+            </li>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 text-gray-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </li>
+            <li aria-current="page" className="text-black">
+              {type ? type : "Loading..."}
+            </li>
+          </ol>
         </nav>
       </div>
-      <section className='space-y-16 px-6 pb-10 md:px-8 lg:px-10 pt-8 md:pt-10 lg:pt-12 mb-10'>
+      <section className="space-y-16 px-6 pb-10 md:px-8 lg:px-10 pt-8 md:pt-10 lg:pt-12 mb-10">
         <div className="mx-auto md:max-w-4xl lg:max-w-7xl">
           {/* Featured Types */}
           <div className="text-center pb-9">
@@ -144,7 +152,7 @@ export default function Categories() {
             ))}
           </div>
 
-          <hr className='my-20 border-gray-300' />
+          <hr className="my-20 border-gray-300" />
 
           {/* New Products */}
           <div className="text-center pb-9">
@@ -157,10 +165,11 @@ export default function Categories() {
           </div>
 
           {/* Products */}
-          <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
-          {products.map((product) => {
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+            {products.map((product) => {
               const discountedPrice = (
-                product.price * (1 - product.discount / 100)
+                product.price *
+                (1 - product.discount / 100)
               ).toFixed(2);
               const imageSrc =
                 product.images && product.images.length > 0
@@ -197,7 +206,12 @@ export default function Categories() {
                     <div className="text-sm text-muted-foreground">
                       {product.category.title}
                     </div>
-                    <Link href={`/product-details/${product.title}`} className="text-sm line-clamp-1 font-semibold hover:underline">{product.title}</Link>
+                    <Link
+                      href={`/product-details/${product.title}`}
+                      className="text-sm line-clamp-1 font-semibold hover:underline"
+                    >
+                      {product.title}
+                    </Link>
                     <div className="flex items-baseline gap-2">
                       <span className="font-bold">{discountedPrice} Dhs</span>
                       {product.discount > 0 && (
