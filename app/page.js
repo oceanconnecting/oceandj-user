@@ -15,12 +15,13 @@ import { TrendingInProAudio } from "@/components/trending-in-pro-audio";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import Script from "next/script";
 import { NewsArticles } from "@/components/news-articles";
-
+import { Analytics } from "@vercel/analytics/react"
 export default function Home() {
 
   return (
     <>
       <GoogleAnalytics gaId="G-27HTVW5LYH" />
+      <Analytics/>
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=G-27HTVW5LYH`}
         strategy="afterInteractive"
