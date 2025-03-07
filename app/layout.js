@@ -34,9 +34,10 @@ export default function RootLayout({ children }) {
           <Toaster position="top-center" reverseOrder={false} />
           <Banner />
           <Navbar />
-          <Analytics/>
+          
           <div className="">
             {children}
+            <Analytics/>
           </div>
           <Footer />
         </Providers>
