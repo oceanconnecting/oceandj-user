@@ -6,7 +6,7 @@ import { Navbar } from "@/components/global/navbar";
 import { Footer } from "@/components/global/footer";
 import Banner from "@/components/global/banner";
 import Script from "next/script";
-
+import { Analytics } from "@vercel/analytics/react"
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -34,6 +34,7 @@ export default function RootLayout({ children }) {
           <Toaster position="top-center" reverseOrder={false} />
           <Banner />
           <Navbar />
+          <Analytics/>
           <div className="">
             {children}
           </div>

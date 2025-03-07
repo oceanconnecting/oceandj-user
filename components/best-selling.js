@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Products } from "./products";
 import axios from "axios";
-
+import { Analytics } from "@vercel/analytics/react"
 export const BestSelling = () => {
   const [products, setProducts] = useState([]);
   const [loading, setIsLoading] = useState(true);
