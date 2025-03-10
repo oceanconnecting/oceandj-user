@@ -114,7 +114,7 @@ export default function ContactUs() {
                   </div>
                   <div className="flex items-center mt-2 space-x-2 text-dark-600">
                     <Mail className="w-5 h-5" />
-                    <a href="tel:11111111111">+51 11111111111</a>
+                    <a href="tel:11111111111">+212 657-011638</a>
                   </div>
                 </div>
               </div>
