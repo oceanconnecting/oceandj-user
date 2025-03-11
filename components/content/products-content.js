@@ -314,6 +314,7 @@ function Products({ products, currentPage, totalPages, handlePageChange }) {
           ).toFixed(2);
           return (
             <Link
+            key={product.id}
             href={`/product-details/${product.title}`}
             className="text-sm line-clamp-1 font-semibold hover:underline"
           >
