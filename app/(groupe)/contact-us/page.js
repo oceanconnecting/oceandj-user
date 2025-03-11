@@ -65,33 +65,39 @@ export default function ContactUs() {
   return (
     <div className="min-h-screen">
       <div className="bg-gray-50 border-b">
-        <nav aria-label="breadcrumb" className="py-6 px-4 mx-auto w-full max-w-7xl">
-            <ol className="flex items-center space-x-2 text-sm">
-              <li>
-                <Link href="/" className="text-gray-500 hover:text-black font-medium" >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 text-gray-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </li>
-              <li aria-current="page" className="text-black">
-                Guitars
-              </li>
-            </ol>
+        <nav
+          aria-label="breadcrumb"
+          className="py-6 px-4 mx-auto w-full max-w-7xl"
+        >
+          <ol className="flex items-center space-x-2 text-sm">
+            <li>
+              <Link
+                href="/"
+                className="text-gray-500 hover:text-black font-medium"
+              >
+                Home
+              </Link>
+            </li>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 text-gray-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </li>
+            <li aria-current="page" className="text-black">
+              Guitars
+            </li>
+          </ol>
         </nav>
       </div>
       <div className="w-full bg-white">
@@ -100,9 +106,12 @@ export default function ContactUs() {
             <div className="w-full grid md:grid-cols-2 gap-x-10">
               <div className="h-full pr-6">
                 <div className="rounded-xl overflow-hidden">
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">Contact Us</h2>
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
+                    Contact Us
+                  </h2>
                   <p className="max-w-lg mt-6 mb-6">
-                    Have something to say? We are here to help. Fill up the form or send an email or call.
+                    Have something to say? We are here to help. Fill up the form
+                    or send an email or call.
                   </p>
                   <div className="flex items-center mt-8 space-x-2 text-dark-600">
                     <Map className="w-5 h-5" />
@@ -114,7 +123,7 @@ export default function ContactUs() {
                   </div>
                   <div className="flex items-center mt-2 space-x-2 text-dark-600">
                     <Mail className="w-5 h-5" />
-                    <a href="tel:11111111111">+51 11111111111</a>
+                    <a href="tel:11111111111">+212 657-011638</a>
                   </div>
                 </div>
               </div>
@@ -122,7 +131,10 @@ export default function ContactUs() {
                 <form id="contactForm" onSubmit={sendEmail}>
                   <div className="mb-6 mt-12 md:my-0">
                     <div className="mx-0 mb-2.5 md:mb-4">
-                      <label htmlFor="name" className="pb-1 text-xs uppercase tracking-wider"></label>
+                      <label
+                        htmlFor="name"
+                        className="pb-1 text-xs uppercase tracking-wider"
+                      ></label>
                       <input
                         id="name"
                         name="name"
@@ -134,7 +146,10 @@ export default function ContactUs() {
                       />
                     </div>
                     <div className="mx-0 mb-2.5 md:mb-4">
-                      <label htmlFor="email" className="pb-1 text-xs uppercase tracking-wider"></label>
+                      <label
+                        htmlFor="email"
+                        className="pb-1 text-xs uppercase tracking-wider"
+                      ></label>
                       <input
                         id="email"
                         name="email"
@@ -147,7 +162,10 @@ export default function ContactUs() {
                     </div>
                   </div>
                   <div className="mx-0 mb-2.5 md:mb-4">
-                    <label htmlFor="message" className="pb-1 text-xs uppercase tracking-wider"></label>
+                    <label
+                      htmlFor="message"
+                      className="pb-1 text-xs uppercase tracking-wider"
+                    ></label>
                     <textarea
                       id="message"
                       name="message"
@@ -170,14 +188,78 @@ export default function ContactUs() {
                           className="h-5 w-5 animate-spin stroke-white"
                           viewBox="0 0 256 256"
                         >
-                          <line x1="128" y1="32" x2="128" y2="64" strokeLinecap="round" strokeLinejoin="round" strokeWidth="24"></line>
-                          <line x1="195.9" y1="60.1" x2="173.3" y2="82.7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="24"></line>
-                          <line x1="224" y1="128" x2="192" y2="128" strokeLinecap="round" strokeLinejoin="round" strokeWidth="24"></line>
-                          <line x1="195.9" y1="195.9" x2="173.3" y2="173.3" strokeLinecap="round" strokeLinejoin="round" strokeWidth="24"></line>
-                          <line x1="128" y1="224" x2="128" y2="192" strokeLinecap="round" strokeLinejoin="round" strokeWidth="24"></line>
-                          <line x1="60.1" y1="195.9" x2="82.7" y2="173.3" strokeLinecap="round" strokeLinejoin="round" strokeWidth="24"></line>
-                          <line x1="32" y1="128" x2="64" y2="128" strokeLinecap="round" strokeLinejoin="round" strokeWidth="24"></line>
-                          <line x1="60.1" y1="60.1" x2="82.7" y2="82.7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="24"></line>
+                          <line
+                            x1="128"
+                            y1="32"
+                            x2="128"
+                            y2="64"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="24"
+                          ></line>
+                          <line
+                            x1="195.9"
+                            y1="60.1"
+                            x2="173.3"
+                            y2="82.7"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="24"
+                          ></line>
+                          <line
+                            x1="224"
+                            y1="128"
+                            x2="192"
+                            y2="128"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="24"
+                          ></line>
+                          <line
+                            x1="195.9"
+                            y1="195.9"
+                            x2="173.3"
+                            y2="173.3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="24"
+                          ></line>
+                          <line
+                            x1="128"
+                            y1="224"
+                            x2="128"
+                            y2="192"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="24"
+                          ></line>
+                          <line
+                            x1="60.1"
+                            y1="195.9"
+                            x2="82.7"
+                            y2="173.3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="24"
+                          ></line>
+                          <line
+                            x1="32"
+                            y1="128"
+                            x2="64"
+                            y2="128"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="24"
+                          ></line>
+                          <line
+                            x1="60.1"
+                            y1="60.1"
+                            x2="82.7"
+                            y2="82.7"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="24"
+                          ></line>
                         </svg>
                       )}
                       <span>Send Message</span>
