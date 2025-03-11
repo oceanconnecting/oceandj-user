@@ -40,7 +40,7 @@ export default function RootLayout({ children }) {
           </div>
           <Footer />
         </Providers>
-        <Script src="https://colt-analytics.vercel.app/api/tracker?token=1dd824f9-a77e-436e-947b-49770da375bc" />
+       
       </body>
     </html>
   );
