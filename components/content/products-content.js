@@ -313,6 +313,10 @@ function Products({ products, currentPage, totalPages, handlePageChange }) {
             (1 - product.discount / 100)
           ).toFixed(2);
           return (
+            <Link
+            href={`/product-details/${product.title}`}
+            className="text-sm line-clamp-1 font-semibold hover:underline"
+          >
             <div
               key={product.id}
               className="group relative flex flex-col border px-5 py-3"
@@ -357,6 +361,7 @@ function Products({ products, currentPage, totalPages, handlePageChange }) {
                 </div>
               </div>
             </div>
+            </Link>
           );
         })}
       </div>
@@ -380,6 +385,7 @@ function Products({ products, currentPage, totalPages, handlePageChange }) {
         </button>
       </div>
     </div>
+   
   );
 }
 

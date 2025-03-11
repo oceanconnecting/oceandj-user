@@ -175,13 +175,17 @@ export default function ProductDetails() {
               <strong className="text-3xl">
                 {discountedPrice.toFixed(2)} Dhs
               </strong>
-              <span className="bg-yellow-100 rounded px-2 text-base text-yellow-500 font-bold dark:bg-yellow-700 dark:text-yellow-200 transition-colors">
-                %{product.discount}
-              </span>
+              {product.discount > 0 && (
+                <span className="bg-yellow-100 rounded px-2 text-base text-yellow-500 font-bold dark:bg-yellow-700 dark:text-yellow-200 transition-colors">
+                  %{product.discount}
+                </span>
+              )}
             </div>
-            <del className="text-lg text-red-500 transition-colors">
-              {product.price} Dhs
-            </del>
+            {product.discount > 0 && (
+              <del className="text-lg text-red-500 transition-colors">
+                {product.price} Dhs
+              </del>
+            )}
           </div>
           <div className="flex items-center justify-center lg:justify-start gap-4 mt-9">
             <div className="px-4 py-3 w-40 rounded-full flex items-center justify-between text-yellow-500 bg-gray-100 transition-colors">
