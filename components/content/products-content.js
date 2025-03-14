@@ -75,7 +75,7 @@ export default function ProductsContent({ category }) {
     const fetchBrands = async () => {
       try {
         const response = await fetch(
-          "https://oceandj-dashbourd.vercel.app/api/brands/list-brands"
+          "https://oceandj-dashbourd.vercel.app/api/brands/list-brands?limit=all"
         );
         const data = await response.json();
         setBrands(data.brands);
