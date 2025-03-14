@@ -20,10 +20,10 @@ export default function Home() {
 
   return (
     <>
-      <GoogleAnalytics gaId="G-27HTVW5LYH" />
+      <GoogleAnalytics gaId="G-DFF68T1RVB" />
       <Analytics/>
       <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=G-27HTVW5LYH`}
+        src={`https://www.googletagmanager.com/gtag/js?id=G-DFF68T1RVB`}
         strategy="afterInteractive"
       />
       <Script
