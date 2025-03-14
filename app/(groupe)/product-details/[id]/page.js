@@ -242,6 +242,7 @@ export default function ProductDetails() {
                   : "/placeholder-image.png";
 
               return (
+                <Link href={`/product-details/${product.title}`}>
                 <div
                   key={product.id}
                   className="group relative flex flex-col border px-5 py-3"
@@ -287,6 +288,7 @@ export default function ProductDetails() {
                     </div>
                   </div>
                 </div>
+                </Link>
               );
             })}
           </div>
