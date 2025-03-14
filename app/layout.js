@@ -5,6 +5,7 @@ import { Providers } from "@/lib/provider";
 import { Navbar } from "@/components/global/navbar";
 import { Footer } from "@/components/global/footer";
 import Banner from "@/components/global/banner";
+
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react"
 const geistSans = localFont({
@@ -24,7 +25,25 @@ export const metadata = {
   icons: {
     icon: "/Logo.jpeg",
   },
+  openGraph: {
+    images: [
+      {
+        url: "https://djstage.ma/Logo.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Dj Stage Preview Image",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@yourTwitterHandle",
+    title: "Dj Stage",
+    description: "Dj Stage store",
+    images: ["https://djstage.ma/Logo.jpeg"],
+  },
 };
+
 
 export default function RootLayout({ children }) {
   return (
