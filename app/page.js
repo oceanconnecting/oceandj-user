@@ -34,7 +34,7 @@ export default function Home() {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-27HTVW5LYH', {
+            gtag('config', 'G-DFF68T1RVB', {
               page_path: window.location.pathname,
             });
           `,
