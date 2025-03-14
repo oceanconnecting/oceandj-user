@@ -15,7 +15,7 @@ export default function sitemap() {
       {
         url: 'https://djstage.ma/contact-us',
         lastModified: new Date(),
-        changeFrequency: 'weekly',
+        changeFrequency: 'monthly',
         priority: 0.5,
       },
     ]
