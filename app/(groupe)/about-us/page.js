@@ -1,23 +1,11 @@
 import Link from "next/link";
 
 export default function AboutUs() {
-  const submitToIndexNow = async () => {
-    const response = await fetch('/api/indexnow', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: 'https://djstage.ma/about-us' }),
-    });
-  
-    const data = await response.json();
-    console.log(data);
-  };
-  
-  submitToIndexNow();
-  return (
+    return (
     <div className="min-h-screen">
       <div className="bg-gray-50 border-b">
         <nav aria-label="breadcrumb" className="py-6 px-4 mx-auto w-full max-w-7xl">
-            <ol className="flex items-center space-x-2 text-sm">
+            <ol className="flex items-center space-x-2  text-sm">
               <li>
                 <Link href="/" className="text-gray-500 hover:text-black font-medium" >
                   Home
