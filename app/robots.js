@@ -1,10 +1,16 @@
 export default function robots() {
-    return {
-      rules: {
-        userAgent: '*',
-        allow: '/',
-        disallow: '/private/',
+  return {
+    rules: [
+      {
+        userAgent: 'Googlebot',
+        allow: ['/'],
+        disallow: ['/private/'],
       },
-      sitemap: 'https://djstage.ma/sitemap.xml',
-    }
+      {
+        userAgent: ['Applebot', 'Bingbot'],
+        disallow: ['/'],
+      },
+    ],
+    sitemap: 'https://djstage.ma/sitemap.xml',
   }
+}
