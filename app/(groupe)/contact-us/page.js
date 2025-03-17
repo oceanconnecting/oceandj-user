@@ -61,7 +61,18 @@ export default function ContactUs() {
       .catch((error) => toast.error(`Error: ${error.message}`))
       .finally(() => setLoading(false));
   };
-
+  const submitToIndexNow = async () => {
+    const response = await fetch('/api/indexnow', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: 'https://djstage.ma/contact-us' }),
+    });
+  
+    const data = await response.json();
+    console.log(data);
+  };
+  
+  submitToIndexNow();
   return (
     <div className="min-h-screen">
       <div className="bg-gray-50 border-b">
