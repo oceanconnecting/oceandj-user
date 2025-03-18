@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Loader2 } from "lucide-react";
 
 export default function Search({
   query,
@@ -12,8 +13,10 @@ export default function Search({
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true)
     const fetchData = async () => {
       try {
         let apiUrl = `https://oceandj-dashbourd.vercel.app/api/products/list-products?search=${query}&page=${currentPage}&limit=40`;
@@ -35,6 +38,8 @@ export default function Search({
         console.log(response.data.products);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false)
       }
     };
 
@@ -47,8 +52,17 @@ export default function Search({
     }
   };
 
-  if (products.length === 0)
-    return <p className="text-center pt-12">No products found.</p>;
+  if (isLoading) {
+    return (
+      <div className="w-full flex flex-col gap-2 items-center justify-center pt-12 text-gray-600">
+        <Loader2 className="size-6 animate-spin text-gray-700" />
+      </div>
+    );
+  }
+
+  if (!isLoading && products.length === 0) {
+    return <p className="text-center text-gray-600 pt-12">No products found.</p>;
+  }
   return (
     <div className="w-full mx-auto">
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4">

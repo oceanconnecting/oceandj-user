@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Products } from "./products";
 import axios from "axios";
-import { Analytics } from "@vercel/analytics/react"
+
 export const BestSelling = () => {
   const [products, setProducts] = useState([]);
   const [loading, setIsLoading] = useState(true);
@@ -35,8 +35,5 @@ export const BestSelling = () => {
 
   const title = "Best Selling Products";
 
-  if (loading) return <p className="text-center">Loading...</p>;
-  if (error) return <p className="text-center text-red-500">{error}</p>;
-
-  return <Products products={products} title={title} />;
+  return <Products products={products} loading={loading} error={error} title={title} />;
 };

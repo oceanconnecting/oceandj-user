@@ -88,7 +88,7 @@ function SamplePrevArrow(props) {
   );
 }
 
-export const Products = ({ products, title }) => {
+export const Products = ({ products, title, loading, error }) => {
   const dispatch = useAppDispatch();
 
   const handleAddToCart = (product) => {
@@ -147,76 +147,89 @@ export const Products = ({ products, title }) => {
           </div>
         </div>
         <div className="mb-4 md:mb-8 space-x-4">
-          <Slider {...settings} className="flex items-center gap-4">
-            {products.map((product) => {
-              const discountedPrice = (
-                product.price * (1 - product.discount / 100)
-              ).toFixed(2);
-              const imageSrc =
-                product.images && product.images.length > 0
-                  ? product.images[0]
-                  : "/placeholder-image.png";
-
-              return (
-                <Link href={`/product-details/${product.title}`} key={product.id}>
-                <div
-                  key={product.id}
-                  className="group relative flex flex-col border px-5 py-3 mr-4"
-                >
-                  {product.discount > 0 && (
-                    <div className="absolute z-20 top-2 right-2 bg-[#F5C872] text-black text-xs font-semibold px-2 py-1 rounded">
-                      {product.discount}% OFF
-                    </div>
-                  )}
-                  <div className="aspect-square relative mb-4">
-                    <Image
-                      src={imageSrc}
-                      alt={product.title || "Product Image"}
-                      className="w-full h-full object-contain"
-                      width={250}
-                      height={250}
-                    />
-                    <button
-                      onClick={() => handleAddToCart(product)}
-                      className="absolute bottom-0 right-0 bg-black hover:bg-black/80 text-white text-sm font-semibold p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    >
-                      <ShoppingBag className="w-4 h-4" />
-                    </button>
-                  </div>
-                  <hr />
-                  <div className="space-y-1.5 mt-2">
-                    <div className="text-sm text-muted-foreground">
-                      {product.category.title}
-                    </div>
-                    <Link
-                      href={`/product-details/${product.title}`}
-                      className="text-sm line-clamp-1 font-semibold hover:underline"
-                    >
-                      {product.title}
-                    </Link>
-                    <div className="flex items-baseline gap-2">
-                      <span className="font-bold">{discountedPrice} Dhs</span>
-                      {product.discount > 0 && (
-                        <span className="text-sm text-muted-foreground line-through text-red-600">
-                          {product.price.toFixed(2)} Dhs
-                        </span>
-                      )}
-                    </div>
-                  </div>
+          {loading ? (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+              {[...Array(5)].map((_, index) => (
+                <div key={index} className="animate-pulse border px-5 py-3">
+                  <div className="bg-gray-300 h-40 w-full mb-4"></div>
+                  <hr className="mb-4 border-gray-300" />
+                  <div className="h-4 bg-gray-300 rounded w-1/2 mb-2"></div>
+                  <div className="h-4 bg-gray-300 rounded w-5/6 mb-2"></div>
+                  <div className="h-4 bg-gray-300 rounded w-1/2"></div>
                 </div>
-                </Link>
-              );
-            })}
-          </Slider>
+              ))}
+            </div>
+          ) : error ? (
+            <div className="py-20 text-center text-red-500">Error: {error}</div>
+          ) : products.length === 0 ? (
+            <div className="py-20 text-center">No types available.</div>
+          ) : (
+            <Slider {...settings} className="flex items-center gap-4">
+              {products.map((product) => {
+                const discountedPrice = (
+                  product.price *
+                  (1 - product.discount / 100)
+                ).toFixed(2);
+                const imageSrc =
+                  product.images && product.images.length > 0
+                    ? product.images[0]
+                    : "/placeholder-image.png";
+
+                return (
+                  <div key={product.id}>
+                    <div
+                      key={product.id}
+                      className="group relative flex flex-col border px-5 py-3 mr-4"
+                    >
+                      {product.discount > 0 && (
+                        <div className="absolute z-20 top-2 right-2 bg-[#F5C872] text-black text-xs font-semibold px-2 py-1 rounded">
+                          {product.discount}% OFF
+                        </div>
+                      )}
+                      <div className="aspect-square relative mb-4">
+                        <Image
+                          src={imageSrc}
+                          alt={product.title || "Product Image"}
+                          className="w-full h-full object-contain"
+                          width={250}
+                          height={250}
+                        />
+                        <button
+                          onClick={() => handleAddToCart(product)}
+                          className="absolute bottom-0 right-0 bg-black hover:bg-black/80 text-white text-sm font-semibold p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        >
+                          <ShoppingBag className="w-4 h-4" />
+                        </button>
+                      </div>
+                      <hr />
+                      <div className="space-y-1.5 mt-2">
+                        <div className="text-sm text-muted-foreground">
+                          {product.category.title}
+                        </div>
+                        <Link
+                          href={`/product-details/${product.title}`}
+                          className="text-sm line-clamp-1 font-semibold hover:underline"
+                        >
+                          {product.title}
+                        </Link>
+                        <div className="flex items-baseline gap-2">
+                          <span className="font-bold">
+                            {discountedPrice} Dhs
+                          </span>
+                          {product.discount > 0 && (
+                            <span className="text-sm text-muted-foreground line-through text-red-600">
+                              {product.price.toFixed(2)} Dhs
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </Slider>
+          )}
         </div>
-        {/* <div className="flex items-center justify-end">
-          <Link
-            href={`/search?query=&sort=dateAdded.desc`}
-            className="text-sm flex gap-1 text-gray-500 hover:translate-x-1 hover:text-black transition-all"
-          >
-            Shop the collection <ArrowRight className="w-5 h-5" />
-          </Link>
-        </div> */}
       </div>
     </section>
   );

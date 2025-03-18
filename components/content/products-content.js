@@ -23,7 +23,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDown, Filter } from "lucide-react";
+import { ChevronDown, Filter, Loader2 } from "lucide-react";
 import axios from "axios";
 
 function classNames(...classes) {
@@ -39,9 +39,11 @@ export default function ProductsContent({ category }) {
   const [totalPages, setTotalPages] = useState(1);
   const router = useRouter();
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         let apiUrl = `https://oceandj-dashbourd.vercel.app/api/products/list-products?categoryId=${category.id}&page=${currentPage}&limit=40`;
 
@@ -55,10 +57,10 @@ export default function ProductsContent({ category }) {
         const response = await axios.get(apiUrl);
         setProducts(response.data.products);
         setTotalPages(response.data.totalPages || 1);
-
-        console.log(response.data.products);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -292,6 +294,7 @@ export default function ProductsContent({ category }) {
                 currentPage={currentPage}
                 totalPages={totalPages}
                 handlePageChange={handlePageChange}
+                isLoading={isLoading}
               />
             </div>
           </main>
@@ -301,9 +304,19 @@ export default function ProductsContent({ category }) {
   );
 }
 
-function Products({ products, currentPage, totalPages, handlePageChange }) {
-  if (products.length === 0)
-    return <p className="text-center pt-12">No products found.</p>;
+function Products({ products, currentPage, totalPages, handlePageChange, isLoading }) {
+  if (isLoading) {
+    return (
+      <div className="w-full flex flex-col gap-2 items-center justify-center pt-12 text-gray-600">
+        <Loader2 className="size-6 animate-spin text-gray-700" />
+      </div>
+    );
+  }
+
+  if (!isLoading && products.length === 0) {
+    return <p className="text-center text-gray-600 pt-12">No products found.</p>;
+  }
+  
   return (
     <div className="w-full mx-auto">
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
@@ -314,54 +327,54 @@ function Products({ products, currentPage, totalPages, handlePageChange }) {
           ).toFixed(2);
           return (
             <Link
-            key={product.id}
-            href={`/product-details/${product.title}`}
-            className="text-sm line-clamp-1 font-semibold hover:underline"
-          >
-            <div
               key={product.id}
-              className="group relative flex flex-col border px-5 py-3"
+              href={`/product-details/${product.title}`}
+              className="text-sm line-clamp-1 font-semibold hover:underline"
             >
-              {product.discount > 0 && (
-                <div className="absolute z-20 top-2 right-2 bg-[#F5C872] text-black text-xs font-semibold px-2 py-1 rounded">
-                  {product.discount}% OFF
-                </div>
-              )}
-              <div className="aspect-square relative mb-4 overflow-hidden">
-                {product.images ? (
-                  <Image
-                    src={product.images[0]}
-                    alt={product.title}
-                    className="w-full h-full object-contain duration-500 hover:scale-125"
-                    width={250}
-                    height={250}
-                  />
-                ) : (
-                  <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
-                    No Image
+              <div
+                key={product.id}
+                className="group relative flex flex-col border px-5 py-3"
+              >
+                {product.discount > 0 && (
+                  <div className="absolute z-20 top-2 right-2 bg-[#F5C872] text-black text-xs font-semibold px-2 py-1 rounded">
+                    {product.discount}% OFF
                   </div>
                 )}
-              </div>
-              <div className="space-y-2">
-                <div className="text-xs text-muted-foreground">
-                  {product.category.title}
-                </div>
-                <Link
-                  href={`/product-details/${product.title}`}
-                  className="text-sm line-clamp-1 font-semibold hover:underline"
-                >
-                  {product.title}
-                </Link>
-                <div className="flex items-baseline gap-2">
-                  <span className="font-bold">{discountedPrice} Dhs</span>
-                  {product.discount > 0 && (
-                    <span className="text-sm text-muted-foreground line-through text-red-600">
-                      {product.price.toFixed(2)} Dhs
-                    </span>
+                <div className="aspect-square relative mb-4 overflow-hidden">
+                  {product.images ? (
+                    <Image
+                      src={product.images[0]}
+                      alt={product.title}
+                      className="w-full h-full object-contain duration-500 hover:scale-125"
+                      width={250}
+                      height={250}
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
+                      No Image
+                    </div>
                   )}
                 </div>
+                <div className="space-y-2">
+                  <div className="text-xs text-muted-foreground">
+                    {product.category.title}
+                  </div>
+                  <Link
+                    href={`/product-details/${product.title}`}
+                    className="text-sm line-clamp-1 font-semibold hover:underline"
+                  >
+                    {product.title}
+                  </Link>
+                  <div className="flex items-baseline gap-2">
+                    <span className="font-bold">{discountedPrice} Dhs</span>
+                    {product.discount > 0 && (
+                      <span className="text-sm text-muted-foreground line-through text-red-600">
+                        {product.price.toFixed(2)} Dhs
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
             </Link>
           );
         })}
@@ -386,7 +399,6 @@ function Products({ products, currentPage, totalPages, handlePageChange }) {
         </button>
       </div>
     </div>
-   
   );
 }
 
