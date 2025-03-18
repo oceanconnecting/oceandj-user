@@ -1,16 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { Products } from "@/components/products";
 import { addToCart } from "@/lib/features/cart/cartSlice";
 import { useAppDispatch } from "@/lib/hooks";
 import axios from "axios";
-import { Minus, Plus, ShoppingBag, ShoppingCart } from "lucide-react";
+import { Loader2, Minus, Plus, ShoppingBag, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import Head from "next/head"; // Import the Head component
+import Head from "next/head";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -19,14 +18,16 @@ export default function ProductDetails() {
   const [category, setCategory] = useState({});
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [selectedImage, setSelectedImage] = useState("");
-  const [quantity, setQuantity] = useState(1); // Local state for quantity
+  const [quantity, setQuantity] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRelatedLoading, setIsRelatedLoading] = useState(true);
   const dispatch = useAppDispatch();
 
   // Function to add the product with the correct quantity to the cart
   const handleAddToCart = () => {
-    if (quantity < 1) return; // Ensure quantity is at least 1
-    const productWithQuantity = { ...product, quantity }; // Add quantity to product data
-    dispatch(addToCart(productWithQuantity)); // Dispatch to Redux
+    if (quantity < 1) return;
+    const productWithQuantity = { ...product, quantity };
+    dispatch(addToCart(productWithQuantity));
   };
 
   // Increment quantity
@@ -42,6 +43,7 @@ export default function ProductDetails() {
   // Fetch product details from API
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const response = await axios.get(
           `https://oceandj-dashbourd.vercel.app/api/products/product-details/${id}`
@@ -53,6 +55,8 @@ export default function ProductDetails() {
         setSelectedImage(response.data.product.images[0]);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchData();
@@ -60,6 +64,9 @@ export default function ProductDetails() {
 
   useEffect(() => {
     const fetchRelatedProducts = async () => {
+      if (!category.id) return;
+      
+      setIsRelatedLoading(true);
       try {
         const response = await axios.get(
           `https://oceandj-dashbourd.vercel.app/api/products/list-products?categoryId=${category.id}&limit=5`
@@ -67,13 +74,63 @@ export default function ProductDetails() {
         setRelatedProducts(response.data.products);
       } catch (error) {
         console.error("Error fetching related products:", error);
+      } finally {
+        setIsRelatedLoading(false);
       }
     };
-    fetchRelatedProducts();
+    
+    if (category.id) {
+      fetchRelatedProducts();
+    }
   }, [category.id]);
 
-  // Calculate the discounted price
   const discountedPrice = product.price * (1 - product.discount / 100);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen">
+        <div className="bg-gray-50 border-b">
+          <nav
+            aria-label="breadcrumb"
+            className="py-6 px-4 mx-auto w-full max-w-7xl"
+          >
+            <ol className="flex items-center space-x-2 text-sm">
+              <li>
+                <Link
+                  href="/"
+                  className="text-gray-500 hover:text-black font-medium"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </li>
+              <li aria-current="page" className="text-black">
+                Loading Product...
+              </li>
+            </ol>
+          </nav>
+        </div>
+        <div className="w-full flex flex-col gap-2 items-center justify-center mt-32 text-gray-600">
+        <Loader2 className="size-6 animate-spin text-gray-700" />
+      </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -230,68 +287,74 @@ export default function ProductDetails() {
           Related Products
         </h2>
         <div className="px-4 max-w-7xl mx-auto w-full flex flex-col items-center justify-center">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-6 mb-16">
-            {relatedProducts.map((product) => {
-              const discountedPrice = (
-                product.price *
-                (1 - product.discount / 100)
-              ).toFixed(2);
-              const imageSrc =
-                product.images && product.images.length > 0
-                  ? product.images[0]
-                  : "/placeholder-image.png";
+          {isRelatedLoading ? (
+            <div className="w-full flex flex-col gap-2 items-center justify-center py-28 text-gray-600">
+              <Loader2 className="size-6 animate-spin text-gray-700" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-6 mb-16">
+              {relatedProducts.map((product) => {
+                const discountedPrice = (
+                  product.price *
+                  (1 - product.discount / 100)
+                ).toFixed(2);
+                const imageSrc =
+                  product.images && product.images.length > 0
+                    ? product.images[0]
+                    : "/placeholder-image.png";
 
-              return (
-                <Link href={`/product-details/${product.title}`} key={product.id}>
-                <div
-                  key={product.id}
-                  className="group relative flex flex-col border px-5 py-3"
-                >
-                  {product.discount > 0 && (
-                    <div className="absolute z-20 top-2 right-2 bg-[#F5C872] text-black text-xs font-semibold px-2 py-1 rounded">
-                      {product.discount}% OFF
-                    </div>
-                  )}
-                  <div className="aspect-square relative mb-4">
-                    <Image
-                      src={imageSrc}
-                      alt={product.title || "Product Image"}
-                      className="w-full h-full object-contain"
-                      width={250}
-                      height={250}
-                    />
-                    <button
-                      onClick={() => handleAddToCart(product)}
-                      className="absolute bottom-0 right-0 bg-black hover:bg-black/80 text-white text-sm font-semibold p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                return (
+                  <div key={product.id}>
+                    <div
+                      className="group relative flex flex-col border px-5 py-3"
                     >
-                      <ShoppingBag className="w-4 h-4" />
-                    </button>
-                  </div>
-                  <hr />
-                  <div className="space-y-1.5 mt-2">
-                    <div className="text-sm text-muted-foreground">
-                      {product.category.title}
-                    </div>
-                    <Link
-                      href={`/product-details/${product.title}`}
-                      className="text-sm line-clamp-1 font-semibold hover:underline"
-                    >
-                      {product.title}
-                    </Link>
-                    <div className="flex items-baseline gap-2">
-                      <span className="font-bold">${discountedPrice}</span>
                       {product.discount > 0 && (
-                        <span className="text-sm text-muted-foreground line-through text-red-600">
-                          ${product.price.toFixed(2)}
-                        </span>
+                        <div className="absolute z-20 top-2 right-2 bg-[#F5C872] text-black text-xs font-semibold px-2 py-1 rounded">
+                          {product.discount}% OFF
+                        </div>
                       )}
+                      <div className="aspect-square relative mb-4">
+                        <Image
+                          src={imageSrc}
+                          alt={product.title || "Product Image"}
+                          className="w-full h-full object-contain"
+                          width={250}
+                          height={250}
+                        />
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            dispatch(addToCart({...product, quantity: 1}));
+                          }}
+                          className="absolute bottom-0 right-0 bg-black hover:bg-black/80 text-white text-sm font-semibold p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        >
+                          <ShoppingBag className="w-4 h-4" />
+                        </button>
+                      </div>
+                      <hr />
+                      <div className="space-y-1.5 mt-2">
+                        <div className="text-sm text-muted-foreground">
+                          {product.category.title}
+                        </div>
+                        <Link href={`/product-details/${product.title}`} className="text-sm line-clamp-1 font-semibold hover:underline">
+                          {product.title}
+                        </Link>
+                        <div className="flex items-baseline gap-2">
+                          <span className="font-bold">${discountedPrice}</span>
+                          {product.discount > 0 && (
+                            <span className="text-sm text-muted-foreground line-through text-red-600">
+                              ${product.price.toFixed(2)}
+                            </span>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-                </Link>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </>

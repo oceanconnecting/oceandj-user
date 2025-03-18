@@ -56,20 +56,6 @@ export const Types = () => {
     fetchData();
   }, []);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!types.length) {
-    return <div>No types available.</div>;
-  }
-
-  console.log(types);
-
   return (
     <section className="space-y-10 px-4 py-12 md:py-14 lg:py-16">
       <div className="mx-auto md:max-w-4xl lg:max-w-7xl">
@@ -83,46 +69,63 @@ export const Types = () => {
             </h3>
           </div>
           <div className="hidden md:flex items-center gap-6">
-            <div className="flex items-center gap-2">
-              <button
-                className="p-2 rounded-full bg-yellow-500"
-                onClick={previous}
-              >
-                <ChevronLeft className="w-6 h-6 text-white" />
-              </button>
-              <button className="p-2 rounded-full bg-yellow-500" onClick={next}>
-                <ChevronRight className="w-6 h-6 text-white" />
-              </button>
-            </div>
+            {!isLoading && !error && types.length !== 0 && (
+              <div className="flex items-center gap-2">
+                <button
+                  className="p-2 rounded-full bg-yellow-500"
+                  onClick={previous}
+                >
+                  <ChevronLeft className="w-6 h-6 text-white" />
+                </button>
+                <button className="p-2 rounded-full bg-yellow-500" onClick={next}>
+                  <ChevronRight className="w-6 h-6 text-white" />
+                </button>
+              </div>
+            )}
           </div>
         </div>
-        <Slider
-          ref={(slider) => {
-            sliderRef = slider;
-          }}
-          {...settings}
-        >
-          {types.map((type) => (
-            <div key={type.id}>
-              <Link href={`/categories/${type.id}`} className="grid">
-                <div className="mx-auto w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 xl:w-36 xl:h-36 flex items-center justify-center rounded-full bg-slate-100 overflow-hidden">
-                  <Image
-                    width={100}
-                    height={100}
-                    src={type.image}
-                    alt={type.title}
-                    className="object-contain"
-                  />
-                </div>
-                <div>
-                  <h3 className="text-base text-center font-bold text-gray-800">
-                    {type.title}
-                  </h3>
-                </div>
-              </Link>
-            </div>
-          ))}
-        </Slider>
+        {isLoading ? (
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
+            {[...Array(6)].map((_, index) => (
+              <div key={index} className="grid">
+                <div className="animate-pulse bg-gray-300 rounded-full w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 xl:w-36 xl:h-36 mx-auto"></div>
+                <div className="h-5 bg-gray-300 rounded w-2/3 mt-2 mx-auto"></div>
+              </div>
+            ))}
+          </div>
+        ) : error ? (
+          <div className="py-20 text-center text-red-500">Error: {error}</div>
+        ) : types.length === 0 ? (
+          <div className="py-20 text-center">No types available.</div>
+        ) : (
+          <Slider
+            ref={(slider) => {
+              sliderRef = slider;
+            }}
+            {...settings}
+          >
+            {types.map((type) => (
+              <div key={type.id}>
+                <Link href={`/categories/${type.id}`} className="grid">
+                  <div className="mx-auto w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 xl:w-36 xl:h-36 flex items-center justify-center rounded-full bg-slate-100 overflow-hidden">
+                    <Image
+                      width={100}
+                      height={100}
+                      src={type.image}
+                      alt={type.title}
+                      className="object-contain"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-base text-center font-bold text-gray-800">
+                      {type.title}
+                    </h3>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </Slider>
+        )}
       </div>
     </section>
   );

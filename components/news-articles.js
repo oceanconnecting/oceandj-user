@@ -35,8 +35,5 @@ export const NewsArticles = () => {
 
   const title = "News Articles";
 
-  if (loading) return <p className="text-center">Loading...</p>;
-  if (error) return <p className="text-center text-red-500">{error}</p>;
-
-  return <Products products={products} title={title} />;
+  return <Products products={products} loading={loading} error={error} title={title} />;
 };
