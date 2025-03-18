@@ -1,8 +1,22 @@
 import Link from "next/link";
-
+import Head from "next/head";
 export default function AboutUs() {
     return (
     <div className="min-h-screen">
+       <Head>
+        <title>About Us - DJ Stage</title>
+        <meta name="description" content="Learn more about DJ Stage, your ultimate hub for professional DJ and music production equipment. Elevate your sound and perfect your performance with our curated selection of gear." />
+        <meta name="keywords" content="DJ equipment, music production, DJ controllers, turntables, studio gear, headphones, PA systems, DJ Stage" />
+        <meta property="og:title" content="About Us - DJ Stage" />
+        <meta property="og:description" content="Learn more about DJ Stage, your ultimate hub for professional DJ and music production equipment. Elevate your sound and perfect your performance with our curated selection of gear." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.djstage.com/about-us" />
+        <meta property="og:image" content="https://www.djstage.com/images/og-about-us.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="About Us - DJ Stage" />
+        <meta name="twitter:description" content="Learn more about DJ Stage, your ultimate hub for professional DJ and music production equipment. Elevate your sound and perfect your performance with our curated selection of gear." />
+        <meta name="twitter:image" content="https://www.djstage.com/images/og-about-us.jpg" />
+      </Head>
       <div className="bg-gray-50 border-b">
         <nav aria-label="breadcrumb" className="py-6 px-4 mx-auto w-full max-w-7xl">
             <ol className="flex items-center space-x-2  text-sm">

@@ -5,7 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Link from "next/link";
-
+import Head from "next/head";
 export default function ContactUs() {
   const [clientName, setClientName] = useState("");
   const [clientEmail, setClientEmail] = useState("");
@@ -63,6 +63,20 @@ export default function ContactUs() {
   };
   return (
     <div className="min-h-screen">
+       <Head>
+        <title>Contact Us - DJ Stage</title>
+        <meta name="description" content="Learn more about DJ Stage, your ultimate hub for professional DJ and music production equipment. Elevate your sound and perfect your performance with our curated selection of gear." />
+        <meta name="keywords" content="DJ equipment, music production, DJ controllers, turntables, studio gear, headphones, PA systems, DJ Stage" />
+        <meta property="og:title" content="Contact Us - DJ Stage" />
+        <meta property="og:description" content="Learn more about DJ Stage, your ultimate hub for professional DJ and music production equipment. Elevate your sound and perfect your performance with our curated selection of gear." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.djstage.com/contact-us" />
+        <meta property="og:image" content="https://www.djstage.com/images/og-contact-us.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />  
+        <meta name="twitter:title" content="Contact Us - DJ Stage" />
+        <meta name="twitter:description" content="Learn more about DJ Stage, your ultimate hub for professional DJ and music production equipment. Elevate your sound and perfect your performance with our curated selection of gear." />
+        <meta name="twitter:image" content="https://www.djstage.com/images/og-contact-us.jpg" />
+      </Head>
       <div className="bg-gray-50 border-b">
         <nav
           aria-label="breadcrumb"
